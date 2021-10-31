@@ -6,13 +6,13 @@ public class PlayerAnimations : MonoBehaviour
 {
     private Animator _animator;
 
-    void Start()
+    private void Start()
     {
         _animator = GetComponent<Animator>();
     }
 
-    void Update()
+    public void Change(Vector2 move)
     {
-        
+        _animator.SetBool("Run", move.magnitude > 0);
     }
 }
