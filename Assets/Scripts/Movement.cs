@@ -6,6 +6,7 @@ public class Movement : MonoBehaviour
 {
     public float ForwardSpeed;
     public float SidesSpeed;
+    public Space MoveSpace;
     private Transform _transform;
 
     private void Start()
@@ -19,6 +20,6 @@ public class Movement : MonoBehaviour
         move.y = Input.GetAxis("Vertical") * ForwardSpeed * Time.deltaTime;
         move.x = Input.GetAxis("Horizontal") * SidesSpeed * Time.deltaTime;
 
-        _transform.Translate(move, Space.Self);
+        _transform.Translate(move, MoveSpace);
     }
 }

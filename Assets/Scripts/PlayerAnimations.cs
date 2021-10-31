@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
+    private Animator _animator;
+
     void Start()
     {
-        
+        _animator = GetComponent<Animator>();
     }
 
     void Update()
