@@ -8,7 +8,7 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     public void Change(Vector2 move)
