@@ -1,45 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Observing : MonoBehaviour
 {
     public float ViewDistance;
-    public int ViewAngle;
-    public Transform _transform;
-    //private RaycastHit2D 
+    public uint ViewAngle;
+    public UnityEvent SeePlayer;
+    private Transform _transform;
+    private Trigonometric _trigonometric;
 
     private void Awake()
     {
+        _trigonometric = new Trigonometric();
         _transform = GetComponent<Transform>();
     }
 
     private void Update()
     {
-        //Physics2D.Raycast(_transform.position, )
+        for (float angle = -ViewAngle; angle <= ViewAngle; angle += ViewAngle / 10)
+        {
+            Collider2D[] target = CheckRay(angle);
+            foreach(Collider2D collider in target)
+            {
+                // maybe, OPTIMIZE
+                if (collider.GetComponent<PlayerMovement>())
+                {
+                    SeePlayer.Invoke();
+                }
+            }
+        }
     }
 
-    private void OnDrawGizmos()
+    private Collider2D[] CheckRay(float angle)
     {
-        Vector2 direction = CreateRayEnd(distance: ViewDistance,
-                                        angleDegrees: 0);
-        Vector2 directionLeftCorner = CreateRayEnd(distance: ViewDistance,
-                                                    angleDegrees: ViewAngle);
-        Vector2 directionRightCorner = CreateRayEnd(distance: ViewDistance,
-                                                    angleDegrees: -ViewAngle);
+        Vector3 rayEnd = CreateRayEnd(distance: ViewDistance,
+                                        angleDegrees: angle);
 
-        RayPaint(direction);
-        RayPaint(directionLeftCorner);
-        RayPaint(directionRightCorner);
+        RaycastHit2D centralRayHit = Physics2D.Raycast(origin: _transform.position,
+                                                        direction: rayEnd,
+                                                        distance: ViewDistance);
+        if (centralRayHit)
+        {
+            return new Collider2D[] { centralRayHit.collider };
+        }
+
+        //Debug.DrawRay(_transform.position, rayEnd, Color.red);
+        return new Collider2D[] { };
     }
 
     private Vector2 CreateRayEnd(float distance, float angleDegrees)
     {
-        Trigonometric trigonometric = new Trigonometric();
-
-        float xEnd = trigonometric.GetXByRotation(
+        float xEnd = _trigonometric.GetXByRotation(
                             AddAngle(_transform.eulerAngles.z, angleDegrees)) * distance;
-        float yEnd = trigonometric.GetYByRotation(
+        float yEnd = _trigonometric.GetYByRotation(
                             AddAngle(_transform.eulerAngles.z, angleDegrees)) * distance;
 
         return new Vector2(xEnd, yEnd);

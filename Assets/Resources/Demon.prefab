@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22451268264958833}
   - component: {fileID: 1783091684608245779}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 424633461124769412}
   - component: {fileID: 60482802345914953}
   - component: {fileID: 7877791604332994705}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4898,7 +4898,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7590833317882269003}
   - component: {fileID: 6968964262477373597}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RightFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4982,7 +4982,7 @@ GameObject:
   - component: {fileID: 1816623362379357246}
   - component: {fileID: 8809688221137507648}
   - component: {fileID: 7935661887299427703}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Demon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4996,14 +4996,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6282649530541272487}
-  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0.0000029504295}
+  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6282649531852764280}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!50 &1816623362379357246
 Rigidbody2D:
   serializedVersion: 4
@@ -5053,9 +5053,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 997d98b9c8a65d4418c6cb3b192b21b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewDistance: 2
-  ViewAngle: 0
-  _transform: {fileID: 6282649530541272486}
+  ViewDistance: 5.2
+  ViewAngle: 75
 --- !u!1 &6282649531852764282
 GameObject:
   m_ObjectHideFlags: 0
@@ -5066,7 +5065,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6282649531852764280}
   - component: {fileID: 6282649531852764281}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5152,7 +5151,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3940086172378555937}
   - component: {fileID: 1679831402748041842}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5226,7 +5225,7 @@ GameObject:
   - component: {fileID: 8113187797417198970}
   - component: {fileID: 6019971453257570755}
   - component: {fileID: 8294423710323134631}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10029,7 +10028,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2407047773575411742}
   - component: {fileID: 8614416413420243472}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10113,7 +10112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 978599744263245891}
   - component: {fileID: 104417574733996605}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10186,7 +10185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8715921491728180257}
   - component: {fileID: 8354585517161416644}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LeftFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
