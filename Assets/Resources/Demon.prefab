@@ -4985,6 +4985,7 @@ GameObject:
   - component: {fileID: 1843764485127698420}
   - component: {fileID: 94279490149687137}
   - component: {fileID: 1418052086}
+  - component: {fileID: 3345065108368471165}
   m_Layer: 2
   m_Name: Demon
   m_TagString: Untagged
@@ -5082,9 +5083,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed6dc54b6118ab4f9b2127a4a4b8c44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 5
-  FrequencyOfPathFinding: 2
-  PeekNextWaypointDistance: 2
+  Speed: 4.7
+  FrequencyOfPathFinding: 1
+  PeekNextWaypointDistance: 0.8
 --- !u!114 &1418052086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5113,6 +5114,18 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+--- !u!114 &3345065108368471165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282649530541272487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 082b08bd3a361a74ab64a908412f5d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6282649531852764282
 GameObject:
   m_ObjectHideFlags: 0
@@ -5246,7 +5259,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.63
   m_Color: {r: 0.7647059, g: 0.26666668, b: 0.20392157, a: 1}
-  m_Intensity: 0.1
+  m_Intensity: 0.2
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
@@ -10207,7 +10220,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.63
   m_Color: {r: 0.764151, g: 0.26600933, b: 0.20545568, a: 1}
-  m_Intensity: 0.1
+  m_Intensity: 0.2
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}

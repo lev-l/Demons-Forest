@@ -14,7 +14,6 @@ public class FollowAttack : MonoBehaviour
     private RotateToTarget _rotating;
     private Transform _target;
     private int _currentWaypoint = 0;
-    private bool _endReached = true;
     private Path _path;
 
     private void Start()
@@ -30,12 +29,7 @@ public class FollowAttack : MonoBehaviour
         {
             if (_currentWaypoint >= _path.vectorPath.Count)
             {
-                _endReached = true;
                 return;
-            }
-            else
-            {
-                _endReached = false;
             }
 
             Vector2 direction = (_path.vectorPath[_currentWaypoint] - _transform.position).normalized;
@@ -61,7 +55,6 @@ public class FollowAttack : MonoBehaviour
     {
         _target = target.GetComponent<Transform>();
         _currentWaypoint = 0;
-        _endReached = false;
         StopAllCoroutines();
         StartCoroutine(BuildingPathWhileSee());
     }
@@ -76,6 +69,7 @@ public class FollowAttack : MonoBehaviour
         if (!path.error)
         {
             _path = path;
+            _currentWaypoint = 0;
         }
     }
 
@@ -85,7 +79,6 @@ public class FollowAttack : MonoBehaviour
 
         while (distanceToTarget < 11)
         {
-            print("i buildiing");
             BuildPath();
             yield return new WaitForSeconds(FrequencyOfPathFinding);
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
