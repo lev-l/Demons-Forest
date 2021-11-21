@@ -10,37 +10,40 @@ public class Observing : MonoBehaviour
     public event Action<GameObject> SeePlayer;
     private Transform _transform;
     private Trigonometric _trigonometric;
-    private bool NotSeeingPlayer;
+    private bool _notSeeingPlayer;
 
     private void Start()
     {
         _trigonometric = new Trigonometric();
         _transform = GetComponent<Transform>();
+        _notSeeingPlayer = true;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        bool playerNotDetectedOnThisUpdate = true;
         for (float angle = -ViewAngle; angle <= ViewAngle; angle += ViewAngle / 10)
         {
             Collider2D[] target = CheckRay(angle);
-            bool playerNotDetectedOnThisUpdate = true;
             foreach(Collider2D collider in target)
             {
                 // maybe, OPTIMIZE
-                if (NotSeeingPlayer
-                    && collider.GetComponent<PlayerMovement>())
+                if (collider.GetComponent<PlayerMovement>())
                 {
-                    SeePlayer?.Invoke(collider.gameObject);
                     playerNotDetectedOnThisUpdate = false;
-                    NotSeeingPlayer = false;
-                    print("only once");
+                    if (_notSeeingPlayer)
+                    {
+                        SeePlayer?.Invoke(collider.gameObject);
+                        _notSeeingPlayer = false;
+                    }
                     break;
                 }
             }
-            if (playerNotDetectedOnThisUpdate)
-            {
-                NotSeeingPlayer = true;
-            }
+        }
+
+        if (playerNotDetectedOnThisUpdate)
+        {
+            _notSeeingPlayer = true;
         }
     }
 
@@ -57,7 +60,7 @@ public class Observing : MonoBehaviour
             return new Collider2D[] { centralRayHit.collider };
         }
 
-        //Debug.DrawRay(_transform.position, rayEnd, Color.red);
+        Debug.DrawRay(_transform.position, rayEnd, Color.red);
         return new Collider2D[] { };
     }
 

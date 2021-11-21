@@ -1599,10 +1599,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 94279490149687137, guid: 64c3e6179be8f214d85fcc592998425a, type: 3}
-      propertyPath: FrequencyOfPathFinding
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 6282649530541272486, guid: 64c3e6179be8f214d85fcc592998425a, type: 3}
       propertyPath: m_RootOrder
       value: 5

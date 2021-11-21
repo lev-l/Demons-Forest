@@ -5083,6 +5083,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 5
+  FrequencyOfPathFinding: 2
+  PeekNextWaypointDistance: 2
 --- !u!114 &1418052086
 MonoBehaviour:
   m_ObjectHideFlags: 0

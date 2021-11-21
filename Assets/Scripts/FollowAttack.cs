@@ -46,7 +46,7 @@ public class FollowAttack : MonoBehaviour
                                                                 _path.vectorPath[_currentWaypoint]
                                                                 )
                                                     );
-            _transform.Translate(direction * Speed * Time.deltaTime);
+            _transform.Translate(Vector2.right * Speed * Time.deltaTime);
 
             float distanceToNextWaypoint
                 = Vector2.Distance(_transform.position, _path.vectorPath[_currentWaypoint]);
@@ -62,6 +62,7 @@ public class FollowAttack : MonoBehaviour
         _target = target.GetComponent<Transform>();
         _currentWaypoint = 0;
         _endReached = false;
+        StopAllCoroutines();
         StartCoroutine(BuildingPathWhileSee());
     }
 
@@ -84,6 +85,7 @@ public class FollowAttack : MonoBehaviour
 
         while (distanceToTarget < 11)
         {
+            print("i buildiing");
             BuildPath();
             yield return new WaitForSeconds(FrequencyOfPathFinding);
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
