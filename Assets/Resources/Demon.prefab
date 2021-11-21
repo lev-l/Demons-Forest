@@ -4982,6 +4982,9 @@ GameObject:
   - component: {fileID: 1816623362379357246}
   - component: {fileID: 8809688221137507648}
   - component: {fileID: 7935661887299427703}
+  - component: {fileID: 1843764485127698420}
+  - component: {fileID: 94279490149687137}
+  - component: {fileID: 1418052086}
   m_Layer: 2
   m_Name: Demon
   m_TagString: Untagged
@@ -5055,6 +5058,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ViewDistance: 5.2
   ViewAngle: 75
+--- !u!114 &1843764485127698420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282649530541272487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 643fda94b80a7fd4c9cbc4d24fe9af78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &94279490149687137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282649530541272487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed6dc54b6118ab4f9b2127a4a4b8c44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 5
+--- !u!114 &1418052086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282649530541272487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1 &6282649531852764282
 GameObject:
   m_ObjectHideFlags: 0

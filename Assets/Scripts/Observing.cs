@@ -1,17 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Observing : MonoBehaviour
 {
     public float ViewDistance;
     public uint ViewAngle;
-    public UnityEvent SeePlayer;
+    public event Action<GameObject> SeePlayer;
     private Transform _transform;
     private Trigonometric _trigonometric;
+    private bool NotSeeingPlayer;
 
-    private void Awake()
+    private void Start()
     {
         _trigonometric = new Trigonometric();
         _transform = GetComponent<Transform>();
@@ -22,13 +23,23 @@ public class Observing : MonoBehaviour
         for (float angle = -ViewAngle; angle <= ViewAngle; angle += ViewAngle / 10)
         {
             Collider2D[] target = CheckRay(angle);
+            bool playerNotDetectedOnThisUpdate = true;
             foreach(Collider2D collider in target)
             {
                 // maybe, OPTIMIZE
-                if (collider.GetComponent<PlayerMovement>())
+                if (NotSeeingPlayer
+                    && collider.GetComponent<PlayerMovement>())
                 {
-                    SeePlayer.Invoke();
+                    SeePlayer?.Invoke(collider.gameObject);
+                    playerNotDetectedOnThisUpdate = false;
+                    NotSeeingPlayer = false;
+                    print("only once");
+                    break;
                 }
+            }
+            if (playerNotDetectedOnThisUpdate)
+            {
+                NotSeeingPlayer = true;
             }
         }
     }
