@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-[RequireComponent(typeof(Seeker), typeof(RotateToTarget))]
-public class FollowAttack : MonoBehaviour
+public class FollowAttack : EnemyTools
 {
     public float Speed;
-    public float FrequencyOfPathFinding;
-    public float PeekNextWaypointDistance = 2f;
+    public float AttackDistance;
+    [SerializeField] private float _frequencyOfPathFinding;
+    [SerializeField] private float _peekNextWaypointDistance = 2f;
     private Transform _transform;
-    private Seeker _seeker;
-    private RotateToTarget _rotating;
     private Transform _target;
     private int _currentWaypoint = 0;
     private Path _path;
@@ -19,8 +17,6 @@ public class FollowAttack : MonoBehaviour
     private void Start()
     {
         _transform = GetComponent<Transform>();
-        _seeker = GetComponent<Seeker>();
-        _rotating = GetComponent<RotateToTarget>();
     }
 
     private void Update()
@@ -29,25 +25,27 @@ public class FollowAttack : MonoBehaviour
         {
             if (_currentWaypoint >= _path.vectorPath.Count)
             {
+                _path = null;
                 return;
             }
 
+            StartGoAnimation();
             Vector2 direction = (_path.vectorPath[_currentWaypoint] - _transform.position).normalized;
 
-            _transform.rotation = Quaternion.Euler(Vector3.forward
-                                                    * _rotating.Rotate(
-                                                                _transform.position,
-                                                                _path.vectorPath[_currentWaypoint]
-                                                                )
-                                                    );
+            _transform.rotation = GetNewRotation(selfPosition: _transform.position,
+                                            targetPosition: _path.vectorPath[_currentWaypoint]);
             _transform.Translate(Vector2.right * Speed * Time.deltaTime);
 
             float distanceToNextWaypoint
                 = Vector2.Distance(_transform.position, _path.vectorPath[_currentWaypoint]);
-            if (distanceToNextWaypoint <= PeekNextWaypointDistance)
+            if (distanceToNextWaypoint <= _peekNextWaypointDistance)
             {
                 _currentWaypoint++;
             }
+        }
+        else
+        {
+            StopGoAnimation();
         }
     }
 
@@ -57,11 +55,6 @@ public class FollowAttack : MonoBehaviour
         _currentWaypoint = 0;
         StopAllCoroutines();
         StartCoroutine(BuildingPathWhileSee());
-    }
-
-    private void BuildPath()
-    {
-        _seeker.StartPath(_transform.position, _target.position, PathCompleted);
     }
 
     private void PathCompleted(Path path)
@@ -79,8 +72,14 @@ public class FollowAttack : MonoBehaviour
 
         while (distanceToTarget < 11)
         {
-            BuildPath();
-            yield return new WaitForSeconds(FrequencyOfPathFinding);
+            BuildPath(selfPosition: _transform.position,
+                        targetPosition: _target.position,
+                        callbackFunction: PathCompleted);
+            if (distanceToTarget < AttackDistance)
+            {
+
+            }
+            yield return new WaitForSeconds(_frequencyOfPathFinding);
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
         }
     }
