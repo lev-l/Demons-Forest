@@ -13,6 +13,7 @@ public class FollowAttack : EnemyTools
     private Transform _target;
     private int _currentWaypoint = 0;
     private Path _path;
+    private bool _notBlocked = true;
 
     private void Start()
     {
@@ -21,7 +22,8 @@ public class FollowAttack : EnemyTools
 
     private void Update()
     {
-        if (_path != null)
+        if (_notBlocked
+            && _path != null)
         {
             if (_currentWaypoint >= _path.vectorPath.Count)
             {
@@ -77,9 +79,13 @@ public class FollowAttack : EnemyTools
                         callbackFunction: PathCompleted);
             if (distanceToTarget < AttackDistance)
             {
-
+                _transform.rotation = GetNewRotation(selfPosition: _transform.position,
+                                                    targetPosition: _target.position);
+                Attack();
+                _notBlocked = false;
             }
             yield return new WaitForSeconds(_frequencyOfPathFinding);
+            _notBlocked = true;
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
         }
     }

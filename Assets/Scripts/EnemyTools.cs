@@ -43,4 +43,9 @@ public class EnemyTools : MonoBehaviour
     {
         _animations.StopGoAnimation();
     }
+
+    protected void Attack()
+    {
+        _attacking.Attack();
+    }
 }

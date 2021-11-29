@@ -5086,7 +5086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 4.7
-  AttackDistance: 2
+  AttackDistance: 4
   _frequencyOfPathFinding: 1
   _peekNextWaypointDistance: 2
 --- !u!114 &1418052086
@@ -5153,6 +5153,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe75cfe8c6370ca478182f940cb0df90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.2562463
+      outSlope: 1.2562463
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.2530264
+      value: 0.3178635
+      inSlope: 0.48448664
+      outSlope: 0.48448664
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.5524755
+      outWeight: 0.16814569
+    - serializedVersion: 3
+      time: 1
+      value: 0.5
+      inSlope: -0.029791279
+      outSlope: -0.029791279
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2842692
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _speed: 20
 --- !u!1 &6282649531852764282
 GameObject:
   m_ObjectHideFlags: 0
