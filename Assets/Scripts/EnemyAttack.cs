@@ -5,7 +5,9 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     public AnimationCurve AttackCurve;
+    public AnimationCurve BackCurve;
     [SerializeField] private float _speed;
+    [SerializeField] private int _damage;
     private Transform _transform;
     private Collider2D _collider;
     private ContactFilter2D _filter;
@@ -14,6 +16,7 @@ public class EnemyAttack : MonoBehaviour
     private void Start()
     {
         _transform = GetComponent<Transform>();
+        _collider = GetComponent<Collider2D>();
 
         _filter = new ContactFilter2D();
         _filter.useTriggers = false;
@@ -40,42 +43,54 @@ public class EnemyAttack : MonoBehaviour
         while (currentTime <= duration)
         {
             yield return new WaitForEndOfFrame();
-            newPosition = EvaluatePosition(currentTime);
+            newPosition.x = AttackCurve.Evaluate(currentTime) * _speed;
             _transform.Translate(newPosition * Time.deltaTime, Space.Self);
             currentTime += Time.deltaTime;
 
-            DetectCollision();
+            (bool collided, Collider2D[] colliders) collision = DetectCollision();
+            if (collision.collided)
+            {
+                foreach(Collider2D collider in collision.colliders)
+                {
+                    Health aliveObject = collider.GetComponent<Health>();
+                    if (aliveObject)
+                    {
+                        Damage(aliveObject);
+                        break;
+                    }
+                }
+                yield return new WaitForSeconds(0.1f);
+                break;
+            }
         }
 
         currentTime = 0;
         while (currentTime <= duration)
         {
             yield return new WaitForEndOfFrame();
-            newPosition = -EvaluatePosition(currentTime);
+            newPosition.x = -BackCurve.Evaluate(currentTime) * _speed;
             _transform.Translate(newPosition * Time.deltaTime, Space.Self);
             currentTime += Time.deltaTime;
 
-            DetectCollision();
+            if (DetectCollision().colided)
+            {
+                break;
+            }
         }
 
         _coroutineOngoing = false;
     }
 
-    private Vector2 EvaluatePosition(float time)
-    {
-        Vector2 newPosition = Vector2.zero;
-        newPosition.x = AttackCurve.Evaluate(time) * _speed;
-        return newPosition;
-    }
-
-    private void DetectCollision()
+    private (bool colided, Collider2D[] colliders) DetectCollision()
     {
         List<Collider2D> collisions = new List<Collider2D>();
-        Physics2D.GetContacts(_collider, _filter, collisions);
+        bool detectedAnyCollision = Physics2D.GetContacts(_collider, _filter, collisions) > 0;
 
-        foreach(Collider2D collision in collisions)
-        {
+        return (detectedAnyCollision, collisions.ToArray());
+    }
 
-        }
+    private void Damage(Health damageTarget)
+    {
+        damageTarget.Hurt(_damage);
     }
 }

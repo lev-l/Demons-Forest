@@ -47,5 +47,6 @@ public class EnemyTools : MonoBehaviour
     protected void Attack()
     {
         _attacking.Attack();
+        _animations.StartAttackAnimation();
     }
 }

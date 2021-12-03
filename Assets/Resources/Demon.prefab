@@ -32,7 +32,7 @@ Transform:
   - {fileID: 8113187797417198970}
   m_Father: {fileID: 6282649531852764280}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 8.901}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 98.9}
 --- !u!212 &1783091684608245779
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4988,6 +4988,7 @@ GameObject:
   - component: {fileID: 3345065108368471165}
   - component: {fileID: 8220571892433189464}
   - component: {fileID: 2389114505460007923}
+  - component: {fileID: -428508039224219739}
   m_Layer: 2
   m_Name: Demon
   m_TagString: Untagged
@@ -5186,7 +5187,45 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  BackCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.8550165
+      outSlope: 0.8550165
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.08924424
+    - serializedVersion: 3
+      time: 1
+      value: 0.25
+      inSlope: 0.0018228762
+      outSlope: 0.0018228762
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.36316997
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _speed: 20
+  _damage: 5
+--- !u!114 &-428508039224219739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282649530541272487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883ae286495d7cc4da18294078c37b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 20
 --- !u!1 &6282649531852764282
 GameObject:
   m_ObjectHideFlags: 0

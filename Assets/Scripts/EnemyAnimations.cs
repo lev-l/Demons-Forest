@@ -19,4 +19,9 @@ public class EnemyAnimations : MonoBehaviour
     {
         _animator.SetBool("Go", false);
     }
+
+    public void StartAttackAnimation()
+    {
+        _animator.Play("EnemyAtack");
+    }
 }
