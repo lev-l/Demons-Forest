@@ -11,8 +11,13 @@ public class PlayerAnimations : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
     }
 
-    public void Change(Vector2 move)
+    public void ChangeRunState(Vector2 move)
     {
         _animator.SetBool("Run", move.magnitude > 0);
+    }
+
+    public void PlayAttackAnimation()
+    {
+        _animator.Play("PlayerAtack");
     }
 }

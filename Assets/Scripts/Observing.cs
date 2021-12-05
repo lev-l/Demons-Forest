@@ -24,7 +24,7 @@ public class Observing : MonoBehaviour
         bool playerNotDetectedOnThisUpdate = true;
         for (float angle = -ViewAngle; angle <= ViewAngle; angle += ViewAngle / 10)
         {
-            Collider2D[] target = CheckRay(angle);
+            Collider2D[] target = CheckRay(Mathf.Round(_transform.eulerAngles.z) + angle);
             foreach(Collider2D collider in target)
             {
                 // maybe, OPTIMIZE
@@ -49,8 +49,8 @@ public class Observing : MonoBehaviour
 
     private Collider2D[] CheckRay(float angle)
     {
-        Vector3 rayEnd = CreateRayEnd(distance: ViewDistance,
-                                        angleDegrees: angle);
+        Vector3 rayEnd = _trigonometric.CreateRayEnd(distance: ViewDistance,
+                                                    angleDegrees: angle);
 
         RaycastHit2D centralRayHit = Physics2D.Raycast(origin: _transform.position,
                                                         direction: rayEnd,
@@ -60,55 +60,7 @@ public class Observing : MonoBehaviour
             return new Collider2D[] { centralRayHit.collider };
         }
 
-        Debug.DrawRay(_transform.position, rayEnd, Color.red);
+        _trigonometric.RayPaint(_transform.position, rayEnd);
         return new Collider2D[] { };
     }
-
-    private Vector2 CreateRayEnd(float distance, float angleDegrees)
-    {
-        float xEnd = _trigonometric.GetXByRotation(
-                            AddAngle(_transform.eulerAngles.z, angleDegrees)) * distance;
-        float yEnd = _trigonometric.GetYByRotation(
-                            AddAngle(_transform.eulerAngles.z, angleDegrees)) * distance;
-
-        return new Vector2(xEnd, yEnd);
-    }
-
-    private float AddAngle(float angle, float addition)
-    {
-        angle += addition;
-        if(angle > 360)
-        {
-            angle -= 360;
-        }
-        else if(angle < 0)
-        {
-            angle += 360;
-        }
-
-        return angle;
-    }
-
-    private void RayPaint(Vector2 direction)
-    {
-        Debug.DrawRay(_transform.position, direction, Color.red);
-    }
-
-        private class Trigonometric
-        {
-            public float GetXByRotation(float rotation)
-            {
-                return Mathf.Cos(GetRoundedRotationInRadians(rotation));
-            }
-            
-            public float GetYByRotation(float rotation)
-            {
-                return Mathf.Sin(GetRoundedRotationInRadians(rotation));
-            }
-            
-            private float GetRoundedRotationInRadians(float rotation)
-            {
-                return Mathf.Round(rotation) * Mathf.Deg2Rad;
-            }
-        }
 }
