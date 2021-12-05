@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+[RequireComponent(typeof(PlayerAnimations))]
+public class PlayerMovement : MonoBehaviour
 {
     public float ForwardSpeed;
     public float SidesSpeed;
@@ -13,7 +14,7 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         _transform = GetComponent<Transform>();
-        _animations = GetComponentInChildren<PlayerAnimations>();
+        _animations = GetComponent<PlayerAnimations>();
     }
 
     private void Update()
