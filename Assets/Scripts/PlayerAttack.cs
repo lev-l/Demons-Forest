@@ -49,6 +49,10 @@ public class PlayerAttack : MonoBehaviour
                     && !damaged.Contains(aliveTarget))
                 {
                     aliveTarget.Hurt(_damage);
+                    aliveTarget.GetComponent<Discarding>().Discard(_trigonometric.CreateRayEnd
+                                                                                            (distance: 1, 
+                                                                                            central + 90)
+                                                                                        );
                     damaged.Add(aliveTarget);
                 }
             }

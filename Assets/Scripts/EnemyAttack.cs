@@ -92,5 +92,12 @@ public class EnemyAttack : MonoBehaviour
     private void Damage(Health damageTarget)
     {
         damageTarget.Hurt(_damage);
+        //damageTarget.GetComponent<Discarding>().Discard();
+    }
+
+    public void Stop()
+    {
+        StopAllCoroutines();
+        _coroutineOngoing = false;
     }
 }

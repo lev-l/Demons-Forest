@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class FollowAttack : EnemyTools
 {
     public float Speed;
     public float AttackDistance;
+    public event Action OnBlocked;
     [SerializeField] private float _frequencyOfPathFinding;
     [SerializeField] private float _peekNextWaypointDistance = 2f;
     private Transform _transform;
@@ -18,8 +20,9 @@ public class FollowAttack : EnemyTools
     private void Start()
     {
         _transform = GetComponent<Transform>();
+        OnBlocked += GetComponent<EnemyAttack>().Stop;
     }
-
+        
     private void Update()
     {
         if (_notBlocked
@@ -81,12 +84,24 @@ public class FollowAttack : EnemyTools
             {
                 _transform.rotation = GetNewRotation(selfPosition: _transform.position,
                                                     targetPosition: _target.position);
+                Block();
                 Attack();
-                _notBlocked = false;
             }
             yield return new WaitForSeconds(_frequencyOfPathFinding);
-            _notBlocked = true;
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
         }
+    }
+
+    public void Block()
+    {
+        OnBlocked?.Invoke();
+        _notBlocked = false;
+        StartCoroutine(Unblock());
+    }
+
+    private IEnumerator Unblock()
+    {
+        yield return new WaitForSeconds(_frequencyOfPathFinding);
+        _notBlocked = true;
     }
 }

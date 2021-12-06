@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Discarding))]
 public class Health : MonoBehaviour
 {
     [SerializeField] private int _maxHealth;
