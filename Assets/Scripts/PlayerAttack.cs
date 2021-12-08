@@ -27,15 +27,17 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(AttackButton))
         {
+            _animations.PrepareAttackAnimation();
+        }
+        if (Input.GetMouseButtonUp(AttackButton))
+        {
             _animations.PlayAttackAnimation();
-            StartCoroutine(Damage());
+            Damage();
         }
     }
 
-    private IEnumerator Damage()
+    private void Damage()
     {
-        yield return new WaitForSeconds(AttackAnimation.averageDuration / 2);
-
         float central = Mathf.Round(_transform.eulerAngles.z);
         List<Health> damaged = new List<Health>();
 

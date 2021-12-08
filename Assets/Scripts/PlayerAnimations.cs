@@ -16,6 +16,11 @@ public class PlayerAnimations : MonoBehaviour
         _animator.SetBool("Run", move.magnitude > 0);
     }
 
+    public void PrepareAttackAnimation()
+    {
+        _animator.Play("PlayerPrepareAtack");
+    }
+
     public void PlayAttackAnimation()
     {
         _animator.Play("PlayerAtack");
