@@ -92,7 +92,9 @@ public class EnemyAttack : MonoBehaviour
     private void Damage(Health damageTarget)
     {
         damageTarget.Hurt(_damage);
-        //damageTarget.GetComponent<Discarding>().Discard();
+
+        Vector2 direction = (damageTarget.GetComponent<Transform>().position - _transform.position).normalized;
+        damageTarget.GetComponent<Discarding>().Discard(direction);
     }
 
     public void Stop()
