@@ -5,29 +5,36 @@ using UnityEngine;
 [RequireComponent(typeof(Discarding))]
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int _maxHealth;
-    private int _currentHealth;
+    [SerializeField] protected int _maxHealth;
+    protected int _currentHealth;
 
-    private void Start()
+    public virtual (int current, int max) GetHealthParams()
+    {
+        return (_currentHealth, _maxHealth);
+    }
+
+    protected virtual void Start()
     {
         _currentHealth = _maxHealth;
     }
 
-    public void Hurt(int damage)
+    public virtual void Hurt(int damage)
     {
         _currentHealth -= damage;
         if(_currentHealth <= 0)
         {
-            print("DIE!!!");
+            Destroy(gameObject);
         }
     }
 
-    public void Heal(int restorePoints)
+    public virtual void Heal(int restorePoints)
     {
         _currentHealth += restorePoints;
         if(_currentHealth > _maxHealth)
         {
             _currentHealth = _maxHealth;
         }
+
+
     }
 }

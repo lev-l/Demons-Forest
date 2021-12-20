@@ -606,7 +606,7 @@ GameObject:
   - component: {fileID: 3793162835436972917}
   - component: {fileID: 6811418816049726651}
   - component: {fileID: 7364456731372111590}
-  - component: {fileID: 2645808638969468320}
+  - component: {fileID: 2068638780699516982}
   - component: {fileID: 3842943285901482161}
   m_Layer: 6
   m_Name: Player
@@ -723,7 +723,7 @@ MonoBehaviour:
   _damage: 5
   _attackSquareDistance: 1.2
   _attackSquareAngle: 15
---- !u!114 &2645808638969468320
+--- !u!114 &2068638780699516982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -732,7 +732,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3793162835531498881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 883ae286495d7cc4da18294078c37b72, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f2b88e992b735d489aed7b0b5ffe556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 100
