@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class StepsSound : MonoBehaviour
 {
     [SerializeField] private float _soundRadius;
@@ -20,7 +16,7 @@ public class StepsSound : MonoBehaviour
 
         foreach(Collider2D enemy in enemies)
         {
-            print(enemy.name);
         }
+            print(enemy.name);
     }
 }
