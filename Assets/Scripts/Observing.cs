@@ -11,12 +11,14 @@ public class Observing : MonoBehaviour
     private Transform _transform;
     private Trigonometric _trigonometric;
     private bool _notSeeingPlayer;
+    private int _layer;
 
     private void Start()
     {
         _trigonometric = new Trigonometric();
         _transform = GetComponent<Transform>();
         _notSeeingPlayer = true;
+        _layer = Physics2D.GetLayerCollisionMask(gameObject.layer);
     }
 
     private void FixedUpdate()
@@ -54,7 +56,8 @@ public class Observing : MonoBehaviour
 
         RaycastHit2D centralRayHit = Physics2D.Raycast(origin: _transform.position,
                                                         direction: rayEnd,
-                                                        distance: ViewDistance);
+                                                        distance: ViewDistance,
+                                                        layerMask: _layer);
         if (centralRayHit)
         {
             return new Collider2D[] { centralRayHit.collider };

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22451268264958833}
   - component: {fileID: 1783091684608245779}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 424633461124769412}
   - component: {fileID: 60482802345914953}
   - component: {fileID: 7877791604332994705}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4898,7 +4898,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7590833317882269003}
   - component: {fileID: 6968964262477373597}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: RightFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4990,8 +4990,8 @@ GameObject:
   - component: {fileID: 2389114505460007923}
   - component: {fileID: -428508039224219739}
   - component: {fileID: 4235956542736056801}
-  m_Layer: 2
-  m_Name: Demon
+  m_Layer: 7
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5252,7 +5252,7 @@ GameObject:
   - component: {fileID: 6282649531852764280}
   - component: {fileID: 6282649531852764281}
   - component: {fileID: 2308130969707270061}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5357,7 +5357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3940086172378555937}
   - component: {fileID: 1679831402748041842}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5431,7 +5431,7 @@ GameObject:
   - component: {fileID: 8113187797417198970}
   - component: {fileID: 6019971453257570755}
   - component: {fileID: 8294423710323134631}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10234,7 +10234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2407047773575411742}
   - component: {fileID: 8614416413420243472}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10318,7 +10318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 978599744263245891}
   - component: {fileID: 104417574733996605}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10391,7 +10391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8715921491728180257}
   - component: {fileID: 8354585517161416644}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: LeftFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

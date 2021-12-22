@@ -13,7 +13,7 @@ public class PlayerAnimations : MonoBehaviour
 
     public void ChangeRunState(Vector2 move)
     {
-        _animator.SetBool("Run", move.magnitude > 0);
+        _animator.SetBool("Run", move.sqrMagnitude > 0);
     }
 
     public void PrepareAttackAnimation()
