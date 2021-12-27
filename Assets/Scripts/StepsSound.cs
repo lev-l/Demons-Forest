@@ -1,3 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 public class StepsSound : MonoBehaviour
 {
     [SerializeField] private float _soundRadius;
@@ -7,7 +11,7 @@ public class StepsSound : MonoBehaviour
     private void Start()
     {
         _noisyPosition = GetComponent<Transform>();
-        _enemyLayer = Resources.Load<GameObject>("Enemy").layer;
+        _enemyLayer = Physics2D.GetLayerCollisionMask(8);
     }
 
     public void Noise()
@@ -16,7 +20,7 @@ public class StepsSound : MonoBehaviour
 
         foreach(Collider2D enemy in enemies)
         {
+            enemy.GetComponent<FollowAttack>().TargetDetected(gameObject);
         }
-            print(enemy.name);
     }
 }
