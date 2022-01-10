@@ -4,13 +4,15 @@ using UnityEngine;
 using Pathfinding;
 
 [RequireComponent(typeof(Seeker), typeof(EnemyAnimations), typeof(RotateToTarget)),
-    RequireComponent(typeof(EnemyAttack))]
+    RequireComponent(typeof(EnemyAttack), typeof(Discarding), typeof(Health))]
 public class EnemyTools : MonoBehaviour
 {
     private Seeker _seeker;
     private EnemyAnimations _animations;
     private RotateToTarget _rotating;
     private EnemyAttack _attacking;
+    private Discarding _discarding;
+    private Health _health;
 
     private void Awake()
     {
@@ -18,6 +20,8 @@ public class EnemyTools : MonoBehaviour
         _animations = GetComponent<EnemyAnimations>();
         _rotating = GetComponent<RotateToTarget>();
         _attacking = GetComponent<EnemyAttack>();
+        _discarding = GetComponent<Discarding>();
+        _health = GetComponent<Health>();
     }
 
     protected void BuildPath(Vector2 selfPosition, Vector2 targetPosition,
@@ -48,5 +52,21 @@ public class EnemyTools : MonoBehaviour
     {
         _attacking.Attack();
         _animations.StartAttackAnimation();
+    }
+
+    public virtual void Discard(Vector2 direction)
+    {
+        _discarding.Discard(direction);
+        _attacking.Stop();
+    }
+
+    public virtual void Damage(int damageNumber)
+    {
+        _health.Hurt(damageNumber);
+    }
+
+    protected virtual void Heal(int healNumber)
+    {
+        _health.Heal(healNumber);
     }
 }

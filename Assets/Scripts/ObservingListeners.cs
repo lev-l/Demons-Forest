@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Observing), typeof(FollowAttack))]
+[RequireComponent(typeof(Observing), typeof(EnemyBaseAI))]
 public class ObservingListeners : MonoBehaviour
 {
     private void Awake()
     {
-        GetComponent<Observing>().SeePlayer += GetComponent<FollowAttack>().TargetDetected;
+        GetComponent<Observing>().SeePlayer += GetComponent<EnemyBaseAI>().TargetDetected;
     }
 }

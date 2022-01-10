@@ -39,23 +39,20 @@ public class PlayerAttack : MonoBehaviour
     private void Damage()
     {
         float central = Mathf.Round(_transform.eulerAngles.z);
-        List<Health> damaged = new List<Health>();
+        List<EnemyBaseAI> damaged = new List<EnemyBaseAI>();
 
         for(int modifier = -1; modifier <= 1; modifier++)
         {
             RaycastHit2D[] hits = GetRayHits(central + (_attackSquareAngle * modifier));
             foreach(RaycastHit2D hit in hits)
             {
-                Health aliveTarget = hit.collider.GetComponent<Health>();
-                if (aliveTarget
-                    && !damaged.Contains(aliveTarget))
+                EnemyBaseAI enemy = hit.collider.GetComponent<EnemyBaseAI>();
+                if (enemy
+                    && !damaged.Contains(enemy))
                 {
-                    aliveTarget.Hurt(_damage);
-                    aliveTarget.GetComponent<Discarding>().Discard(_trigonometric.CreateRayEnd
-                                                                                            (distance: 1, 
-                                                                                            central + 90)
-                                                                                        );
-                    damaged.Add(aliveTarget);
+                    enemy.Damage(_damage);
+                    enemy.Discard(_trigonometric.CreateRayEnd(distance: 1, central + 90));
+                    damaged.Add(enemy);
                 }
             }
         }

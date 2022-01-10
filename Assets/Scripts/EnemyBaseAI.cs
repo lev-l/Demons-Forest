@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class FollowAttack : EnemyTools
+public class EnemyBaseAI : EnemyTools
 {
     public float Speed;
     public float AttackDistance;
-    public event Action OnBlocked;
     [SerializeField] private float _frequencyOfPathFinding;
     [SerializeField] private float _peekNextWaypointDistance = 2f;
     private Transform _transform;
@@ -20,7 +19,6 @@ public class FollowAttack : EnemyTools
     private void Start()
     {
         _transform = GetComponent<Transform>();
-        OnBlocked += GetComponent<EnemyAttack>().Stop;
     }
     
     private void Update()
@@ -97,7 +95,6 @@ public class FollowAttack : EnemyTools
 
     public void Block()
     {
-        OnBlocked?.Invoke();
         _notBlocked = false;
         StartCoroutine(Unblock());
     }
@@ -106,5 +103,11 @@ public class FollowAttack : EnemyTools
     {
         yield return new WaitForSeconds(_frequencyOfPathFinding);
         _notBlocked = true;
+    }
+
+    public override void Discard(Vector2 direction)
+    {
+        base.Discard(direction);
+        Block();
     }
 }
