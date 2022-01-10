@@ -56,11 +56,13 @@ public class FollowAttack : EnemyTools
 
     public void TargetDetected(GameObject target)
     {
-        print(_notBlocked);
         _target = target.GetComponent<Transform>();
         _currentWaypoint = 0;
-        StopCoroutine(nameof(BuildingPathWhileSee));
-        StartCoroutine(BuildingPathWhileSee());
+        if (_notBlocked)
+        {
+            StopCoroutine(nameof(BuildingPathWhileSee));
+            StartCoroutine(BuildingPathWhileSee());
+        }
     }
 
     private void PathCompleted(Path path)

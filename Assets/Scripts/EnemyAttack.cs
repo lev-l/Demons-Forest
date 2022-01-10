@@ -64,6 +64,7 @@ public class EnemyAttack : MonoBehaviour
             }
         }
 
+        duration = BackCurve.keys[BackCurve.keys.Length - 1].time;
         currentTime = 0;
         while (currentTime <= duration)
         {
@@ -99,6 +100,7 @@ public class EnemyAttack : MonoBehaviour
 
     public void Stop()
     {
+        print("stop");
         StopAllCoroutines();
         _coroutineOngoing = false;
     }
