@@ -18,7 +18,7 @@ public class StepsSound : MonoBehaviour
     {
         Collider2D[] enemies = Physics2D.OverlapCircleAll(_noisyPosition.position, _soundRadius, _enemyLayer);
 
-        foreach(Collider2D enemy in enemies)
+        foreach (Collider2D enemy in enemies)
         {
             enemy.GetComponent<EnemyBaseAI>().TargetDetected(gameObject);
         }

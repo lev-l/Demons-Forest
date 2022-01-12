@@ -100,7 +100,6 @@ public class EnemyAttack : MonoBehaviour
 
     public void Stop()
     {
-        print("stop");
         StopAllCoroutines();
         _coroutineOngoing = false;
     }
