@@ -81,7 +81,8 @@ public class EnemyBaseAI : EnemyTools
             BuildPath(selfPosition: _transform.position,
                         targetPosition: _target.position,
                         callbackFunction: PathCompleted);
-            if (distanceToTarget < AttackDistance)
+            if (_notBlocked
+                && distanceToTarget < AttackDistance)
             {
                 _transform.rotation = GetNewRotation(selfPosition: _transform.position,
                                                     targetPosition: _target.position);
@@ -96,6 +97,7 @@ public class EnemyBaseAI : EnemyTools
     public void Block()
     {
         _notBlocked = false;
+        StopCoroutine(Unblock());
         StartCoroutine(Unblock());
     }
 
