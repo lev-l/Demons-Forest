@@ -9,9 +9,11 @@ public class EnemyBaseAI : EnemyTools
     public float Speed;
     public float AttackDistance;
     [SerializeField] private float _frequencyOfPathFinding;
+    [SerializeField] private float _waitTime;
     [SerializeField] private float _peekNextWaypointDistance = 2f;
     private Transform _transform;
     private Transform _target;
+    private Vector2 _startPosition;
     private int _currentWaypoint = 0;
     private Path _path;
     private bool _notBlocked = true;
@@ -19,6 +21,7 @@ public class EnemyBaseAI : EnemyTools
     private void Start()
     {
         _transform = GetComponent<Transform>();
+        _startPosition = _transform.position;
     }
     
     private void Update()
@@ -92,6 +95,11 @@ public class EnemyBaseAI : EnemyTools
             yield return new WaitForSeconds(_frequencyOfPathFinding);
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
         }
+
+        yield return new WaitForSeconds(_waitTime);
+        BuildPath(selfPosition: _transform.position,
+                    targetPosition: _startPosition,
+                    callbackFunction: PathCompleted);
     }
 
     public void Block()
