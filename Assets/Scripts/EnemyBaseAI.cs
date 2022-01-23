@@ -13,6 +13,7 @@ public class EnemyBaseAI : EnemyTools
     [SerializeField] private float _peekNextWaypointDistance = 2f;
     private Transform _transform;
     private Transform _target;
+    private PlayerObject _player;
     private Vector2 _startPosition;
     private int _currentWaypoint = 0;
     private Path _path;
@@ -20,6 +21,8 @@ public class EnemyBaseAI : EnemyTools
 
     private void Start()
     {
+        _player = Resources.Load<PlayerObject>("Player");
+
         _transform = GetComponent<Transform>();
         _startPosition = _transform.position;
     }
@@ -57,12 +60,13 @@ public class EnemyBaseAI : EnemyTools
 
     public void TargetDetected(GameObject target)
     {
+        _player.AddEnemy(gameObject);
         _target = target.GetComponent<Transform>();
         _currentWaypoint = 0;
         if (_notBlocked)
         {
             StopCoroutine(nameof(BuildingPathWhileSee));
-            StartCoroutine(BuildingPathWhileSee());
+            StartCoroutine(nameof(BuildingPathWhileSee));
         }
     }
 
@@ -81,6 +85,7 @@ public class EnemyBaseAI : EnemyTools
 
         while (distanceToTarget < 11)
         {
+            print("s");
             BuildPath(selfPosition: _transform.position,
                         targetPosition: _target.position,
                         callbackFunction: PathCompleted);
@@ -95,7 +100,7 @@ public class EnemyBaseAI : EnemyTools
             yield return new WaitForSeconds(_frequencyOfPathFinding);
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
         }
-
+        _player.DeleteEnemy(gameObject);
         yield return new WaitForSeconds(_waitTime);
         BuildPath(selfPosition: _transform.position,
                     targetPosition: _startPosition,
@@ -105,8 +110,8 @@ public class EnemyBaseAI : EnemyTools
     public void Block()
     {
         _notBlocked = false;
-        StopCoroutine(Unblock());
-        StartCoroutine(Unblock());
+        StopCoroutine(nameof(Unblock));
+        StartCoroutine(nameof(Unblock));
     }
 
     private IEnumerator Unblock()

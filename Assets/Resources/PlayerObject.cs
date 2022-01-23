@@ -5,7 +5,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Player")]
 public class PlayerObject : ScriptableObject
 {
+    public int NumberEnemiesSeeYou { get; private set; }
     public float Health;
     public bool StealthMode;
-    public bool InFight;
+    private List<GameObject> _enemiesSeeYou = new List<GameObject>();
+
+    public void AddEnemy(GameObject enemy)
+    {
+        if (!_enemiesSeeYou.Contains(enemy))
+        {
+            _enemiesSeeYou.Add(enemy);
+            NumberEnemiesSeeYou++;
+        }
+    }
+
+    public void DeleteEnemy(GameObject enemy)
+    {
+        _enemiesSeeYou.Remove(enemy);
+        NumberEnemiesSeeYou--;
+    }
 }

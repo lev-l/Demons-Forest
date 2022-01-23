@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
             && move.sqrMagnitude > 0)
         {
             _coroutineOngoing = true;
-            StartCoroutine(Noising());
+            StartCoroutine(nameof(Noising));
         }
         else if(move.sqrMagnitude == 0)
         {
