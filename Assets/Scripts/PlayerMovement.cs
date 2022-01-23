@@ -12,9 +12,11 @@ public class PlayerMovement : MonoBehaviour
     private Transform _transform;
     private StepsSound _stepsSound;
     private PlayerAnimations _animations;
+    private PlayerObject _player;
 
     private void Start()
     {
+        _player = Resources.Load<PlayerObject>("Player");
         _coroutineOngoing = false;
         _stealthMode = false;
         _transform = GetComponent<Transform>();
@@ -33,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
             && move.sqrMagnitude > 0)
         {
             _coroutineOngoing = true;
-            StartCoroutine(Noising());
+            StartCoroutine(nameof(Noising));
         }
         else if(move.sqrMagnitude == 0)
         {
@@ -67,5 +69,6 @@ public class PlayerMovement : MonoBehaviour
         {
             _speed *= _stealthSpeedCut;
         }
+        _player.StealthMode = _stealthMode;
     }
 }

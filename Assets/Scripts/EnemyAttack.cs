@@ -28,7 +28,7 @@ public class EnemyAttack : MonoBehaviour
     {
         if (!_coroutineOngoing)
         {
-            StartCoroutine(Attacking());
+            StartCoroutine(nameof(Attacking));
         }
     }
 

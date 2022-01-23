@@ -5090,6 +5090,7 @@ MonoBehaviour:
   Speed: 4.7
   AttackDistance: 4
   _frequencyOfPathFinding: 1
+  _waitTime: 5
   _peekNextWaypointDistance: 2
 --- !u!114 &1418052086
 MonoBehaviour:
@@ -5160,30 +5161,21 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.2
-      inSlope: 0.465815
-      outSlope: 0.465815
+      value: 0.35026854
+      inSlope: 0.30087435
+      outSlope: 0.30087435
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.2530264
-      value: 0.3178635
-      inSlope: 0.48448664
-      outSlope: 0.48448664
+      time: 0.5
+      value: 0.5007057
+      inSlope: 0.0006478323
+      outSlope: 0.0006478323
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.5524755
-      outWeight: 0.16814569
-    - serializedVersion: 3
-      time: 1
-      value: 0.5
-      inSlope: -0.029791279
-      outSlope: -0.029791279
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.2842692
+      inWeight: 0.28333336
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -5201,8 +5193,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.08924424
     - serializedVersion: 3
-      time: 1
-      value: 0.25
+      time: 0.6034088
+      value: 0.2553978
       inSlope: 0.0018228762
       outSlope: 0.0018228762
       tangentMode: 0
@@ -5212,7 +5204,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _speed: 20
+  _speed: 25
   _damage: 5
 --- !u!114 &-428508039224219739
 MonoBehaviour:

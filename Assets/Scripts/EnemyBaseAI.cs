@@ -9,16 +9,22 @@ public class EnemyBaseAI : EnemyTools
     public float Speed;
     public float AttackDistance;
     [SerializeField] private float _frequencyOfPathFinding;
+    [SerializeField] private float _waitTime;
     [SerializeField] private float _peekNextWaypointDistance = 2f;
     private Transform _transform;
     private Transform _target;
+    private PlayerObject _player;
+    private Vector2 _startPosition;
     private int _currentWaypoint = 0;
     private Path _path;
     private bool _notBlocked = true;
 
     private void Start()
     {
+        _player = Resources.Load<PlayerObject>("Player");
+
         _transform = GetComponent<Transform>();
+        _startPosition = _transform.position;
     }
     
     private void Update()
@@ -54,12 +60,13 @@ public class EnemyBaseAI : EnemyTools
 
     public void TargetDetected(GameObject target)
     {
+        _player.AddEnemy(gameObject);
         _target = target.GetComponent<Transform>();
         _currentWaypoint = 0;
         if (_notBlocked)
         {
             StopCoroutine(nameof(BuildingPathWhileSee));
-            StartCoroutine(BuildingPathWhileSee());
+            StartCoroutine(nameof(BuildingPathWhileSee));
         }
     }
 
@@ -78,10 +85,12 @@ public class EnemyBaseAI : EnemyTools
 
         while (distanceToTarget < 11)
         {
+            print("s");
             BuildPath(selfPosition: _transform.position,
                         targetPosition: _target.position,
                         callbackFunction: PathCompleted);
-            if (distanceToTarget < AttackDistance)
+            if (_notBlocked
+                && distanceToTarget < AttackDistance)
             {
                 _transform.rotation = GetNewRotation(selfPosition: _transform.position,
                                                     targetPosition: _target.position);
@@ -91,12 +100,18 @@ public class EnemyBaseAI : EnemyTools
             yield return new WaitForSeconds(_frequencyOfPathFinding);
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
         }
+        _player.DeleteEnemy(gameObject);
+        yield return new WaitForSeconds(_waitTime);
+        BuildPath(selfPosition: _transform.position,
+                    targetPosition: _startPosition,
+                    callbackFunction: PathCompleted);
     }
 
     public void Block()
     {
         _notBlocked = false;
-        StartCoroutine(Unblock());
+        StopCoroutine(nameof(Unblock));
+        StartCoroutine(nameof(Unblock));
     }
 
     private IEnumerator Unblock()

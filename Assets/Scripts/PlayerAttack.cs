@@ -13,9 +13,12 @@ public class PlayerAttack : MonoBehaviour
     private PlayerAnimations _animations;
     private Trigonometric _trigonometric;
     private Transform _transform;
+    private PlayerObject _player;
 
     private void Start()
     {
+        _player = Resources.Load<PlayerObject>("Player");
+
         _animations = GetComponent<PlayerAnimations>();
         _trigonometric = new Trigonometric();
         _transform = GetComponent<Transform>();
@@ -50,7 +53,8 @@ public class PlayerAttack : MonoBehaviour
                 if (enemy
                     && !damaged.Contains(enemy))
                 {
-                    enemy.Damage(_damage);
+                    enemy.Damage(_player.StealthMode && _player.NumberEnemiesSeeYou == 0 ?
+                                                    _damage * 5 : _damage);
                     enemy.Discard(_trigonometric.CreateRayEnd(distance: 1, central + 90));
                     damaged.Add(enemy);
                 }
