@@ -85,7 +85,6 @@ public class EnemyBaseAI : EnemyTools
 
         while (distanceToTarget < 11)
         {
-            print("s");
             BuildPath(selfPosition: _transform.position,
                         targetPosition: _target.position,
                         callbackFunction: PathCompleted);
