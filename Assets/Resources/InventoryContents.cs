@@ -19,6 +19,11 @@ public class InventoryContents : ScriptableObject
             break;
         }
     }
+
+    public void AddHealthBottle()
+    {
+        HealBottles.Add(new HealBottleObject());
+    }
 }
 
 public abstract class CollectableObject

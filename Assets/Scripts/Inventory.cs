@@ -24,4 +24,21 @@ public class Inventory : MonoBehaviour
             _usableObjects.UseHealBottle(_playerHP);
         }
     }
+
+    public void AddObjects(List<CollectableObject> collectables)
+    {
+        foreach (CollectableObject collectable in collectables)
+        {
+            if (collectable is HealBottleObject)
+            {
+                _usableObjects.AddHealthBottle();
+            }
+            else if (collectable is ThrowingKnifeObject)
+            {
+            }
+            else if (collectable is StaticTorchObject)
+            {
+            }
+        }
+    }
 }

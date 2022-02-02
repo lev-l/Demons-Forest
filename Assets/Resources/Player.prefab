@@ -791,9 +791,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa3366b306685e64eb45a0bf9399eba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeyForHealBottles: 257
-  KeyForThrowingKnifes: 258
-  KeyForStaticTorches: 259
+  KeyForHealBottles: 49
+  KeyForThrowingKnifes: 50
+  KeyForStaticTorches: 51
 --- !u!1 &4646220888749684609
 GameObject:
   m_ObjectHideFlags: 0
