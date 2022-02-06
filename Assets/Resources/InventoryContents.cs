@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Collectables
+{
+    HealBottle = 0,
+    ThrowingKnife = 1,
+    StaticTorch = 2
+}
+
 [CreateAssetMenu()]
 public class InventoryContents : ScriptableObject
 {
-    public List<HealBottleObject> HealBottles = new List<HealBottleObject>();
-    public List<ThrowingKnifeObject> ThrowingKnifes = new List<ThrowingKnifeObject>();
-    public List<StaticTorchObject> StaticTorches = new List<StaticTorchObject>();
+    private List<HealBottleObject> HealBottles = new List<HealBottleObject>();
+    private List<ThrowingKnifeObject> ThrowingKnifes = new List<ThrowingKnifeObject>();
+    private List<StaticTorchObject> StaticTorches = new List<StaticTorchObject>();
 
     public void UseHealBottle(Health player)
     {
@@ -28,6 +35,10 @@ public class InventoryContents : ScriptableObject
 
 public abstract class CollectableObject
 {
+    public virtual Collectables GetItemType()
+    {
+        throw new System.Exception("Base function GetType has been called");
+    }
 }
 
 public class HealBottleObject : CollectableObject
@@ -38,6 +49,11 @@ public class HealBottleObject : CollectableObject
     {
         subject.Heal(_bottleHeal);
     }
+
+    public override Collectables GetItemType()
+    {
+        return Collectables.HealBottle;
+    }
 }
 
 public class ThrowingKnifeObject : CollectableObject
@@ -45,11 +61,21 @@ public class ThrowingKnifeObject : CollectableObject
     public void Throw()
     {
     }
+
+    public override Collectables GetItemType()
+    {
+        return Collectables.ThrowingKnife;
+    }
 }
 
 public class StaticTorchObject : CollectableObject
 {
     public void SetUp()
     {
+    }
+
+    public override Collectables GetItemType()
+    {
+        return Collectables.StaticTorch;
     }
 }

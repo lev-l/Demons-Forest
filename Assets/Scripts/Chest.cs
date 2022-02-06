@@ -9,6 +9,9 @@ public class Chest : MonoBehaviour
     private Inventory _playerInventory;
     private Collider2D _trigger;
     private ContactFilter2D _filter;
+    private ChestAnimations _animations;
+    private ChestContentsPresenter _contentsPresenter;
+
     private Collider2D[] _playerCollider = new Collider2D[2];
 
     void Start()
@@ -17,6 +20,8 @@ public class Chest : MonoBehaviour
 
         _collectables.Add(new HealBottleObject());
         _filter = new ContactFilter2D();
+        _animations = GetComponent<ChestAnimations>();
+        _contentsPresenter = FindObjectOfType<ChestContentsPresenter>();
         _playerInventory = FindObjectOfType<Inventory>();
         _trigger = GetComponent<Collider2D>();
 
@@ -42,6 +47,9 @@ public class Chest : MonoBehaviour
     private void Give()
     {
         _playerInventory.AddObjects(_collectables);
+        _contentsPresenter.ShowItems(_collectables);
         _collectables.Clear();
+
+        _animations.AnimationOpen();
     }
 }
