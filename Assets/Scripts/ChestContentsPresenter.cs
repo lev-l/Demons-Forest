@@ -32,13 +32,16 @@ public class ChestContentsPresenter : MonoBehaviour
 
     public void ShowItems(List<CollectableObject> items)
     {
-        if (items.Count > 0)
+        //foreach instead of if
+        foreach(CollectableObject item in items)
         {
             Dictionary<Collectables, int> sortedItems = SortTypeToNumber(items);
 
             ShowItem(_healBottleSprite, sortedItems[Collectables.HealBottle], new Vector2(0, 60));
             _itemsCanvas.SetActive(true);
             StartCoroutine(nameof(HideView));
+
+            break;
         }
     }
 
@@ -77,6 +80,7 @@ public class ChestContentsPresenter : MonoBehaviour
         yield return new WaitForSeconds(1);
         _itemsCanvas.SetActive(false);
 
+        // not deleting. find why
         foreach(GameObject item in _itemsViews)
         {
             Destroy(item);
