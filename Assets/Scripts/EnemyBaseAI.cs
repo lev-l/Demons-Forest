@@ -58,16 +58,13 @@ public class EnemyBaseAI : EnemyTools
         }
     }
 
-    public void TargetDetected(GameObject target)
+    public void TargetDetected(Transform target)
     {
         _player.AddEnemy(gameObject);
-        _target = target.GetComponent<Transform>();
+        _target = target;
         _currentWaypoint = 0;
-        if (_notBlocked)
-        {
-            StopCoroutine(nameof(BuildingPathWhileSee));
-            StartCoroutine(nameof(BuildingPathWhileSee));
-        }
+        StopCoroutine(nameof(BuildingPathWhileSee));
+        StartCoroutine(nameof(BuildingPathWhileSee));
     }
 
     private void PathCompleted(Path path)
