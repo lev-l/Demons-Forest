@@ -8,11 +8,13 @@ public class Inventory : MonoBehaviour
     public KeyCode KeyForHealBottles,
                 KeyForThrowingKnifes,
                 KeyForStaticTorches;
+    private InventoryPresenter _presenter;
     private InventoryContents _usableObjects;
     private PlayerHealth _playerHP;
 
     private void Start()
     {
+        _presenter = FindObjectOfType<InventoryPresenter>();
         _usableObjects = Resources.Load<InventoryContents>("PlayerInventory");
         _playerHP = GetComponent<PlayerHealth>();
     }
@@ -22,6 +24,7 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyForHealBottles))
         {
             _usableObjects.UseHealBottle(_playerHP);
+            _presenter.RemoveHealBottle();
         }
     }
 
@@ -32,6 +35,7 @@ public class Inventory : MonoBehaviour
             if (collectable is HealBottleObject)
             {
                 _usableObjects.AddHealthBottle();
+                _presenter.AddHealBottle(1);
             }
             else if (collectable is ThrowingKnifeObject)
             {
