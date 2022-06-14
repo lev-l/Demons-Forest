@@ -85,6 +85,9 @@ public class EnemyBaseAI : EnemyTools
 
         while (distanceToTarget < 10)
         {
+            BuildPath(selfPosition: _transform.position,
+                        targetPosition: _target.position,
+                        callbackFunction: PathCompleted);
             if (_notBlocked
                     && distanceToTarget < AttackDistance)
             {
