@@ -7,7 +7,7 @@ public class Observing : MonoBehaviour
 {
     public float ViewDistance;
     public uint ViewAngle;
-    public event Action<Transform> SeePlayer;
+    public event Action<GameObject> SeePlayer;
     private Transform _transform;
     private Trigonometric _trigonometric;
     private bool _notSeeingPlayer;
@@ -35,7 +35,7 @@ public class Observing : MonoBehaviour
                     playerNotDetectedOnThisUpdate = false;
                     if (_notSeeingPlayer)
                     {
-                        SeePlayer?.Invoke(collider.transform);
+                        SeePlayer?.Invoke(collider.gameObject);
                         _notSeeingPlayer = false;
                     }
                     break;
