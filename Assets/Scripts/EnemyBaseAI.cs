@@ -8,7 +8,7 @@ public class EnemyBaseAI : EnemyTools
 {
     public float Speed;
     public float AttackDistance;
-    [SerializeField] private float _frequencyOfPathFinding;
+    [SerializeField] private float _frequencyOfAttackChecking;
     [SerializeField] private float _waitTime;
     [SerializeField] private float _peekNextWaypointDistance = 2f;
     private Transform _transform;
@@ -35,6 +35,8 @@ public class EnemyBaseAI : EnemyTools
             if (_currentWaypoint >= _path.vectorPath.Count)
             {
                 _path = null;
+                _player.DeleteEnemy(gameObject);
+                StartCoroutine(nameof(GoBack));
                 return;
             }
 
@@ -60,6 +62,7 @@ public class EnemyBaseAI : EnemyTools
 
     public void TargetDetected(Transform target)
     {
+        _player.DeleteEnemy(gameObject);
         _player.AddEnemy(gameObject);
         _target = target;
         _currentWaypoint = 0;
@@ -76,31 +79,24 @@ public class EnemyBaseAI : EnemyTools
         }
     }
 
-    private IEnumerator BuildingPathWhileSee()
+    private IEnumerator CheckForAttackDistance()
     {
         float distanceToTarget = Vector2.Distance(_transform.position, _target.position);
 
-        while (distanceToTarget < 11)
+        while (distanceToTarget < 10)
         {
-            BuildPath(selfPosition: _transform.position,
-                        targetPosition: _target.position,
-                        callbackFunction: PathCompleted);
             if (_notBlocked
-                && distanceToTarget < AttackDistance)
+                    && distanceToTarget < AttackDistance)
             {
                 _transform.rotation = GetNewRotation(selfPosition: _transform.position,
                                                     targetPosition: _target.position);
                 Block();
                 Attack();
             }
-            yield return new WaitForSeconds(_frequencyOfPathFinding);
+            yield return new WaitForSeconds(_frequencyOfAttackChecking);
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
         }
-        _player.DeleteEnemy(gameObject);
-        yield return new WaitForSeconds(_waitTime);
-        BuildPath(selfPosition: _transform.position,
-                    targetPosition: _startPosition,
-                    callbackFunction: PathCompleted);
+
     }
 
     public void Block()
@@ -112,8 +108,16 @@ public class EnemyBaseAI : EnemyTools
 
     private IEnumerator Unblock()
     {
-        yield return new WaitForSeconds(_frequencyOfPathFinding);
+        yield return new WaitForSeconds(_frequencyOfAttackChecking);
         _notBlocked = true;
+    }
+
+    private IEnumerator GoBack()
+    {
+        yield return new WaitForSeconds(_waitTime);
+        BuildPath(selfPosition: _transform.position,
+                    targetPosition: _startPosition,
+                    callbackFunction: PathCompleted);
     }
 
     public override void Discard(Vector2 direction)
