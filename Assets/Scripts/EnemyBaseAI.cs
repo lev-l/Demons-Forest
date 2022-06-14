@@ -60,6 +60,7 @@ public class EnemyBaseAI : EnemyTools
 
     public void TargetDetected(GameObject target)
     {
+        StopCoroutine(nameof(WaitForTarget));
         _player.AddEnemy(gameObject);
         _target = target.GetComponent<Transform>();
         _currentWaypoint = 0;
@@ -67,6 +68,17 @@ public class EnemyBaseAI : EnemyTools
         {
             StopCoroutine(nameof(BuildingPathWhileSee));
             StartCoroutine(nameof(BuildingPathWhileSee));
+        }
+    }
+
+    public void TargetDetected(Transform target)
+    {
+        _target = target;
+        if (_notBlocked)
+        {
+            PathToTarget(target.position);
+            StopCoroutine(nameof(WaitForTarget));
+            StartCoroutine(nameof(WaitForTarget));
         }
     }
 
@@ -83,7 +95,7 @@ public class EnemyBaseAI : EnemyTools
     {
         float distanceToTarget = Vector2.Distance(_transform.position, _target.position);
 
-        while (distanceToTarget < 11)
+        while (distanceToTarget < 7)
         {
             BuildPath(selfPosition: _transform.position,
                         targetPosition: _target.position,
@@ -100,6 +112,24 @@ public class EnemyBaseAI : EnemyTools
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
         }
         _player.DeleteEnemy(gameObject);
+        StartCoroutine(nameof(GoBack));
+    }
+
+    private IEnumerator WaitForTarget()
+    {
+        float distanceToTarget = Vector2.Distance(_transform.position, _target.position);
+
+        while (distanceToTarget != 0.1f)
+        {
+            yield return new WaitForSeconds(0.5f);
+            distanceToTarget = Vector2.Distance(_transform.position, _target.position);
+        }
+
+        StartCoroutine(nameof(GoBack));
+    }
+
+    private IEnumerator GoBack()
+    {
         yield return new WaitForSeconds(_waitTime);
         BuildPath(selfPosition: _transform.position,
                     targetPosition: _startPosition,
@@ -123,5 +153,12 @@ public class EnemyBaseAI : EnemyTools
     {
         base.Discard(direction);
         Block();
+    }
+
+    private void PathToTarget(Vector2 target)
+    {
+        BuildPath(selfPosition: _transform.position,
+                    targetPosition: target,
+                    callbackFunction: PathCompleted);
     }
 }
