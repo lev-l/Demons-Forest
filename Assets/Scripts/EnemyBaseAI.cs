@@ -71,14 +71,13 @@ public class EnemyBaseAI : EnemyTools
         }
     }
 
-    public void TargetDetected(Transform target)
+    public void TargetDetected(Vector2 target)
     {
-        _target = target;
         if (_notBlocked)
         {
-            PathToTarget(target.position);
+            PathToTarget(target);
             StopCoroutine(nameof(WaitForTarget));
-            StartCoroutine(nameof(WaitForTarget));
+            StartCoroutine(WaitForTarget(target));
         }
     }
 
@@ -115,16 +114,15 @@ public class EnemyBaseAI : EnemyTools
         StartCoroutine(nameof(GoBack));
     }
 
-    private IEnumerator WaitForTarget()
+    private IEnumerator WaitForTarget(Vector2 trackEndPosition)
     {
-        float distanceToTarget = Vector2.Distance(_transform.position, _target.position);
+        float distanceToTarget = Vector2.Distance(_transform.position, trackEndPosition);
 
-        while (distanceToTarget != 0.1f)
+        while (distanceToTarget > AttackDistance)
         {
             yield return new WaitForSeconds(0.5f);
-            distanceToTarget = Vector2.Distance(_transform.position, _target.position);
+            distanceToTarget = Vector2.Distance(_transform.position, trackEndPosition);
         }
-
         StartCoroutine(nameof(GoBack));
     }
 

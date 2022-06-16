@@ -20,7 +20,7 @@ public class StepsSound : MonoBehaviour
 
         foreach (Collider2D enemy in enemies)
         {
-            enemy.GetComponent<EnemyBaseAI>().TargetDetected(_noisyPosition);
+            enemy.GetComponent<EnemyBaseAI>().TargetDetected(_noisyPosition.position);
         }
     }
 }
