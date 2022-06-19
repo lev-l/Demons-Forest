@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public AnimationCurve AttackCurve;
     public AnimationCurve BackCurve;
-    [SerializeField] private float _speed;
+    [SerializeField] private float _speedOfGoBack;
     [SerializeField] private int _damage;
+    [SerializeField] private float _maxEnergy;
+    [SerializeField] private float _speedUp;
+    private float _currentEnergy;
+    private bool _attacking = false;
+    private bool _notRecharging = true;
+    private float _normalSpeed;
+    private EnemyBaseAI _movementAI;
     private Transform _transform;
     private Collider2D _collider;
     private ContactFilter2D _filter;
 
     private void Start()
     {
+        _currentEnergy = _maxEnergy;
+        _movementAI = GetComponent<EnemyBaseAI>();
         _transform = GetComponent<Transform>();
         _collider = GetComponent<Collider2D>();
+        _normalSpeed = _movementAI.Speed;
 
         _filter = new ContactFilter2D();
         _filter.useTriggers = false;
@@ -23,45 +32,75 @@ public class EnemyAttack : MonoBehaviour
         _filter.useLayerMask = true;
     }
 
-    public void Attack()
+    private void Update()
     {
-        StopCoroutine(nameof(Attacking));
-        StartCoroutine(nameof(Attacking));
+        if (_attacking)
+        {
+            _currentEnergy -= 0.5f * Time.deltaTime;
+        }
+        else if(_currentEnergy < _maxEnergy)
+        {
+            _currentEnergy += 0.1f * Time.deltaTime;
+        }
+
+        if(_currentEnergy <= 0)
+        {
+            _attacking = false;
+            _notRecharging = false;
+            _movementAI.Speed = _normalSpeed;
+        }
+        if(_currentEnergy >= _maxEnergy)
+        {
+            _currentEnergy = _maxEnergy;
+            _notRecharging = true;
+        }
     }
 
-    private IEnumerator Attacking()
+    public void Attack()
     {
-        float duration = AttackCurve.keys[AttackCurve.keys.Length - 1].time;
-        float currentTime = 0f;
+        if (_notRecharging)
+        {
+            _movementAI.Speed *= _speedUp;
+            _attacking = true;
+
+            StopCoroutine(nameof(CheckingForAttack));
+            StartCoroutine(nameof(CheckingForAttack));
+        }
+    }
+
+    private IEnumerator CheckingForAttack()
+    {
+        while (_notRecharging)
+        {
+            (bool colided, Collider2D[] colliders) collision = DetectCollision();
+            foreach (Collider2D collider in collision.colliders)
+            {
+                if (collider.GetComponent<PlayerMovement>())
+                {
+                    Damage(collider.GetComponent<Health>());
+                    _movementAI.Block();
+                    _movementAI.Speed = _normalSpeed;
+                    _attacking = false;
+                    StopCoroutine(nameof(GoBack));
+                    StartCoroutine(nameof(GoBack));
+
+                    StopCoroutine(nameof(CheckingForAttack));
+                }
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private IEnumerator GoBack()
+    {
+        float duration = BackCurve.keys[BackCurve.keys.Length - 1].time;
+        float currentTime = 0;
         Vector2 newPosition = Vector2.zero;
 
         while (currentTime <= duration)
         {
             yield return new WaitForEndOfFrame();
-            newPosition.x = AttackCurve.Evaluate(currentTime) * _speed;
-            _transform.Translate(newPosition * Time.deltaTime, Space.Self);
-            currentTime += Time.deltaTime;
-
-            (bool collided, Collider2D[] colliders) collision = DetectCollision();
-                foreach(Collider2D collider in collision.colliders)
-                {
-                    Health aliveObject = collider.GetComponent<Health>();
-                    if (aliveObject)
-                    {
-                        Damage(aliveObject);
-                        break;
-                    }
-                }
-                yield return new WaitForSeconds(0.1f);
-                break;
-            }
-
-        duration = BackCurve.keys[BackCurve.keys.Length - 1].time;
-        currentTime = 0;
-        while (currentTime <= duration)
-        {
-            yield return new WaitForEndOfFrame();
-            newPosition.x = -BackCurve.Evaluate(currentTime) * _speed;
+            newPosition.x = -BackCurve.Evaluate(currentTime) * _speedOfGoBack;
             _transform.Translate(newPosition * Time.deltaTime, Space.Self);
             currentTime += Time.deltaTime;
 
@@ -91,5 +130,6 @@ public class EnemyAttack : MonoBehaviour
     public void Stop()
     {
         StopAllCoroutines();
+        _currentEnergy = -1;
     }
 }
