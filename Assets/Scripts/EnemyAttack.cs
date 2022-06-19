@@ -11,7 +11,6 @@ public class EnemyAttack : MonoBehaviour
     private Transform _transform;
     private Collider2D _collider;
     private ContactFilter2D _filter;
-    private bool _coroutineOngoing = false;
 
     private void Start()
     {
@@ -26,16 +25,12 @@ public class EnemyAttack : MonoBehaviour
 
     public void Attack()
     {
-        if (!_coroutineOngoing)
-        {
-            StartCoroutine(nameof(Attacking));
-        }
+        StopCoroutine(nameof(Attacking));
+        StartCoroutine(nameof(Attacking));
     }
 
     private IEnumerator Attacking()
     {
-        _coroutineOngoing = true;
-
         float duration = AttackCurve.keys[AttackCurve.keys.Length - 1].time;
         float currentTime = 0f;
         Vector2 newPosition = Vector2.zero;
@@ -48,8 +43,6 @@ public class EnemyAttack : MonoBehaviour
             currentTime += Time.deltaTime;
 
             (bool collided, Collider2D[] colliders) collision = DetectCollision();
-            if (collision.collided)
-            {
                 foreach(Collider2D collider in collision.colliders)
                 {
                     Health aliveObject = collider.GetComponent<Health>();
@@ -62,7 +55,6 @@ public class EnemyAttack : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
                 break;
             }
-        }
 
         duration = BackCurve.keys[BackCurve.keys.Length - 1].time;
         currentTime = 0;
@@ -78,8 +70,6 @@ public class EnemyAttack : MonoBehaviour
                 break;
             }
         }
-
-        _coroutineOngoing = false;
     }
 
     private (bool colided, Collider2D[] colliders) DetectCollision()
@@ -101,6 +91,5 @@ public class EnemyAttack : MonoBehaviour
     public void Stop()
     {
         StopAllCoroutines();
-        _coroutineOngoing = false;
     }
 }
