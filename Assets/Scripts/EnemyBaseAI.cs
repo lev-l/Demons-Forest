@@ -104,13 +104,13 @@ public class EnemyBaseAI : EnemyTools
             if (_notBlocked
                 && distanceToTarget < AttackDistance)
             {
+                _transform.rotation = GetNewRotation(selfPosition: _transform.position,
+                                                    targetPosition: _target.position);
                 GameObject[] forwardObject = GetForwardObject(_transform.position, _transform.rotation);
                 foreach (GameObject @object in forwardObject)
                 {
                     if (@object.tag == "Player")
                     {
-                        _transform.rotation = GetNewRotation(selfPosition: _transform.position,
-                                                            targetPosition: _target.position);
                         Block();
                         Attack();
                     }
