@@ -18,6 +18,7 @@ public class EnemyBaseAI : EnemyTools
     private int _currentWaypoint = 0;
     private Path _path;
     private bool _notBlocked = true;
+    private bool _seePlayer = false;
 
     private void Start()
     {
@@ -73,7 +74,7 @@ public class EnemyBaseAI : EnemyTools
 
     public void TargetDetected(Vector2 target)
     {
-        if (_notBlocked)
+        if (_notBlocked && !_seePlayer)
         {
             PathToTarget(target);
             StopCoroutine(nameof(WaitForTarget));
@@ -93,6 +94,7 @@ public class EnemyBaseAI : EnemyTools
     private IEnumerator BuildingPathWhileSee()
     {
         float distanceToTarget = Vector2.Distance(_transform.position, _target.position);
+        _seePlayer = true;
 
         while (distanceToTarget < 7)
         {
@@ -102,15 +104,25 @@ public class EnemyBaseAI : EnemyTools
             if (_notBlocked
                 && distanceToTarget < AttackDistance)
             {
-                _transform.rotation = GetNewRotation(selfPosition: _transform.position,
-                                                    targetPosition: _target.position);
-                Block();
-                Attack();
+                GameObject[] forwardObject = GetForwardObject(_transform.position, _transform.rotation);
+                foreach (GameObject @object in forwardObject)
+                {
+                    if (@object.tag == "Player")
+                    {
+                        _transform.rotation = GetNewRotation(selfPosition: _transform.position,
+                                                            targetPosition: _target.position);
+                        Block();
+                        Attack();
+                    }
+                }
             }
             yield return new WaitForSeconds(_frequencyOfPathFinding);
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
         }
+
+        _seePlayer = false;
         _player.DeleteEnemy(gameObject);
+        StopCoroutine(nameof(GoBack));
         StartCoroutine(nameof(GoBack));
     }
 
@@ -123,6 +135,7 @@ public class EnemyBaseAI : EnemyTools
             yield return new WaitForSeconds(0.5f);
             distanceToTarget = Vector2.Distance(_transform.position, trackEndPosition);
         }
+        StopCoroutine(nameof(GoBack));
         StartCoroutine(nameof(GoBack));
     }
 

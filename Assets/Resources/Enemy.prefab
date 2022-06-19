@@ -5090,7 +5090,7 @@ MonoBehaviour:
   Speed: 4.7
   AttackDistance: 4
   _frequencyOfPathFinding: 1
-  _waitTime: 5
+  _waitTime: 10
   _peekNextWaypointDistance: 2
 --- !u!114 &1418052086
 MonoBehaviour:

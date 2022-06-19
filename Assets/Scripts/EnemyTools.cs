@@ -12,7 +12,9 @@ public class EnemyTools : MonoBehaviour
     private RotateToTarget _rotating;
     private EnemyAttack _attacking;
     private Discarding _discarding;
+    private Trigonometric _raycastSystem;
     private Health _health;
+    private ContactFilter2D _filter;
 
     private void Awake()
     {
@@ -21,7 +23,13 @@ public class EnemyTools : MonoBehaviour
         _rotating = GetComponent<RotateToTarget>();
         _attacking = GetComponent<EnemyAttack>();
         _discarding = GetComponent<Discarding>();
+        _raycastSystem = new Trigonometric();
         _health = GetComponent<Health>();
+
+        _filter = new ContactFilter2D();
+        _filter.useTriggers = false;
+        _filter.useLayerMask = true;
+        _filter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
     }
 
     protected void BuildPath(Vector2 selfPosition, Vector2 targetPosition,
@@ -58,6 +66,21 @@ public class EnemyTools : MonoBehaviour
     {
         _discarding.Discard(direction);
         _attacking.Stop();
+    }
+
+    protected GameObject[] GetForwardObject(Vector2 selfPosition, Quaternion selfRotation)
+    {
+        Vector2 rayEnd = _raycastSystem.CreateRayEnd(5, selfRotation.eulerAngles.z);
+        _raycastSystem.RayPaint(selfPosition, rayEnd);//
+        RaycastHit2D hit = Physics2D.Raycast(selfPosition, rayEnd, 5, _filter.layerMask);
+        if (hit)
+        {
+            return new GameObject[1] { hit.collider.gameObject };
+        }
+        else
+        {
+            return new GameObject[0];
+        }
     }
 
     public virtual void Damage(int damageNumber)
