@@ -82,12 +82,12 @@ public class EnemyTools : MonoBehaviour
         }
     }
 
-    public virtual void Damage(int damageNumber)
+    public virtual void TakeDamage(int damageNumber)
     {
         _health.Hurt(damageNumber);
     }
 
-    protected virtual void Heal(int healNumber)
+    protected virtual void TakeHeal(int healNumber)
     {
         _health.Heal(healNumber);
     }

@@ -53,7 +53,7 @@ public class PlayerAttack : MonoBehaviour
                 if (enemy
                     && !damaged.Contains(enemy))
                 {
-                    enemy.Damage(_player.StealthMode && _player.NumberEnemiesSeeYou == 0 ?
+                    enemy.TakeDamage(_player.StealthMode && _player.NumberEnemiesSeeYou == 0 ?
                                                     _damage * 5 : _damage);
                     enemy.Discard(_trigonometric.CreateRayEnd(distance: 1, central + 90));
                     damaged.Add(enemy);
