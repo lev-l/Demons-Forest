@@ -71,7 +71,6 @@ public class EnemyTools : MonoBehaviour
     protected GameObject[] GetForwardObject(Vector2 selfPosition, Quaternion selfRotation)
     {
         Vector2 rayEnd = _raycastSystem.CreateRayEnd(5, selfRotation.eulerAngles.z);
-        _raycastSystem.RayPaint(selfPosition, rayEnd);//
         RaycastHit2D hit = Physics2D.Raycast(selfPosition, rayEnd, 5, _filter.layerMask);
         if (hit)
         {

@@ -5091,7 +5091,7 @@ MonoBehaviour:
   AttackDistance: 4
   _frequencyOfPathFinding: 1
   _waitTime: 10
-  _peekNextWaypointDistance: 2
+  _peekNextWaypointDistance: 0.5
 --- !u!114 &1418052086
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -40,7 +40,6 @@ public class EnemyBaseAI : EnemyTools
             }
 
             StartGoAnimation();
-            Vector2 direction = (_path.vectorPath[_currentWaypoint] - _transform.position).normalized;
 
             _transform.rotation = GetNewRotation(selfPosition: _transform.position,
                                             targetPosition: _path.vectorPath[_currentWaypoint]);
@@ -101,6 +100,7 @@ public class EnemyBaseAI : EnemyTools
             BuildPath(selfPosition: _transform.position,
                         targetPosition: _target.position,
                         callbackFunction: PathCompleted);
+
             if (_notBlocked
                 && distanceToTarget < AttackDistance)
             {
@@ -126,14 +126,14 @@ public class EnemyBaseAI : EnemyTools
         StartCoroutine(nameof(GoBack));
     }
 
-    private IEnumerator WaitForTarget(Vector2 trackEndPosition)
+    private IEnumerator WaitForTarget(Vector2 trackEndPoint)
     {
-        float distanceToTarget = Vector2.Distance(_transform.position, trackEndPosition);
+        float distanceToTarget = Vector2.Distance(_transform.position, trackEndPoint);
 
-        while (distanceToTarget > AttackDistance)
+        while (distanceToTarget > _peekNextWaypointDistance)
         {
             yield return new WaitForSeconds(0.5f);
-            distanceToTarget = Vector2.Distance(_transform.position, trackEndPosition);
+            distanceToTarget = Vector2.Distance(_transform.position, trackEndPoint);
         }
         StopCoroutine(nameof(GoBack));
         StartCoroutine(nameof(GoBack));
