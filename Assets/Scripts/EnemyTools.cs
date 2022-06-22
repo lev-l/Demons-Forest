@@ -38,7 +38,7 @@ public class EnemyTools : MonoBehaviour
         _seeker.StartPath(selfPosition, targetPosition, callbackFunction);
     }
 
-    protected Quaternion GetNewRotation(Vector2 selfPosition, Vector2 targetPosition,
+    public Quaternion GetNewRotation(Vector2 selfPosition, Vector2 targetPosition,
                                     float angle = 0)
     {
         float zRotation = _rotating.Rotate(selfPosition, targetPosition, angle);
@@ -56,9 +56,9 @@ public class EnemyTools : MonoBehaviour
         _animations.StopGoAnimation();
     }
 
-    protected void Attack()
+    protected void Attack(Transform target)
     {
-        _attacking.Attack();
+        _attacking.Attack(target);
         _animations.StartAttackAnimation();
     }
 

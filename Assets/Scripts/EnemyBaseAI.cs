@@ -112,7 +112,7 @@ public class EnemyBaseAI : EnemyTools
                     if (@object.tag == "Player")
                     {
                         Block();
-                        Attack();
+                        Attack(_target);
                     }
                 }
             }

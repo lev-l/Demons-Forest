@@ -5088,7 +5088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 4.7
-  AttackDistance: 4
+  AttackDistance: 2
   _frequencyOfPathFinding: 1
   _waitTime: 10
   _peekNextWaypointDistance: 0.5
@@ -5162,15 +5162,15 @@ MonoBehaviour:
     - serializedVersion: 3
       time: -0.0038354564
       value: 0.37
-      inSlope: 0.25942144
-      outSlope: 0.25942144
+      inSlope: 0.6377693
+      outSlope: 0.6377693
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.5
-      value: 0.5007057
+      time: 0.2
+      value: 0.5
       inSlope: 0.0006478323
       outSlope: 0.0006478323
       tangentMode: 0
@@ -5204,7 +5204,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _speed: 25
+  _speed: 15
   _damage: 5
 --- !u!114 &-428508039224219739
 MonoBehaviour:
