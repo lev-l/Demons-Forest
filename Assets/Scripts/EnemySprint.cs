@@ -25,14 +25,10 @@ public class EnemySprint : MonoBehaviour
 
     private IEnumerator SprintControling()
     {
-        print("Max energy is: " + _maxEnergy);
-        print("OK, I started!");
         while (true)
         {
-            print("So current energy is: " + _currentEnergy);
             if (_currentEnergy >= _maxEnergy)
             {
-                print("Energy filled up!");
                 _currentEnergy = _maxEnergy;
                 yield return Sprinting();
             }
@@ -45,16 +41,13 @@ public class EnemySprint : MonoBehaviour
     private IEnumerator Sprinting()
     {
         _movementAI.Speed *= _speedIncrease;
-        print("Speed increased to: " + _movementAI.Speed);
         while (_currentEnergy >= 0)
         {
-            print("Energy in sprinting is now: " + _currentEnergy);
             _currentEnergy--;
             yield return new WaitForSeconds(0.1f);
         }
 
         _movementAI.Speed = _standartSpeed;
-        print("Speed returned to: " + _movementAI.Speed);
     }
 
     //for tests
