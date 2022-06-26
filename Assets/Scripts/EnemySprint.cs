@@ -11,27 +11,29 @@ public class EnemySprint : MonoBehaviour
     private EnemyBaseAI _movementAI;
     private float _standartSpeed;
 
-    private void Start()
+    private void Awake()
     {
+        _currentEnergy = _maxEnergy;
         _movementAI = GetComponent<EnemyBaseAI>();
         _standartSpeed = _movementAI.Speed;
-        StartCoroutine(nameof(SprintControling));
     }
 
     private void OnEnable()
     {
-        StopAllCoroutines();
         StartCoroutine(nameof(SprintControling));
     }
 
     private IEnumerator SprintControling()
     {
+        print("Max energy is: " + _maxEnergy);
+        print("OK, I started!");
         while (true)
         {
-            if(_currentEnergy >= _maxEnergy)
+            print("So current energy is: " + _currentEnergy);
+            if (_currentEnergy >= _maxEnergy)
             {
+                print("Energy filled up!");
                 _currentEnergy = _maxEnergy;
-                _movementAI.Speed *= _speedIncrease;
                 yield return Sprinting();
             }
 
@@ -42,11 +44,22 @@ public class EnemySprint : MonoBehaviour
 
     private IEnumerator Sprinting()
     {
-        while(_currentEnergy >= 0)
+        _movementAI.Speed *= _speedIncrease;
+        print("Speed increased to: " + _movementAI.Speed);
+        while (_currentEnergy >= 0)
         {
+            print("Energy in sprinting is now: " + _currentEnergy);
             _currentEnergy--;
             yield return new WaitForSeconds(0.1f);
         }
+
         _movementAI.Speed = _standartSpeed;
+        print("Speed returned to: " + _movementAI.Speed);
+    }
+
+    //for tests
+    public void Exhaust()
+    {
+        _currentEnergy = _maxEnergy = 1;
     }
 }

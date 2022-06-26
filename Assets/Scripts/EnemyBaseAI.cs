@@ -23,7 +23,7 @@ public class EnemyBaseAI : EnemyTools
     private void Start()
     {
         _player = Resources.Load<PlayerObject>("Player");
-
+        
         _transform = GetComponent<Transform>();
         _startPosition = _transform.position;
     }
