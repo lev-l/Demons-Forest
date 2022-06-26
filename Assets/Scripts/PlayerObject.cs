@@ -21,6 +21,8 @@ public class PlayerObject : ScriptableObject
 
     public void DeleteEnemy(GameObject enemy)
     {
+        if(NumberEnemiesSeeYou > 0
+            && _enemiesSeeYou.Count > 0)
         _enemiesSeeYou.Remove(enemy);
         NumberEnemiesSeeYou--;
     }

@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 1017934222977551054}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -765,7 +765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02fd7f27b08ce2143b9a1857dd60d757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soundRadius: 7
+  _soundRadius: 10
 --- !u!114 &8930830001346951636
 MonoBehaviour:
   m_ObjectHideFlags: 0

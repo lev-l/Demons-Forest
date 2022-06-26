@@ -1,13 +1,10 @@
 {
-    "name": "AstarPathfindingProjectEditor",
+    "name": "Resources",
     "rootNamespace": "",
     "references": [
-        "PackageToolsEditor",
-        "AstarPathfindingProject"
+        "GUID:d2fd574d9ebbf704394640d60081cdef"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

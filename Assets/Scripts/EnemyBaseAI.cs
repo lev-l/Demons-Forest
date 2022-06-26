@@ -18,15 +18,16 @@ public class EnemyBaseAI : EnemyTools
     private int _currentWaypoint = 0;
     private Path _path;
     private bool _notBlocked = true;
+    private bool _seePlayer = false;
 
     private void Start()
     {
         _player = Resources.Load<PlayerObject>("Player");
-
+        
         _transform = GetComponent<Transform>();
         _startPosition = _transform.position;
     }
-    
+
     private void Update()
     {
         if (_notBlocked
@@ -35,11 +36,22 @@ public class EnemyBaseAI : EnemyTools
             if (_currentWaypoint >= _path.vectorPath.Count)
             {
                 _path = null;
+
+                _transform.rotation = GetNewRotation(selfPosition: _transform.position,
+                                                    targetPosition: _target.position);
+                GameObject[] forwardObject = GetForwardObject(_transform.position, _transform.rotation);
+                foreach(GameObject @object in forwardObject)
+                {
+                    if (@object.CompareTag("Player"))
+                    {
+                        Block();
+                        Attack(_target);
+                    }
+                }
                 return;
             }
 
             StartGoAnimation();
-            Vector2 direction = (_path.vectorPath[_currentWaypoint] - _transform.position).normalized;
 
             _transform.rotation = GetNewRotation(selfPosition: _transform.position,
                                             targetPosition: _path.vectorPath[_currentWaypoint]);
@@ -60,6 +72,7 @@ public class EnemyBaseAI : EnemyTools
 
     public void TargetDetected(GameObject target)
     {
+        StopCoroutine(nameof(WaitForTarget));
         _player.AddEnemy(gameObject);
         _target = target.GetComponent<Transform>();
         _currentWaypoint = 0;
@@ -67,6 +80,16 @@ public class EnemyBaseAI : EnemyTools
         {
             StopCoroutine(nameof(BuildingPathWhileSee));
             StartCoroutine(nameof(BuildingPathWhileSee));
+        }
+    }
+
+    public void TargetDetected(Vector2 target)
+    {
+        if (_notBlocked && !_seePlayer)
+        {
+            PathToTarget(target);
+            StopCoroutine(nameof(WaitForTarget));
+            StartCoroutine(WaitForTarget(target));
         }
     }
 
@@ -82,24 +105,54 @@ public class EnemyBaseAI : EnemyTools
     private IEnumerator BuildingPathWhileSee()
     {
         float distanceToTarget = Vector2.Distance(_transform.position, _target.position);
+        _seePlayer = true;
 
-        while (distanceToTarget < 11)
+        while (distanceToTarget < 7)
         {
             BuildPath(selfPosition: _transform.position,
                         targetPosition: _target.position,
                         callbackFunction: PathCompleted);
+
             if (_notBlocked
                 && distanceToTarget < AttackDistance)
             {
                 _transform.rotation = GetNewRotation(selfPosition: _transform.position,
                                                     targetPosition: _target.position);
-                Block();
-                Attack();
+                GameObject[] forwardObject = GetForwardObject(_transform.position, _transform.rotation);
+                foreach (GameObject @object in forwardObject)
+                {
+                    if (@object.CompareTag("Player"))
+                    {
+                        Block();
+                        Attack(_target);
+                    }
+                }
             }
             yield return new WaitForSeconds(_frequencyOfPathFinding);
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
         }
+
+        _seePlayer = false;
         _player.DeleteEnemy(gameObject);
+        StopCoroutine(nameof(GoBack));
+        StartCoroutine(nameof(GoBack));
+    }
+
+    private IEnumerator WaitForTarget(Vector2 trackEndPoint)
+    {
+        float distanceToTarget = Vector2.Distance(_transform.position, trackEndPoint);
+
+        while (distanceToTarget > _peekNextWaypointDistance)
+        {
+            yield return new WaitForSeconds(0.5f);
+            distanceToTarget = Vector2.Distance(_transform.position, trackEndPoint);
+        }
+        StopCoroutine(nameof(GoBack));
+        StartCoroutine(nameof(GoBack));
+    }
+
+    private IEnumerator GoBack()
+    {
         yield return new WaitForSeconds(_waitTime);
         BuildPath(selfPosition: _transform.position,
                     targetPosition: _startPosition,
@@ -123,5 +176,12 @@ public class EnemyBaseAI : EnemyTools
     {
         base.Discard(direction);
         Block();
+    }
+
+    private void PathToTarget(Vector2 target)
+    {
+        BuildPath(selfPosition: _transform.position,
+                    targetPosition: target,
+                    callbackFunction: PathCompleted);
     }
 }
