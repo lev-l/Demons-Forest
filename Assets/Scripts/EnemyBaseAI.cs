@@ -36,6 +36,18 @@ public class EnemyBaseAI : EnemyTools
             if (_currentWaypoint >= _path.vectorPath.Count)
             {
                 _path = null;
+
+                _transform.rotation = GetNewRotation(selfPosition: _transform.position,
+                                                    targetPosition: _target.position);
+                GameObject[] forwardObject = GetForwardObject(_transform.position, _transform.rotation);
+                foreach(GameObject @object in forwardObject)
+                {
+                    if (@object.CompareTag("Player"))
+                    {
+                        Block();
+                        Attack(_target);
+                    }
+                }
                 return;
             }
 
@@ -109,7 +121,7 @@ public class EnemyBaseAI : EnemyTools
                 GameObject[] forwardObject = GetForwardObject(_transform.position, _transform.rotation);
                 foreach (GameObject @object in forwardObject)
                 {
-                    if (@object.tag == "Player")
+                    if (@object.CompareTag("Player"))
                     {
                         Block();
                         Attack(_target);
