@@ -21,16 +21,22 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyForHealBottles))
+        if (Input.GetKeyDown(KeyForHealBottles)
+            && _usableObjects.UseHealBottle(_playerHP))
         {
-            if(_usableObjects.UseHealBottle(_playerHP))
-                _presenter.RemoveHealBottle();
+            _presenter.RemoveHealBottle();
         }
 
-        if (Input.GetKeyDown(KeyForThrowingKnifes))
+        if (Input.GetKeyDown(KeyForThrowingKnifes)
+            && _usableObjects.UseThrowingKnife())
         {
-            if(_usableObjects.UseThrowingKnife())
-                _presenter.RemoveThrowingKnife();
+            _presenter.RemoveThrowingKnife();
+        }
+
+        if (Input.GetKeyDown(KeyForStaticTorches)
+            && _usableObjects.UseStaticTorch())
+        {
+            _presenter.RemoveStaticTorch();
         }
     }
 
@@ -41,15 +47,17 @@ public class Inventory : MonoBehaviour
             if (collectable is HealBottleObject)
             {
                 _usableObjects.AddHealthBottle();
-                _presenter.AddHealBottle(1);
+                _presenter.AddHealBottles(1);
             }
             else if (collectable is ThrowingKnifeObject)
             {
                 _usableObjects.AddThrowingKnife();
-                _presenter.AddThrowingKnife(1);
+                _presenter.AddThrowingKnifes(1);
             }
             else if (collectable is StaticTorchObject)
             {
+                _usableObjects.AddStaticTorch();
+                _presenter.AddStaticTorches(1);
             }
         }
     }

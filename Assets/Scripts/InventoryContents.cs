@@ -24,7 +24,6 @@ public class InventoryContents : ScriptableObject
         if (health.current < health.max)
             foreach (HealBottleObject healBottle in HealBottles)
             {
-                Debug.Log(healBottle);
                 healBottle.Heal(player);
                 HealBottles.RemoveAt(0);
                 return true;
@@ -46,6 +45,18 @@ public class InventoryContents : ScriptableObject
         return false;
     }
 
+    public bool UseStaticTorch()
+    {
+        //use one of the static torches
+        foreach (StaticTorchObject staticTorch in StaticTorches)
+        {
+            staticTorch.SetUp();
+            StaticTorches.RemoveAt(0);
+            return true;
+        }
+        return false;
+    }
+
     public void AddHealthBottle()
     {
         HealBottles.Add(new HealBottleObject());
@@ -54,6 +65,11 @@ public class InventoryContents : ScriptableObject
     public void AddThrowingKnife()
     {
         ThrowingKnifes.Add(new ThrowingKnifeObject());
+    }
+
+    public void AddStaticTorch()
+    {
+        StaticTorches.Add(new StaticTorchObject());
     }
 }
 
