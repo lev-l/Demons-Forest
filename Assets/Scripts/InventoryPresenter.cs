@@ -23,18 +23,25 @@ public class InventoryPresenter : MonoBehaviour
         _torchesNumberText = _staticTorches.GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public void AddHealBottle(int bottlesNumber)
+    public void AddHealBottles(int bottlesNumber)
     {
         _healBottlesNumber += bottlesNumber;
         UpdateHealBottlesText();
         _healBottles.sprite = _bottlesImageTrue;
     }
 
-    public void AddThrowingKnife(int knifesNumber)
+    public void AddThrowingKnifes(int knifesNumber)
     {
         _throwingKnifesNumber += knifesNumber;
         UpdateThrowingKnifesText();
         _throwingKnifes.sprite = _knifesImageTrue;
+    }
+
+    public void AddStaticTorches(int torchesNumber)
+    {
+        _staticTorchesNumber += torchesNumber;
+        UpdateStaticTorchesText();
+        _staticTorches.sprite = _torchesImageTrue;
     }
 
     public void RemoveHealBottle()
@@ -59,6 +66,17 @@ public class InventoryPresenter : MonoBehaviour
         }
     }
 
+    public void RemoveStaticTorch()
+    {
+        _staticTorchesNumber--;
+        UpdateStaticTorchesText();
+
+        if(_staticTorchesNumber == 0)
+        {
+            _staticTorches.sprite = _torchesImageFalse;
+        }
+    }
+
     private void UpdateHealBottlesText()
     {
         _bottlesNumberText.text = _healBottlesNumber.ToString();
@@ -67,5 +85,10 @@ public class InventoryPresenter : MonoBehaviour
     private void UpdateThrowingKnifesText()
     {
         _knifesNumberText.text = _throwingKnifesNumber.ToString();
+    }
+
+    private void UpdateStaticTorchesText()
+    {
+        _torchesNumberText.text = _staticTorchesNumber.ToString();
     }
 }

@@ -38,7 +38,8 @@ public class ChestContentsPresenter : MonoBehaviour
             Dictionary<Collectables, int> sortedItems = SortTypeToNumber(items);
 
             ShowItem(_healBottleSprite, sortedItems[Collectables.HealBottle], new Vector2(0, 60));
-            ShowItem(_throwingKnifeSprite, sortedItems[Collectables.ThrowingKnife], new Vector2(0, 120));
+            ShowItem(_throwingKnifeSprite, sortedItems[Collectables.ThrowingKnife], new Vector2(0, 0));
+            ShowItem(_staticTorchSprite, sortedItems[Collectables.StaticTorch], new Vector2(0, -60));
             _itemsCanvas.SetActive(true);
             StartCoroutine(nameof(HideView));
 
