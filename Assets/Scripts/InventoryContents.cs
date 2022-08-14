@@ -31,6 +31,11 @@ public class InventoryContents : ScriptableObject
     {
         HealBottles.Add(new HealBottleObject());
     }
+
+    public void AddThrowingKnife()
+    {
+        ThrowingKnifes.Add(new ThrowingKnifeObject());
+    }
 }
 
 public abstract class CollectableObject
