@@ -16,15 +16,34 @@ public class InventoryContents : ScriptableObject
     private List<ThrowingKnifeObject> ThrowingKnifes = new List<ThrowingKnifeObject>();
     private List<StaticTorchObject> StaticTorches = new List<StaticTorchObject>();
 
-    public void UseHealBottle(Health player)
+    public bool UseHealBottle(Health player)
     {
         //use one of heal bottles
-        foreach(HealBottleObject healBottle in HealBottles)
+        (int current, int max) health = player.GetHealthParams();
+
+        if (health.current < health.max)
+            foreach (HealBottleObject healBottle in HealBottles)
+            {
+                Debug.Log(healBottle);
+                healBottle.Heal(player);
+                HealBottles.RemoveAt(0);
+                return true;
+            }
+
+        return false;
+    }
+
+    public bool UseThrowingKnife()
+    {
+        //use one of throwing knifes
+        foreach (ThrowingKnifeObject knife in ThrowingKnifes)
         {
-            healBottle.Heal(player);
-            HealBottles.RemoveAt(0);
-            break;
+            knife.Throw();
+            ThrowingKnifes.RemoveAt(0);
+            return true;
         }
+
+        return false;
     }
 
     public void AddHealthBottle()

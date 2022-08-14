@@ -19,7 +19,7 @@ public class Chest : MonoBehaviour
         _collectables = new List<CollectableObject>();
         _collectables.Add(new HealBottleObject());
         _collectables.Add(new HealBottleObject());
-        _collectables.Add(new HealBottleObject());
+        _collectables.Add(new ThrowingKnifeObject());
 
         _filter = new ContactFilter2D();
         _animations = GetComponent<ChestAnimations>();

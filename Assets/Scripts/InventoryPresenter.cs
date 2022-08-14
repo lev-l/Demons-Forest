@@ -30,6 +30,13 @@ public class InventoryPresenter : MonoBehaviour
         _healBottles.sprite = _bottlesImageTrue;
     }
 
+    public void AddThrowingKnife(int knifesNumber)
+    {
+        _throwingKnifesNumber += knifesNumber;
+        UpdateThrowingKnifesText();
+        _throwingKnifes.sprite = _knifesImageTrue;
+    }
+
     public void RemoveHealBottle()
     {
         _healBottlesNumber--;
@@ -41,8 +48,24 @@ public class InventoryPresenter : MonoBehaviour
         }
     }
 
+    public void RemoveThrowingKnife()
+    {
+        _throwingKnifesNumber--;
+        UpdateThrowingKnifesText();
+
+        if(_throwingKnifesNumber == 0)
+        {
+            _throwingKnifes.sprite = _knifesImageFalse;
+        }
+    }
+
     private void UpdateHealBottlesText()
     {
         _bottlesNumberText.text = _healBottlesNumber.ToString();
+    }
+
+    private void UpdateThrowingKnifesText()
+    {
+        _knifesNumberText.text = _throwingKnifesNumber.ToString();
     }
 }
