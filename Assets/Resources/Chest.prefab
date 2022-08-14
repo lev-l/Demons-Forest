@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KeyToOpen: 101
+  MaxCost: 10
 --- !u!114 &8871645366115311385
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Chest : MonoBehaviour
 {
     public KeyCode KeyToOpen;
+    public int MaxCost;
     private List<CollectableObject> _collectables;
     private Inventory _playerInventory;
     private Collider2D _trigger;
@@ -17,9 +18,7 @@ public class Chest : MonoBehaviour
     void Start()
     {
         _collectables = new List<CollectableObject>();
-        _collectables.Add(new HealBottleObject());
-        _collectables.Add(new ThrowingKnifeObject());
-        _collectables.Add(new StaticTorchObject());
+        RandomlyFillChest();
 
         _filter = new ContactFilter2D();
         _animations = GetComponent<ChestAnimations>();
@@ -34,6 +33,57 @@ public class Chest : MonoBehaviour
         if (!_trigger.isTrigger)
         {
             throw new System.Exception("Got the wrong collider");
+        }
+    }
+
+    private void RandomlyFillChest()
+    {
+        ItemsCost costs = new ItemsCost();
+        int currentCost = 0;
+
+        while (currentCost < MaxCost)
+        {
+            int availableCost = MaxCost - currentCost;
+            List<Collectables> availableCollectables = new List<Collectables>();
+
+            if (costs.ItemCost[Collectables.HealBottle] <= availableCost)
+            {
+                availableCollectables.Add(Collectables.HealBottle);
+            }
+            if (costs.ItemCost[Collectables.ThrowingKnife] <= availableCost)
+            {
+                availableCollectables.Add(Collectables.ThrowingKnife);
+            }
+            if (costs.ItemCost[Collectables.StaticTorch] <= availableCost)
+            {
+                availableCollectables.Add(Collectables.StaticTorch);
+            }
+
+            Collectables randomlyPickedCollectable =
+                availableCollectables[Random.Range(0, availableCollectables.Count)];
+            currentCost += costs.ItemCost[randomlyPickedCollectable];
+            AddNewCollectable(randomlyPickedCollectable);
+
+            if (currentCost > MaxCost)
+            {
+                throw new System.Exception("Cost is overrising");
+            }
+        }
+    }
+
+    private void AddNewCollectable(Collectables type)
+    {
+        switch (type)
+        {
+            case Collectables.HealBottle:
+                _collectables.Add(new HealBottleObject());
+                break;
+            case Collectables.ThrowingKnife:
+                _collectables.Add(new ThrowingKnifeObject());
+                break;
+            case Collectables.StaticTorch:
+                _collectables.Add(new StaticTorchObject());
+                break;
         }
     }
 
