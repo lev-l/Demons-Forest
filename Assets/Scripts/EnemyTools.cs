@@ -12,7 +12,9 @@ public class EnemyTools : MonoBehaviour
     private RotateToTarget _rotating;
     private EnemyAttack _attacking;
     private Discarding _discarding;
+    private Trigonometric _raycastSystem;
     private Health _health;
+    private ContactFilter2D _filter;
 
     private void Awake()
     {
@@ -21,7 +23,13 @@ public class EnemyTools : MonoBehaviour
         _rotating = GetComponent<RotateToTarget>();
         _attacking = GetComponent<EnemyAttack>();
         _discarding = GetComponent<Discarding>();
+        _raycastSystem = new Trigonometric();
         _health = GetComponent<Health>();
+
+        _filter = new ContactFilter2D();
+        _filter.useTriggers = false;
+        _filter.useLayerMask = true;
+        _filter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
     }
 
     protected void BuildPath(Vector2 selfPosition, Vector2 targetPosition,
@@ -30,7 +38,7 @@ public class EnemyTools : MonoBehaviour
         _seeker.StartPath(selfPosition, targetPosition, callbackFunction);
     }
 
-    protected Quaternion GetNewRotation(Vector2 selfPosition, Vector2 targetPosition,
+    public Quaternion GetNewRotation(Vector2 selfPosition, Vector2 targetPosition,
                                     float angle = 0)
     {
         float zRotation = _rotating.Rotate(selfPosition, targetPosition, angle);
@@ -48,9 +56,9 @@ public class EnemyTools : MonoBehaviour
         _animations.StopGoAnimation();
     }
 
-    protected void Attack()
+    protected void Attack(Transform target)
     {
-        _attacking.Attack();
+        _attacking.Attack(target);
         _animations.StartAttackAnimation();
     }
 
@@ -60,12 +68,26 @@ public class EnemyTools : MonoBehaviour
         _attacking.Stop();
     }
 
-    public virtual void Damage(int damageNumber)
+    protected GameObject[] GetForwardObject(Vector2 selfPosition, Quaternion selfRotation)
+    {
+        Vector2 rayEnd = _raycastSystem.CreateRayEnd(5, selfRotation.eulerAngles.z);
+        RaycastHit2D hit = Physics2D.Raycast(selfPosition, rayEnd, 5, _filter.layerMask);
+        if (hit)
+        {
+            return new GameObject[1] { hit.collider.gameObject };
+        }
+        else
+        {
+            return new GameObject[0];
+        }
+    }
+
+    public virtual void TakeDamage(int damageNumber)
     {
         _health.Hurt(damageNumber);
     }
 
-    protected virtual void Heal(int healNumber)
+    protected virtual void TakeHeal(int healNumber)
     {
         _health.Heal(healNumber);
     }
