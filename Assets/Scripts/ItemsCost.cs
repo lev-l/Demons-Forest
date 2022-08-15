@@ -9,8 +9,8 @@ public class ItemsCost
     {
         ItemCost = new Dictionary<Collectables, int>();
 
-        ItemCost.Add(Collectables.HealBottle, 5);
+        ItemCost.Add(Collectables.HealBottle, 3);
         ItemCost.Add(Collectables.ThrowingKnife, 1);
-        ItemCost.Add(Collectables.StaticTorch, 3);
+        ItemCost.Add(Collectables.StaticTorch, 8);
     }
 }
