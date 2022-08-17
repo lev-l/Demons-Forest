@@ -792,7 +792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KeyForHealBottles: 49
-  KeyForThrowingKnifes: 50
+  KeyForThrowingKnifes: 324
   KeyForStaticTorches: 51
 --- !u!1 &4646220888749684609
 GameObject:
