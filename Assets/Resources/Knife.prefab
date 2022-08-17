@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7174710891497696146}
   - component: {fileID: 4895894262967292529}
-  m_Layer: 0
+  - component: {fileID: 3965275442643062746}
+  - component: {fileID: 4237287100082474655}
+  m_Layer: 10
   m_Name: Knife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,3 +84,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3965275442643062746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8777943601147158374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c42024cf80a79b46aa4687db3db37e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 15
+  _flyDistance: 10
+--- !u!114 &4237287100082474655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8777943601147158374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 264b6984a12de1f44a9ff44b7a75a648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 2

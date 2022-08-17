@@ -1,20 +1,25 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
+[RequireComponent(typeof(FlyingObject))]
 public class FlyingObject : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _flyDistance;
     private Transform _transform;
+    private float _completedDistance;
     private RaycastHit2D[] _hitsBuffer;
     private ContactFilter2D _filter;
+    private FlyingObjectDamage _damager;
 
     private void Start()
     {
         _transform = GetComponent<Transform>();
         _hitsBuffer = new RaycastHit2D[3];
         _filter = new ContactFilter2D();
+        _damager = GetComponent<FlyingObjectDamage>();
 
         _filter.useTriggers = false;
         _filter.useLayerMask = true;
@@ -23,7 +28,14 @@ public class FlyingObject : MonoBehaviour
 
     private void Update()
     {
-        _transform.Translate(Vector3.up * _speed * Time.deltaTime, Space.Self);
+        Vector3 move = Vector3.up * _speed * Time.deltaTime;
+        _transform.Translate(move, Space.Self);
+        _completedDistance += move.magnitude;
+
+        if(_completedDistance >= _flyDistance)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
@@ -36,6 +48,21 @@ public class FlyingObject : MonoBehaviour
         if(resultsNum > 0)
         {
             List<RaycastHit2D> hits = new List<RaycastHit2D>(resultsNum);
+            for(int i = 0; i < resultsNum; i++)
+            {
+                hits.Add(_hitsBuffer[i]);
+            }
+
+            foreach(RaycastHit2D hit in hits)
+            {
+                Health target = hit.collider.GetComponent<Health>();
+                if (target)
+                {
+                    _damager.DamageOn(target);
+                }
+            }
+
+            Destroy(gameObject);
         }
     }
 }
