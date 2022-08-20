@@ -287,7 +287,7 @@ RectTransform:
   m_Children:
   - {fileID: 773922748}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2415,7 +2415,7 @@ RectTransform:
   m_Children:
   - {fileID: 723479392}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3789,7 +3789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6279844398038187339, guid: 8e56c247438e3be4da6010c84a1ad5bd, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6279844398038187339, guid: 8e56c247438e3be4da6010c84a1ad5bd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3888,6 +3888,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8494484403154356678, guid: 5763e9fe1363df347a18a2e28b6c6cf6, type: 3}
+      propertyPath: m_Intensity
+      value: 1.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 8494484403154356678, guid: 5763e9fe1363df347a18a2e28b6c6cf6, type: 3}
+      propertyPath: m_PointLightInnerRadius
+      value: 0.14308372
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5763e9fe1363df347a18a2e28b6c6cf6, type: 3}
 --- !u!1001 &6279844397190212958
@@ -3903,7 +3911,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6279844398038187339, guid: 8e56c247438e3be4da6010c84a1ad5bd, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6279844398038187339, guid: 8e56c247438e3be4da6010c84a1ad5bd, type: 3}
       propertyPath: m_LocalPosition.x
