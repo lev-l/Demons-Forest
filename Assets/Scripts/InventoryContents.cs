@@ -32,12 +32,12 @@ public class InventoryContents : ScriptableObject
         return false;
     }
 
-    public bool UseThrowingKnife()
+    public bool UseThrowingKnife(Transform player)
     {
         //use one of throwing knifes
         foreach (ThrowingKnifeObject knife in ThrowingKnifes)
         {
-            knife.Throw();
+            knife.Throw(player);
             ThrowingKnifes.RemoveAt(0);
             return true;
         }
@@ -45,12 +45,12 @@ public class InventoryContents : ScriptableObject
         return false;
     }
 
-    public bool UseStaticTorch()
+    public bool UseStaticTorch(Transform player)
     {
         //use one of the static torches
         foreach (StaticTorchObject staticTorch in StaticTorches)
         {
-            staticTorch.SetUp();
+            staticTorch.SetUp(player);
             StaticTorches.RemoveAt(0);
             return true;
         }
@@ -98,8 +98,17 @@ public class HealBottleObject : CollectableObject
 
 public class ThrowingKnifeObject : CollectableObject
 {
-    public void Throw()
+    private GameObject _knife;
+
+    public ThrowingKnifeObject()
     {
+        _knife = Resources.Load<GameObject>("Knife");
+    }
+
+    public void Throw(Transform player)
+    {
+        GameObject newKnife = Object.Instantiate(_knife, player);
+        newKnife.transform.SetParent(null);
     }
 
     public override Collectables GetItemType()
@@ -110,8 +119,20 @@ public class ThrowingKnifeObject : CollectableObject
 
 public class StaticTorchObject : CollectableObject
 {
-    public void SetUp()
+    private GameObject _torch;
+
+    public StaticTorchObject()
     {
+        _torch = Resources.Load<GameObject>("Torch");
+    }
+
+    public void SetUp(Transform player)
+    {
+        GameObject newTorch = Object.Instantiate(_torch, player);
+
+        Transform newTorchTransform = newTorch.transform;
+        newTorchTransform.localPosition += Vector3.up;
+        newTorchTransform.SetParent(null);
     }
 
     public override Collectables GetItemType()

@@ -11,12 +11,14 @@ public class Inventory : MonoBehaviour
     private InventoryPresenter _presenter;
     private InventoryContents _usableObjects;
     private PlayerHealth _playerHP;
+    private Transform _playerTransform;
 
     private void Start()
     {
         _presenter = FindObjectOfType<InventoryPresenter>();
         _usableObjects = Resources.Load<InventoryContents>("PlayerInventory");
         _playerHP = GetComponent<PlayerHealth>();
+        _playerTransform = _playerHP.GetComponent<Transform>();
     }
 
     private void Update()
@@ -28,13 +30,13 @@ public class Inventory : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyForThrowingKnifes)
-            && _usableObjects.UseThrowingKnife())
+            && _usableObjects.UseThrowingKnife(_playerTransform))
         {
             _presenter.RemoveThrowingKnife();
         }
 
         if (Input.GetKeyDown(KeyForStaticTorches)
-            && _usableObjects.UseStaticTorch())
+            && _usableObjects.UseStaticTorch(_playerTransform))
         {
             _presenter.RemoveStaticTorch();
         }
