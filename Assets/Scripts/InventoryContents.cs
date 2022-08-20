@@ -131,7 +131,7 @@ public class StaticTorchObject : CollectableObject
         GameObject newTorch = Object.Instantiate(_torch, player);
 
         Transform newTorchTransform = newTorch.transform;
-        newTorchTransform.position += Vector3.up;
+        newTorchTransform.localPosition += Vector3.up;
         newTorchTransform.SetParent(null);
     }
 
