@@ -36,7 +36,7 @@ public class Inventory : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyForStaticTorches)
-            && _usableObjects.UseStaticTorch())
+            && _usableObjects.UseStaticTorch(_playerTransform))
         {
             _presenter.RemoveStaticTorch();
         }
