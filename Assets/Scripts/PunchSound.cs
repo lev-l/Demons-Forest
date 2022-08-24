@@ -6,6 +6,11 @@ public class PunchSound : MonoBehaviour
     [SerializeField] private float _soundRadius;
     private int _enemyLayer;
 
+    public void SetSoundRadious(float newRadius)
+    {
+        _soundRadius = newRadius;
+    }
+
     private void Start()
     {
         _enemyLayer = Physics2D.GetLayerCollisionMask(8);
