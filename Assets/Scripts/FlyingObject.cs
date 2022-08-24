@@ -13,6 +13,7 @@ public class FlyingObject : MonoBehaviour
     private RaycastHit2D[] _hitsBuffer;
     private ContactFilter2D _filter;
     private FlyingObjectDamage _damager;
+    private PunchSound _sound;
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class FlyingObject : MonoBehaviour
         _hitsBuffer = new RaycastHit2D[3];
         _filter = new ContactFilter2D();
         _damager = GetComponent<FlyingObjectDamage>();
+        _sound = FindObjectOfType<PunchSound>();
 
         _filter.useTriggers = false;
         _filter.useLayerMask = true;
@@ -60,6 +62,8 @@ public class FlyingObject : MonoBehaviour
                 {
                     _damager.DamageOn(target);
                 }
+
+                _sound.Noise(_transform.position);
             }
 
             Destroy(gameObject);

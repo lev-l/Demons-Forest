@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] protected int _maxHealth;
     protected int _currentHealth;
+    private PunchSound _hurtedSound;
 
     public virtual (int current, int max) GetHealthParams()
     {
@@ -16,6 +17,7 @@ public class Health : MonoBehaviour
     protected virtual void Start()
     {
         _currentHealth = _maxHealth;
+        _hurtedSound = FindObjectOfType<PunchSound>();
     }
 
     public virtual void Hurt(int damage)
@@ -25,6 +27,8 @@ public class Health : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        _hurtedSound.Noise(transform.position);
     }
 
     public virtual void Heal(int restorePoints)

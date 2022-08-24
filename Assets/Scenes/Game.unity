@@ -860,6 +860,7 @@ GameObject:
   - component: {fileID: 377577934}
   - component: {fileID: 377577933}
   - component: {fileID: 377577936}
+  - component: {fileID: 377577937}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -931,6 +932,19 @@ MonoBehaviour:
   _healBottleSprite: {fileID: 21300000, guid: 6a9ca3c12640ded40bba0441690b8074, type: 3}
   _throwingKnifeSprite: {fileID: 21300000, guid: fa4b0082ab0378f4e890dbd2a131c0c4, type: 3}
   _staticTorchSprite: {fileID: 21300000, guid: 3e0da86d4ddc4984f8aa611f6180a084, type: 3}
+--- !u!114 &377577937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377577932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7950c2f2640d104abbba88b56429d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soundRadius: 7
 --- !u!1 &413667799
 GameObject:
   m_ObjectHideFlags: 0
