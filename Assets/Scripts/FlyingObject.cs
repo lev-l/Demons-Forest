@@ -63,7 +63,7 @@ public class FlyingObject : MonoBehaviour
                     _damager.DamageOn(target);
                 }
 
-                _sound.Noise(_transform.position);
+                _sound.Noise(_transform.TransformPoint(Vector3.down));
             }
 
             Destroy(gameObject);

@@ -140,25 +140,20 @@ public class EnemyBaseAI : EnemyTools
     private IEnumerator WaitForTarget(Vector2 trackEndPoint)
     {
         float distanceToTarget = Vector2.Distance(_transform.position, trackEndPoint);
-        print("started");
 
         while (distanceToTarget > _peekNextWaypointDistance)
         {
             yield return new WaitForSeconds(0.5f);
-            print("going");
             distanceToTarget = Vector2.Distance(_transform.position, trackEndPoint);
         }
 
-        print("ended");
         StopCoroutine(nameof(GoBack));
         StartCoroutine(nameof(GoBack));
     }
 
     private IEnumerator GoBack()
     {
-        print("Called");
         yield return new WaitForSeconds(_waitTime);
-        print("Executed");
         BuildPath(selfPosition: _transform.position,
                     targetPosition: _startPosition,
                     callbackFunction: PathCompleted);
