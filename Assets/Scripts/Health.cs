@@ -34,7 +34,5 @@ public class Health : MonoBehaviour
         {
             _currentHealth = _maxHealth;
         }
-
-
     }
 }
