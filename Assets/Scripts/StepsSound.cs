@@ -11,7 +11,7 @@ public class StepsSound : MonoBehaviour
     private void Start()
     {
         _noisyPosition = GetComponent<Transform>();
-        _enemyLayer = Physics2D.GetLayerCollisionMask(8);
+        _enemyLayer = Physics2D.GetLayerCollisionMask(8); // layer DetectEnemies
     }
 
     public void Noise()

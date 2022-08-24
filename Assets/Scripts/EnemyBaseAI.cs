@@ -37,16 +37,10 @@ public class EnemyBaseAI : EnemyTools
             {
                 _path = null;
 
-                _transform.rotation = GetNewRotation(selfPosition: _transform.position,
-                                                    targetPosition: _target.position);
-                GameObject[] forwardObject = GetForwardObject(_transform.position, _transform.rotation);
-                foreach(GameObject @object in forwardObject)
+                // it IS needed BECAUSE it prevents enemy stopping
+                if (_seePlayer)
                 {
-                    if (@object.CompareTag("Player"))
-                    {
-                        Block();
-                        Attack(_target);
-                    }
+                    CheckForAttack();
                 }
                 return;
             }
@@ -67,6 +61,21 @@ public class EnemyBaseAI : EnemyTools
         else
         {
             StopGoAnimation();
+        }
+    }
+
+    private void CheckForAttack()
+    {
+        _transform.rotation = GetNewRotation(selfPosition: _transform.position,
+                                            targetPosition: _target.position);
+        GameObject[] forwardObject = GetForwardObject(_transform.position, _transform.rotation);
+        foreach (GameObject @object in forwardObject)
+        {
+            if (@object.CompareTag("Player"))
+            {
+                Block();
+                Attack(_target);
+            }
         }
     }
 
@@ -116,17 +125,7 @@ public class EnemyBaseAI : EnemyTools
             if (_notBlocked
                 && distanceToTarget < AttackDistance)
             {
-                _transform.rotation = GetNewRotation(selfPosition: _transform.position,
-                                                    targetPosition: _target.position);
-                GameObject[] forwardObject = GetForwardObject(_transform.position, _transform.rotation);
-                foreach (GameObject @object in forwardObject)
-                {
-                    if (@object.CompareTag("Player"))
-                    {
-                        Block();
-                        Attack(_target);
-                    }
-                }
+                CheckForAttack();
             }
             yield return new WaitForSeconds(_frequencyOfPathFinding);
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
@@ -147,6 +146,7 @@ public class EnemyBaseAI : EnemyTools
             yield return new WaitForSeconds(0.5f);
             distanceToTarget = Vector2.Distance(_transform.position, trackEndPoint);
         }
+
         StopCoroutine(nameof(GoBack));
         StartCoroutine(nameof(GoBack));
     }
@@ -183,5 +183,11 @@ public class EnemyBaseAI : EnemyTools
         BuildPath(selfPosition: _transform.position,
                     targetPosition: target,
                     callbackFunction: PathCompleted);
+    }
+
+    // only for tests
+    public void SetWaitTime(float newWaitTime)
+    {
+        _waitTime = newWaitTime;
     }
 }
