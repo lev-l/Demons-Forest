@@ -5,12 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerAnimations), typeof(StepsSound))]
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private KeyCode _dodgeKey;
     [SerializeField] private float _speed, _stealthSpeedCut;
     [SerializeField] private Space _moveSpace;
     private bool _coroutineOngoing;
     private bool _stealthMode;
     private Transform _transform;
     private StepsSound _stepsSound;
+    private Dodge _dodge;
     private PlayerAnimations _animations;
     private PlayerObject _player;
 
@@ -21,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
         _stealthMode = false;
         _transform = GetComponent<Transform>();
         _stepsSound = GetComponent<StepsSound>();
+        _dodge = GetComponent<Dodge>();
         _animations = GetComponent<PlayerAnimations>();
     }
 
@@ -41,6 +44,12 @@ public class PlayerMovement : MonoBehaviour
         {
             _coroutineOngoing = false;
             StopAllCoroutines();
+        }
+
+        if (Input.GetKeyDown(_dodgeKey))
+        {
+            _dodge.DoDodge(move);
+            _stepsSound.Noise();
         }
 
         _transform.Translate(move, _moveSpace);
