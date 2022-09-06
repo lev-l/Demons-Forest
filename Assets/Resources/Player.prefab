@@ -611,6 +611,7 @@ GameObject:
   - component: {fileID: 5966217247445363363}
   - component: {fileID: 8930830001346951636}
   - component: {fileID: 1017934222977551054}
+  - component: {fileID: 3550728899973754605}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -694,6 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197bbe0d9422361438f825aca5041998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dodgeKey: 32
   _speed: 5
   _stealthSpeedCut: 3
   _moveSpace: 0
@@ -794,6 +796,20 @@ MonoBehaviour:
   KeyForHealBottles: 49
   KeyForThrowingKnifes: 324
   KeyForStaticTorches: 51
+--- !u!114 &3550728899973754605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3793162835531498881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 629f1f20ebd45b94ca59689eca6344c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _strength: 2
+  _speed: 0.3
 --- !u!1 &4646220888749684609
 GameObject:
   m_ObjectHideFlags: 0
