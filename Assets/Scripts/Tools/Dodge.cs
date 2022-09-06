@@ -29,13 +29,19 @@ public class Dodge : MonoBehaviour
     {
         _collider.Cast(direction, _filter, _results, _strength);
 
+        float minDistance = _strength;
         foreach (RaycastHit2D hit in _results)
         {
-            StopCoroutine(nameof(Dodging));
-            StartCoroutine(Dodging(direction.normalized * hit.distance));
+            if(hit.distance < minDistance)
+            {
+                minDistance = hit.distance;
+            }
         }
 
-        if(_results.Count == 0)
+        StopCoroutine(nameof(Dodging));
+        StartCoroutine(Dodging(direction.normalized * minDistance));
+
+        if (_results.Count == 0)
         {
             StopCoroutine(nameof(Dodging));
             StartCoroutine(Dodging(direction.normalized * _strength));
@@ -51,11 +57,8 @@ public class Dodge : MonoBehaviour
 
         while(distance > 0.2f)
         {
-            print("distance:" + distance);
-            print("position:" + _transform.position);
-            print("destination:" + dodgeDestination);
             _transform.position
-                += Vector3.Lerp(_transform.position, dodgeDestination, _speed);
+                = Vector3.Lerp(_transform.position, dodgeDestination, _speed);
 
             distance = Vector3.Distance(_transform.position, dodgeDestination);
             yield return new WaitForFixedUpdate();

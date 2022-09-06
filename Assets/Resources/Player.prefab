@@ -809,7 +809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _strength: 2
-  _speed: 0.71
+  _speed: 0.3
 --- !u!1 &4646220888749684609
 GameObject:
   m_ObjectHideFlags: 0
