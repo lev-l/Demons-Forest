@@ -7,6 +7,7 @@ public class Dodge : MonoBehaviour
     [SerializeField] private float _strength;
     [SerializeField, Range(0.1f, 1)] private float _speed;
     private Transform _transform;
+    private Movement _movement;
     private Collider2D _collider;
     private List<RaycastHit2D> _results;
     private ContactFilter2D _filter;
@@ -14,6 +15,7 @@ public class Dodge : MonoBehaviour
     private void Start()
     {
         _transform = GetComponent<Transform>();
+        _movement = GetComponent<Movement>();
         _collider = GetComponent<Collider2D>();
         _results = new List<RaycastHit2D>();
         _filter = new ContactFilter2D();
@@ -42,18 +44,23 @@ public class Dodge : MonoBehaviour
 
     private IEnumerator Dodging(Vector3 dodgeDestination)
     {
+        _movement.Block();
+
+        dodgeDestination = dodgeDestination += _transform.position;
         float distance = Vector3.Distance(_transform.position, dodgeDestination);
 
         while(distance > 0.2f)
         {
-            print(distance);
-            print(Vector3.Lerp(_transform.position, dodgeDestination, _speed));
-            print(Time.deltaTime);
+            print("distance:" + distance);
+            print("position:" + _transform.position);
+            print("destination:" + dodgeDestination);
             _transform.position
-                += Vector3.Lerp(_transform.position, dodgeDestination, _speed) * Time.deltaTime;
+                += Vector3.Lerp(_transform.position, dodgeDestination, _speed);
 
             distance = Vector3.Distance(_transform.position, dodgeDestination);
             yield return new WaitForFixedUpdate();
         }
+
+        _movement.Unblock();
     }
 }

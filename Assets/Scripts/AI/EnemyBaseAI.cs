@@ -17,7 +17,6 @@ public class EnemyBaseAI : EnemyTools
     private Vector2 _startPosition;
     private int _currentWaypoint = 0;
     private Path _path;
-    private bool _notBlocked = true;
     private bool _seePlayer = false;
 
     private void Start()
@@ -159,17 +158,10 @@ public class EnemyBaseAI : EnemyTools
                     callbackFunction: PathCompleted);
     }
 
-    public void Block()
+    public override void Block()
     {
-        _notBlocked = false;
-        StopCoroutine(nameof(Unblock));
-        StartCoroutine(nameof(Unblock));
-    }
-
-    private IEnumerator Unblock()
-    {
-        yield return new WaitForSeconds(_frequencyOfPathFinding);
-        _notBlocked = true;
+        base.Block();
+        Unblock();
     }
 
     public override void Discard(Vector2 direction)
@@ -183,6 +175,18 @@ public class EnemyBaseAI : EnemyTools
         BuildPath(selfPosition: _transform.position,
                     targetPosition: target,
                     callbackFunction: PathCompleted);
+    }
+
+    public override void Unblock()
+    {
+        StopCoroutine(nameof(WaitForUnblock));
+        StartCoroutine(WaitForUnblock());
+    }
+
+    private IEnumerator WaitForUnblock()
+    {
+        yield return new WaitForSeconds(_frequencyOfPathFinding);
+        _notBlocked = true;
     }
 
     // only for tests

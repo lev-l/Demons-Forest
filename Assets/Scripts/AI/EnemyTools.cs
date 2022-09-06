@@ -5,7 +5,7 @@ using Pathfinding;
 
 [RequireComponent(typeof(Seeker), typeof(EnemyAnimations), typeof(RotateToTarget)),
     RequireComponent(typeof(EnemyAttack), typeof(Discarding), typeof(Health))]
-public class EnemyTools : MonoBehaviour
+public class EnemyTools : Movement
 {
     private Seeker _seeker;
     private EnemyAnimations _animations;
