@@ -38,10 +38,12 @@ public class Dodge : MonoBehaviour
             }
         }
 
-        StopCoroutine(nameof(Dodging));
-        StartCoroutine(Dodging(direction.normalized * minDistance));
-
-        if (_results.Count == 0)
+        if(_results.Count > 0)
+        {
+            StopCoroutine(nameof(Dodging));
+            StartCoroutine(Dodging(direction.normalized * minDistance));
+        }
+        else
         {
             StopCoroutine(nameof(Dodging));
             StartCoroutine(Dodging(direction.normalized * _strength));
