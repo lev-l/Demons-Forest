@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public int AttackButton;
-    public AnimationClip AttackAnimation;
     [SerializeField] private int _damage;
     [SerializeField] private float _attackSquareDistance;
     [SerializeField] private float _attackSquareAngle;
+    private bool _attackPrepared;
     private int _filterLayerMask;
     private PlayerAnimations _animations;
     private Trigonometric _trigonometric;
@@ -32,10 +32,13 @@ public class PlayerAttack : MonoBehaviour
         {
             _animations.PrepareAttackAnimation();
         }
-        if (Input.GetMouseButtonUp(AttackButton))
+        if (_attackPrepared
+            && !Input.GetMouseButton(AttackButton))
         {
             _animations.PlayAttackAnimation();
             Damage();
+
+            _attackPrepared = false;
         }
     }
 
@@ -70,5 +73,10 @@ public class PlayerAttack : MonoBehaviour
         _trigonometric.RayPaint(_transform.position, direction * _attackSquareDistance);
 
         return hits;
+    }
+
+    public void AttackPrepared()
+    {
+        _attackPrepared = true;
     }
 }
