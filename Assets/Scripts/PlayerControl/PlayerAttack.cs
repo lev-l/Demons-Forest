@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public int AttackButton;
-    public AnimationClip AttackAnimation;
     [SerializeField] private int _damage;
     [SerializeField] private float _attackSquareDistance;
     [SerializeField] private float _attackSquareAngle;
+    private bool _attackPrepared;
     private int _filterLayerMask;
     private PlayerAnimations _animations;
     private Trigonometric _trigonometric;
@@ -32,33 +32,42 @@ public class PlayerAttack : MonoBehaviour
         {
             _animations.PrepareAttackAnimation();
         }
-        if (Input.GetMouseButtonUp(AttackButton))
+        if (_attackPrepared
+            && !Input.GetMouseButton(AttackButton))
         {
             _animations.PlayAttackAnimation();
-            Damage();
+            StopCoroutine(nameof(Damaging));
+            StartCoroutine(Damaging());
+
+            _attackPrepared = false;
         }
     }
 
-    private void Damage()
+    private IEnumerator Damaging()
     {
         float central = Mathf.Round(_transform.eulerAngles.z);
         List<EnemyBaseAI> damaged = new List<EnemyBaseAI>();
 
-        for(int modifier = -1; modifier <= 1; modifier++)
+        for (int n = 0; n < 3; n++)
         {
-            RaycastHit2D[] hits = GetRayHits(central + (_attackSquareAngle * modifier));
-            foreach(RaycastHit2D hit in hits)
+            ///dealing damage
+            for (int modifier = -1; modifier <= 1; modifier++)
             {
-                EnemyBaseAI enemy = hit.collider.GetComponent<EnemyBaseAI>();
-                if (enemy
-                    && !damaged.Contains(enemy))
+                RaycastHit2D[] hits = GetRayHits(central + (_attackSquareAngle * modifier));
+                foreach (RaycastHit2D hit in hits)
                 {
-                    enemy.TakeDamage(_player.StealthMode && _player.NumberEnemiesSeeYou == 0 ?
-                                                    _damage * 5 : _damage);
-                    enemy.Discard(_trigonometric.CreateRayEnd(distance: 1, central + 90));
-                    damaged.Add(enemy);
+                    EnemyBaseAI enemy = hit.collider.GetComponent<EnemyBaseAI>();
+                    if (enemy
+                        && !damaged.Contains(enemy))
+                    {
+                        enemy.TakeDamage(_player.StealthMode && _player.NumberEnemiesSeeYou == 0 ?
+                                                        _damage * 5 : _damage);
+                        enemy.Discard(_trigonometric.CreateRayEnd(distance: 0.8f, central + 90));
+                        damaged.Add(enemy);
+                    }
                 }
             }
+            yield return new WaitForFixedUpdate();
         }
     }
 
@@ -70,5 +79,10 @@ public class PlayerAttack : MonoBehaviour
         _trigonometric.RayPaint(_transform.position, direction * _attackSquareDistance);
 
         return hits;
+    }
+
+    public void AttackPrepared()
+    {
+        _attackPrepared = true;
     }
 }

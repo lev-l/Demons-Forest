@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAnimations : MonoBehaviour
 {
     private Animator _animator;
+    private bool _attackPrepared;
 
     private void Start()
     {
@@ -18,11 +19,11 @@ public class PlayerAnimations : MonoBehaviour
 
     public void PrepareAttackAnimation()
     {
-        _animator.Play("PlayerPrepareAtack");
+        _animator.SetTrigger("Prepare");
     }
 
     public void PlayAttackAnimation()
     {
-        _animator.Play("PlayerAtack");
+        _animator.SetTrigger("Attack");
     }
 }
