@@ -6,18 +6,18 @@ using UnityEngine;
 public class Stealth : MonoBehaviour
 {
     [SerializeField] private KeyCode _stealthKey;
-    private PlayerMovement _movement;
+    private PlayerObject _player;
 
     private void Start()
     {
-        _movement = GetComponent<PlayerMovement>();
+        _player = Resources.Load<PlayerObject>("Player");
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(_stealthKey))
         {
-            _movement.ChangeStealthMod();
+            _player.ChangeStealthMod();
         }
     }
 }

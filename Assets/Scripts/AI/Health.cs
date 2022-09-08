@@ -1,10 +1,11 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Discarding))]
 public class Health : MonoBehaviour
 {
+    public event Action<GameObject> OnDeath;
     [SerializeField] protected int _maxHealth;
     protected int _currentHealth;
     private PunchSound _hurtedSound;
@@ -25,6 +26,7 @@ public class Health : MonoBehaviour
         _currentHealth -= damage;
         if(_currentHealth <= 0)
         {
+            OnDeath?.Invoke(gameObject);
             Destroy(gameObject);
         }
 

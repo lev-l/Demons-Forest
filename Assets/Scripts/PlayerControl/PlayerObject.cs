@@ -16,6 +16,9 @@ public class PlayerObject : ScriptableObject
         {
             _enemiesSeeYou.Add(enemy);
             NumberEnemiesSeeYou++;
+            enemy.GetComponent<Health>().OnDeath += DeleteEnemy;
+
+            StealthMode = false;
         }
     }
 
@@ -25,5 +28,18 @@ public class PlayerObject : ScriptableObject
             && _enemiesSeeYou.Count > 0)
         _enemiesSeeYou.Remove(enemy);
         NumberEnemiesSeeYou--;
+    }
+
+    public void ChangeStealthMod()
+    {
+        Debug.Log("N");
+        if(NumberEnemiesSeeYou == 0)
+        {
+            StealthMode = !StealthMode;
+        }
+        else
+        {
+            StealthMode = false;
+        }
     }
 }

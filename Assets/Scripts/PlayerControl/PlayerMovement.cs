@@ -9,7 +9,6 @@ public class PlayerMovement : Movement
     [SerializeField] private float _speed, _stealthSpeedCut;
     [SerializeField] private Space _moveSpace;
     private bool _coroutineOngoing;
-    private bool _stealthMode;
     private Transform _transform;
     private StepsSound _stepsSound;
     private Dodge _dodge;
@@ -21,7 +20,6 @@ public class PlayerMovement : Movement
         _player = Resources.Load<PlayerObject>("Player");
         _coroutineOngoing = false;
         _notBlocked = true;
-        _stealthMode = false;
         _transform = GetComponent<Transform>();
         _stepsSound = GetComponent<StepsSound>();
         _dodge = GetComponent<Dodge>();
@@ -55,7 +53,8 @@ public class PlayerMovement : Movement
                 _stepsSound.Noise();
             }
 
-            _transform.Translate(move, _moveSpace);
+            _transform.Translate(_player.StealthMode ? move / _stealthSpeedCut : move,
+                                                                            _moveSpace);
         }
     }
 
@@ -63,7 +62,7 @@ public class PlayerMovement : Movement
     {
         while (true)
         {
-            if (!_stealthMode)
+            if (!_player.StealthMode)
             {
                 _stepsSound.Noise();
             }
@@ -71,17 +70,4 @@ public class PlayerMovement : Movement
         }
     }
 
-    public void ChangeStealthMod()
-    {
-        _stealthMode = !_stealthMode;
-        if (_stealthMode)
-        {
-            _speed /= _stealthSpeedCut;
-        }
-        else
-        {
-            _speed *= _stealthSpeedCut;
-        }
-        _player.StealthMode = _stealthMode;
-    }
 }
