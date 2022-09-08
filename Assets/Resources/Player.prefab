@@ -740,7 +740,7 @@ MonoBehaviour:
   AttackButton: 0
   _damage: 5
   _attackSquareDistance: 1.2
-  _attackSquareAngle: 15
+  _attackSquareAngle: 30
 --- !u!114 &2068638780699516982
 MonoBehaviour:
   m_ObjectHideFlags: 0
