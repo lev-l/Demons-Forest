@@ -48,7 +48,7 @@ public class PlayerAttack : MonoBehaviour
         float central = Mathf.Round(_transform.eulerAngles.z);
         List<EnemyBaseAI> damaged = new List<EnemyBaseAI>();
 
-        for (int n = 0; n < 3; n++)
+        for (int n = 0; n < 4; n++)
         {
             ///dealing damage
             for (int modifier = -1; modifier <= 1; modifier++)
@@ -67,7 +67,7 @@ public class PlayerAttack : MonoBehaviour
                     }
                 }
             }
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
