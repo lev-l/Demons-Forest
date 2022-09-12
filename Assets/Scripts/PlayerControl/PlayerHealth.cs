@@ -9,9 +9,12 @@ public class PlayerHealth : Health
     protected override void Start()
     {
         base.Start();
+
         _player = Resources.Load<PlayerObject>("Player");
         _player.Health = _maxHealth;
         _presenter = FindObjectOfType<PlayerHealthPresenter>();
+        
+        OnDeath += _player.Death;
     }
 
     public override void Hurt(int damage)

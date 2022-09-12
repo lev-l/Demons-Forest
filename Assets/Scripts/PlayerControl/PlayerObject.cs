@@ -24,15 +24,17 @@ public class PlayerObject : ScriptableObject
 
     public void DeleteEnemy(GameObject enemy)
     {
-        if(NumberEnemiesSeeYou > 0
-            && _enemiesSeeYou.Count > 0)
-        _enemiesSeeYou.Remove(enemy);
-        NumberEnemiesSeeYou--;
+        if (NumberEnemiesSeeYou > 0
+            && _enemiesSeeYou.Contains(enemy))
+        {
+            _enemiesSeeYou.Remove(enemy);
+            NumberEnemiesSeeYou--;
+            enemy.GetComponent<Health>().OnDeath -= DeleteEnemy;
+        }
     }
 
     public void ChangeStealthMod()
     {
-        Debug.Log("N");
         if(NumberEnemiesSeeYou == 0)
         {
             StealthMode = !StealthMode;
@@ -41,5 +43,12 @@ public class PlayerObject : ScriptableObject
         {
             StealthMode = false;
         }
+    }
+
+    public void Death(GameObject player)
+    {
+        NumberEnemiesSeeYou = 0;
+        StealthMode = false;
+        _enemiesSeeYou.Clear();
     }
 }
