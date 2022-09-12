@@ -19,12 +19,14 @@ public class Health : MonoBehaviour
     {
         _currentHealth = _maxHealth;
         _hurtedSound = FindObjectOfType<PunchSound>();
+
+        OnDeath += Hello;
     }
 
     public virtual void Hurt(int damage)
     {
         _currentHealth -= damage;
-        if(_currentHealth <= 0)
+        if (_currentHealth <= 0)
         {
             OnDeath?.Invoke(gameObject);
             Destroy(gameObject);
@@ -36,9 +38,14 @@ public class Health : MonoBehaviour
     public virtual void Heal(int restorePoints)
     {
         _currentHealth += restorePoints;
-        if(_currentHealth > _maxHealth)
+        if (_currentHealth > _maxHealth)
         {
             _currentHealth = _maxHealth;
         }
+    }
+
+    private void Hello(GameObject ga)
+    {
+        print("Hello dead " + ga.name + "?");
     }
 }
