@@ -31,8 +31,10 @@ public class PlayerMovement : Movement
         if (_notBlocked)
         {
             Vector3 move = new Vector3();
-            move.y = Input.GetAxis("Vertical") * _speed * Time.deltaTime;
-            move.x = Input.GetAxis("Horizontal") * _speed * Time.deltaTime;
+            move.y = Input.GetAxis("Vertical");
+            move.x = Input.GetAxis("Horizontal");
+            move = move.normalized * _speed * Time.deltaTime;
+
             _animations.ChangeRunState(move);
 
             if (!_coroutineOngoing
