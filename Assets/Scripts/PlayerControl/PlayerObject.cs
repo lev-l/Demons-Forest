@@ -6,9 +6,20 @@ using UnityEngine;
 public class PlayerObject : ScriptableObject
 {
     public int NumberEnemiesSeeYou { get; private set; }
-    public float Health;
-    public bool StealthMode;
+    public int Health;
+    [SerializeField] private int _energyMax;
+    private int _energy;
+    private bool _stealthMode;
     private List<GameObject> _enemiesSeeYou = new List<GameObject>();
+
+    public int Energy => _energy;
+    public bool StealthMode => _stealthMode;
+
+    private void OnEnable()
+    {
+        Debug.Log("Done");
+        _energy = _energyMax;
+    }
 
     public void AddEnemy(GameObject enemy)
     {
@@ -18,7 +29,7 @@ public class PlayerObject : ScriptableObject
             NumberEnemiesSeeYou++;
             enemy.GetComponent<Health>().OnDeath += DeleteEnemy;
 
-            StealthMode = false;
+            _stealthMode = false;
         }
     }
 
@@ -37,18 +48,40 @@ public class PlayerObject : ScriptableObject
     {
         if(NumberEnemiesSeeYou == 0)
         {
-            StealthMode = !StealthMode;
+            _stealthMode = !StealthMode;
         }
         else
         {
-            StealthMode = false;
+            _stealthMode = false;
+        }
+    }
+
+    // returns if the energy level reached zero
+    public bool ConsumeEnergy(int amount)
+    {
+        if((_energy -= amount) < 0)
+        {
+            _energy = 0;
+            return true;
+        }
+
+        return false;
+    }
+
+    public void AddEnergy(int amount)
+    {
+        if((_energy += amount) > _energyMax)
+        {
+            _energy = _energyMax;
         }
     }
 
     public void Death(GameObject player)
     {
         NumberEnemiesSeeYou = 0;
-        StealthMode = false;
+        _stealthMode = false;
+        Health = 100;
+        _energy = _energyMax;
         _enemiesSeeYou.Clear();
     }
 }

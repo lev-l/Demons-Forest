@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   Health: 100
-  StealthMode: 0
+  _energyMax: 0
