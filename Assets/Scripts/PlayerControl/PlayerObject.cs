@@ -17,7 +17,6 @@ public class PlayerObject : ScriptableObject
 
     private void OnEnable()
     {
-        Debug.Log("Done");
         _energy = _energyMax;
     }
 
@@ -59,7 +58,7 @@ public class PlayerObject : ScriptableObject
     // returns if the energy level reached zero
     public bool ConsumeEnergy(int amount)
     {
-        if((_energy -= amount) < 0)
+        if((_energy -= amount) <= 0)
         {
             _energy = 0;
             return true;
@@ -68,12 +67,16 @@ public class PlayerObject : ScriptableObject
         return false;
     }
 
-    public void AddEnergy(int amount)
+    // returns if the energy level reached maximum
+    public bool AddEnergy(int amount)
     {
-        if((_energy += amount) > _energyMax)
+        if((_energy += amount) >= _energyMax)
         {
             _energy = _energyMax;
+            return true;
         }
+
+        return false;
     }
 
     public void Death(GameObject player)

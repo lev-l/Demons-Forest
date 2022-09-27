@@ -2,20 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Movement), typeof(PlayerEnergy), typeof(Collider2D))]
 public class Dodge : MonoBehaviour
 {
     [SerializeField] private float _strength;
     [SerializeField, Range(0.1f, 1)] private float _speed;
+    [SerializeField] private int _energyCost;
+    private PlayerObject _player;
+    private PlayerEnergy _energyBuffer;
     private Transform _transform;
-    private Movement _movement;
+    private Movement _playerMovement;
     private Collider2D _collider;
     private List<RaycastHit2D> _results;
     private ContactFilter2D _filter;
 
     private void Start()
     {
+        _player = Resources.Load<PlayerObject>("Player");
+        _energyBuffer = GetComponent<PlayerEnergy>();
         _transform = GetComponent<Transform>();
-        _movement = GetComponent<Movement>();
+        _playerMovement = GetComponent<Movement>();
         _collider = GetComponent<Collider2D>();
         _results = new List<RaycastHit2D>();
         _filter = new ContactFilter2D();
@@ -27,32 +33,35 @@ public class Dodge : MonoBehaviour
 
     public void DoDodge(Vector3 direction)
     {
-        _collider.Cast(direction, _filter, _results, _strength);
-
-        float minDistance = _strength;
-        foreach (RaycastHit2D hit in _results)
+        if (_energyBuffer.UseEnergy(_energyCost))
         {
-            if(hit.distance < minDistance)
+            _collider.Cast(direction, _filter, _results, _strength);
+
+            float minDistance = _strength;
+            foreach (RaycastHit2D hit in _results)
             {
-                minDistance = hit.distance;
+                if (hit.distance < minDistance)
+                {
+                    minDistance = hit.distance;
+                }
             }
-        }
 
-        if(_results.Count > 0)
-        {
-            StopCoroutine(nameof(Dodging));
-            StartCoroutine(Dodging(direction.normalized * minDistance));
-        }
-        else
-        {
-            StopCoroutine(nameof(Dodging));
-            StartCoroutine(Dodging(direction.normalized * _strength));
+            if (_results.Count > 0)
+            {
+                StopCoroutine(nameof(Dodging));
+                StartCoroutine(Dodging(direction.normalized * minDistance));
+            }
+            else
+            {
+                StopCoroutine(nameof(Dodging));
+                StartCoroutine(Dodging(direction.normalized * _strength));
+            }
         }
     }
 
     private IEnumerator Dodging(Vector3 dodgeDestination)
     {
-        _movement.Block();
+        _playerMovement.Block();
 
         dodgeDestination = dodgeDestination += _transform.position;
         float distance = Vector3.Distance(_transform.position, dodgeDestination);
@@ -66,6 +75,6 @@ public class Dodge : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        _movement.Unblock();
+        _playerMovement.Unblock();
     }
 }
