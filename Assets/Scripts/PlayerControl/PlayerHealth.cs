@@ -11,7 +11,7 @@ public class PlayerHealth : Health
         base.Start();
 
         _player = Resources.Load<PlayerObject>("Player");
-        _maxHealth = _player.Health;
+        _player.Health = _maxHealth;
         _presenter = FindObjectOfType<PlayerHealthPresenter>();
         
         OnDeath += _player.Death;
