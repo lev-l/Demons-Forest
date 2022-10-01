@@ -31,8 +31,8 @@ public class PlayerMovement : Movement
         if (_notBlocked)
         {
             Vector3 move = new Vector3();
-            move.y = Input.GetAxis("Vertical");
             move.x = Input.GetAxis("Horizontal");
+            move.y = Input.GetAxis("Vertical");
             move = move.normalized * _speed * Time.deltaTime;
 
             _animations.ChangeRunState(move);
@@ -51,7 +51,8 @@ public class PlayerMovement : Movement
 
             if (Input.GetKeyDown(_dodgeKey))
             {
-                _dodge.DoDodge(move);
+                _dodge.DoDodge(new Vector3(Input.GetAxisRaw("Horizontal"),
+                                            Input.GetAxisRaw("Vertical")));
                 _stepsSound.Noise();
             }
 

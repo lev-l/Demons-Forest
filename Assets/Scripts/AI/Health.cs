@@ -19,8 +19,6 @@ public class Health : MonoBehaviour
     {
         _currentHealth = _maxHealth;
         _hurtedSound = FindObjectOfType<PunchSound>();
-
-        OnDeath += Hello;
     }
 
     public virtual void Hurt(int damage)
@@ -42,10 +40,5 @@ public class Health : MonoBehaviour
         {
             _currentHealth = _maxHealth;
         }
-    }
-
-    private void Hello(GameObject ga)
-    {
-        print("Hello dead " + ga.name + "?");
     }
 }
