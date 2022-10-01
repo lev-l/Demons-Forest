@@ -824,7 +824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _strength: 2
   _speed: 0.3
-  _energyCost: 10
+  _energyCost: 7
 --- !u!114 &6949933341267736798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,7 +839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _energyRegenerationRate: 5
   _regenerationCooldown: 5
-  _regenerationDelay: 2
+  _regenerationDelay: 1
 --- !u!1 &4646220888749684609
 GameObject:
   m_ObjectHideFlags: 0

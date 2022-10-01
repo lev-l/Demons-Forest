@@ -180,7 +180,7 @@ public class EnemyBaseAI : EnemyTools
     public override void Unblock()
     {
         StopCoroutine(nameof(WaitForUnblock));
-        StartCoroutine(WaitForUnblock());
+        StartCoroutine(nameof(WaitForUnblock));
     }
 
     private IEnumerator WaitForUnblock()

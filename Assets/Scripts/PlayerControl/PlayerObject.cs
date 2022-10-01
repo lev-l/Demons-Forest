@@ -12,6 +12,7 @@ public class PlayerObject : ScriptableObject
     private bool _stealthMode;
     private List<GameObject> _enemiesSeeYou = new List<GameObject>();
 
+    public int MaxEnergy => _energyMax;
     public int Energy => _energy;
     public bool StealthMode => _stealthMode;
 

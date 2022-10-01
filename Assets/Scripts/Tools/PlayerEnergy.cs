@@ -24,7 +24,7 @@ class PlayerEnergy : MonoBehaviour
         }
 
         bool exhaust = _player.ConsumeEnergy(amount);
-        _energyPresenter.UpdateView();
+        _energyPresenter.UpdateView(_player.Energy, _player.MaxEnergy);
 
         if (exhaust)
         {
@@ -40,17 +40,15 @@ class PlayerEnergy : MonoBehaviour
     {
         while (true)
         {
-            if (_player.AddEnergy(_energyRegenerationRate))
-            {
-                _energyPresenter.HideBar();
-            }
-            _energyPresenter.UpdateView();
+            _player.AddEnergy(_energyRegenerationRate);
+            _energyPresenter.UpdateView(_player.Energy, _player.MaxEnergy);
             yield return new WaitForSeconds(_regenerationDelay);
         }
     }
 
     private void StartRegenertaion()
     {
-        StartCoroutine(EnergyRegeneration());
+        _energyPresenter.ResumeRegeneration();
+        StartCoroutine(nameof(EnergyRegeneration));
     }
 }
