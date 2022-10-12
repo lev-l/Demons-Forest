@@ -21,7 +21,7 @@ public class EnemyBaseAI : EnemyTools
     private bool _seePlayer = false;
     #endregion
     #region Events
-    public event Action<GameObject> OnTargetDetected;
+    public event Action<Vector2> OnTargetDetected;
     #endregion
 
     private void Start()
@@ -89,7 +89,6 @@ public class EnemyBaseAI : EnemyTools
         _player.AddEnemy(gameObject);
         _target = target.GetComponent<Transform>();
         _currentWaypoint = 0;
-        OnTargetDetected?.Invoke(target);
 
         if (_notBlocked)
         {
@@ -100,6 +99,8 @@ public class EnemyBaseAI : EnemyTools
 
     public void TargetDetected(Vector2 target)
     {
+        OnTargetDetected?.Invoke(target);
+
         if (_notBlocked && !_seePlayer)
         {
             PathToTarget(target);

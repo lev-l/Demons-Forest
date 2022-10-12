@@ -5,20 +5,35 @@ using UnityEngine;
 public class GroupVision : MonoBehaviour
 {
     private List<EnemyBaseAI> _group;
+    private bool _open;
 
     public List<EnemyBaseAI> GetGroup => _group;
 
-    private void Start()
+    private void Awake()
     {
         _group = new List<EnemyBaseAI>();
         _group.AddRange(GetComponentsInChildren<EnemyBaseAI>());
+
+        _open = true;
     }
 
-    public void Notify(GameObject target)
+    public void Notify(Vector2 target)
     {
-        foreach(EnemyBaseAI member in _group)
+        if (_open)
         {
-            member.TargetDetected(target);
+            _open = false;
+            
+            foreach (EnemyBaseAI member in _group)
+            {
+                member.TargetDetected(target);
+            }
+
+            _open = true;
         }
+    }
+
+    public void DeleteMember(GameObject member)
+    {
+        _group.Remove(member.GetComponent<EnemyBaseAI>());
     }
 }

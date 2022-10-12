@@ -14,6 +14,7 @@ public class GroupForm : MonoBehaviour
         foreach(EnemyBaseAI memeber in _group)
         {
             memeber.OnTargetDetected += _vision.Notify;
+            memeber.GetComponent<Health>().OnDeath += _vision.DeleteMember;
         }
     }
 }
