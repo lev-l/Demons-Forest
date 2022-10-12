@@ -6,6 +6,8 @@ public class GroupVision : MonoBehaviour
 {
     private List<EnemyBaseAI> _group;
 
+    public List<EnemyBaseAI> GetGroup => _group;
+
     private void Start()
     {
         _group = new List<EnemyBaseAI>();

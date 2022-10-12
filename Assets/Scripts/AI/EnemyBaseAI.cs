@@ -6,6 +6,7 @@ using Pathfinding;
 
 public class EnemyBaseAI : EnemyTools
 {
+    #region Properties
     public float Speed;
     public float AttackDistance;
     [SerializeField] private float _frequencyOfPathFinding;
@@ -18,6 +19,10 @@ public class EnemyBaseAI : EnemyTools
     private int _currentWaypoint = 0;
     private Path _path;
     private bool _seePlayer = false;
+    #endregion
+    #region Events
+    public event Action<GameObject> OnTargetDetected;
+    #endregion
 
     private void Start()
     {
@@ -84,6 +89,8 @@ public class EnemyBaseAI : EnemyTools
         _player.AddEnemy(gameObject);
         _target = target.GetComponent<Transform>();
         _currentWaypoint = 0;
+        OnTargetDetected?.Invoke(target);
+
         if (_notBlocked)
         {
             StopCoroutine(nameof(BuildingPathWhileSee));
