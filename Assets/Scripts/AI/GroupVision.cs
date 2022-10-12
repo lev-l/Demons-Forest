@@ -17,7 +17,7 @@ public class GroupVision : MonoBehaviour
         _open = true;
     }
 
-    public void Notify(GameObject target)
+    public void Notify(Vector2 target)
     {
         if (_open)
         {
@@ -30,5 +30,10 @@ public class GroupVision : MonoBehaviour
 
             _open = true;
         }
+    }
+
+    public void DeleteMember(GameObject member)
+    {
+        _group.Remove(member.GetComponent<EnemyBaseAI>());
     }
 }
