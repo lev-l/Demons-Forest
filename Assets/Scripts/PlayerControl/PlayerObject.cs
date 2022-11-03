@@ -7,10 +7,11 @@ public class PlayerObject : ScriptableObject
 {
     public int NumberEnemiesSeeYou { get; private set; }
     public int Health;
+    public List<GameObject> _enemiesSeeYou { get; private set; }
     [SerializeField] private int _energyMax;
+    [SerializeField] private FightNoticeObject _fightEvent;
     private int _energy;
     private bool _stealthMode;
-    private List<GameObject> _enemiesSeeYou = new List<GameObject>();
 
     public int MaxEnergy => _energyMax;
     public int Energy => _energy;
@@ -19,6 +20,9 @@ public class PlayerObject : ScriptableObject
     private void OnEnable()
     {
         _energy = _energyMax;
+        _enemiesSeeYou = new List<GameObject>();
+
+        _fightEvent.OnFightBegan += ChangeStealthMode;
     }
 
     public void AddEnemy(GameObject enemy)
@@ -29,7 +33,10 @@ public class PlayerObject : ScriptableObject
             NumberEnemiesSeeYou++;
             enemy.GetComponent<Health>().OnDeath += DeleteEnemy;
 
-            _stealthMode = false;
+            if (NumberEnemiesSeeYou == 1)
+            {
+                _fightEvent.Notice();
+            }
         }
     }
 
@@ -44,7 +51,7 @@ public class PlayerObject : ScriptableObject
         }
     }
 
-    public void ChangeStealthMod()
+    public void ChangeStealthMode()
     {
         if(NumberEnemiesSeeYou == 0)
         {
