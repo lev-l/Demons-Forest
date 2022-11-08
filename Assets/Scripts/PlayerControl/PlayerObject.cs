@@ -21,6 +21,7 @@ public class PlayerObject : ScriptableObject
     {
         _energy = _energyMax;
         _enemiesSeeYou = new List<GameObject>();
+        _fightEvent = Resources.Load<FightNoticeObject>("FightEvent");
 
         _fightEvent.OnFightBegan += ChangeStealthMode;
     }
