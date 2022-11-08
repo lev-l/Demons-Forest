@@ -9,7 +9,7 @@ public class PlayerEnergyPresenter : MonoBehaviour
     private float _maxHeight;
     private Color _originalColor;
 
-    private void Start()
+    private void Awake()
     {
         _maxHeight = 0;
         _minHeight = -Screen.height;
