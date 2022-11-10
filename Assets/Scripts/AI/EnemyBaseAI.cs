@@ -6,6 +6,7 @@ using Pathfinding;
 
 public class EnemyBaseAI : EnemyTools
 {
+    #region Properties
     public float Speed;
     public float AttackDistance;
     [SerializeField] private float _frequencyOfPathFinding;
@@ -13,15 +14,21 @@ public class EnemyBaseAI : EnemyTools
     [SerializeField] private float _peekNextWaypointDistance = 2f;
     private Transform _transform;
     private Transform _target;
+    private GroupAttacking _group;
     private PlayerObject _player;
     private Vector2 _startPosition;
     private int _currentWaypoint = 0;
     private Path _path;
     private bool _seePlayer = false;
+    #endregion
+    #region Events
+    public event Action<Vector2> OnTargetDetected;
+    #endregion
 
     private void Start()
     {
         _player = Resources.Load<PlayerObject>("Player");
+        _group = FindObjectOfType<GroupAttacking>();
         
         _transform = GetComponent<Transform>();
         _startPosition = _transform.position;
@@ -84,6 +91,7 @@ public class EnemyBaseAI : EnemyTools
         _player.AddEnemy(gameObject);
         _target = target.GetComponent<Transform>();
         _currentWaypoint = 0;
+
         if (_notBlocked)
         {
             StopCoroutine(nameof(BuildingPathWhileSee));
@@ -93,6 +101,8 @@ public class EnemyBaseAI : EnemyTools
 
     public void TargetDetected(Vector2 target)
     {
+        OnTargetDetected?.Invoke(target);
+
         if (_notBlocked && !_seePlayer)
         {
             PathToTarget(target);
@@ -117,8 +127,12 @@ public class EnemyBaseAI : EnemyTools
 
         while (distanceToTarget < 7)
         {
+            Vector2 destination = _group.GetDestination(_player._enemiesSeeYou.IndexOf(gameObject),
+                                                        _target,
+                                                        AttackDistance);
+
             BuildPath(selfPosition: _transform.position,
-                        targetPosition: _target.position,
+                        targetPosition: destination,
                         callbackFunction: PathCompleted);
 
             if (_notBlocked

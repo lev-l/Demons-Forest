@@ -9,13 +9,11 @@ public class Observing : MonoBehaviour
     public uint ViewAngle;
     public event Action<GameObject> SeePlayer;
     private Transform _transform;
-    private Trigonometric _trigonometric;
     private bool _notSeeingPlayer;
     private int _layer;
 
     private void Start()
     {
-        _trigonometric = new Trigonometric();
         _transform = GetComponent<Transform>();
         _notSeeingPlayer = true;
         _layer = Physics2D.GetLayerCollisionMask(gameObject.layer);
@@ -51,7 +49,7 @@ public class Observing : MonoBehaviour
 
     private Collider2D[] CheckRay(float angle)
     {
-        Vector3 rayEnd = _trigonometric.CreateRayEnd(distance: ViewDistance,
+        Vector3 rayEnd = Trigonometric.CreateRayEnd(distance: ViewDistance,
                                                     angleDegrees: angle);
 
         RaycastHit2D centralRayHit = Physics2D.Raycast(origin: _transform.position,
@@ -63,7 +61,7 @@ public class Observing : MonoBehaviour
             return new Collider2D[] { centralRayHit.collider };
         }
 
-        _trigonometric.RayPaint(_transform.position, rayEnd);
+        Trigonometric.RayPaint(_transform.position, rayEnd);
         return new Collider2D[] { };
     }
 }

@@ -17,7 +17,7 @@ public class Stealth : MonoBehaviour
     {
         if (Input.GetKeyDown(_stealthKey))
         {
-            _player.ChangeStealthMod();
+            _player.ChangeStealthMode();
         }
     }
 }

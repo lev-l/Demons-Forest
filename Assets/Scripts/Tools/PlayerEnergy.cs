@@ -14,6 +14,8 @@ class PlayerEnergy : MonoBehaviour
     {
         _player = Resources.Load<PlayerObject>("Player");
         _energyPresenter = FindObjectOfType<PlayerEnergyPresenter>();
+
+        StartRegenertaion();
     }
 
     public bool UseEnergy(int amount)

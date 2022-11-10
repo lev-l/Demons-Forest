@@ -12,7 +12,6 @@ public class EnemyTools : Movement
     private RotateToTarget _rotating;
     private EnemyAttack _attacking;
     private Discarding _discarding;
-    private Trigonometric _raycastSystem;
     private Health _health;
     private ContactFilter2D _filter;
 
@@ -23,7 +22,6 @@ public class EnemyTools : Movement
         _rotating = GetComponent<RotateToTarget>();
         _attacking = GetComponent<EnemyAttack>();
         _discarding = GetComponent<Discarding>();
-        _raycastSystem = new Trigonometric();
         _health = GetComponent<Health>();
 
         _filter = new ContactFilter2D();
@@ -70,7 +68,7 @@ public class EnemyTools : Movement
 
     protected GameObject[] GetForwardObject(Vector2 selfPosition, Quaternion selfRotation)
     {
-        Vector2 rayEnd = _raycastSystem.CreateRayEnd(5, selfRotation.eulerAngles.z);
+        Vector2 rayEnd = Trigonometric.CreateRayEnd(5, selfRotation.eulerAngles.z);
         RaycastHit2D hit = Physics2D.Raycast(selfPosition, rayEnd, 5, _filter.layerMask);
         if (hit)
         {

@@ -11,7 +11,6 @@ public class PlayerAttack : MonoBehaviour
     private bool _attackPrepared;
     private int _filterLayerMask;
     private PlayerAnimations _animations;
-    private Trigonometric _trigonometric;
     private Transform _transform;
     private PlayerObject _player;
 
@@ -20,7 +19,6 @@ public class PlayerAttack : MonoBehaviour
         _player = Resources.Load<PlayerObject>("Player");
 
         _animations = GetComponent<PlayerAnimations>();
-        _trigonometric = new Trigonometric();
         _transform = GetComponent<Transform>();
 
         _filterLayerMask = Physics2D.GetLayerCollisionMask(gameObject.layer);
@@ -62,7 +60,7 @@ public class PlayerAttack : MonoBehaviour
                     {
                         enemy.TakeDamage(_player.StealthMode && _player.NumberEnemiesSeeYou == 0 ?
                                                         _damage * 5 : _damage);
-                        enemy.Discard(_trigonometric.CreateRayEnd(distance: 0.8f, central + 90));
+                        enemy.Discard(Trigonometric.CreateRayEnd(distance: 0.8f, central + 90));
                         damaged.Add(enemy);
                     }
                 }
@@ -73,10 +71,10 @@ public class PlayerAttack : MonoBehaviour
 
     private RaycastHit2D[] GetRayHits(float angle)
     {
-        Vector2 direction = _trigonometric.CreateRayEnd(_attackSquareDistance, angle + 90);
+        Vector2 direction = Trigonometric.CreateRayEnd(_attackSquareDistance, angle + 90);
         RaycastHit2D[] hits = Physics2D.RaycastAll(_transform.position, direction,
                                                     _attackSquareDistance, _filterLayerMask);
-        _trigonometric.RayPaint(_transform.position, direction * _attackSquareDistance);
+        Trigonometric.RayPaint(_transform.position, direction * _attackSquareDistance);
 
         return hits;
     }
