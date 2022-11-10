@@ -38,6 +38,12 @@ class PlayerEnergy : MonoBehaviour
         return true;
     }
 
+    public void ReturnEnergy(int amount)
+    {
+        _player.AddEnergy(amount);
+        _energyPresenter.UpdateView(_player.Energy, _player.MaxEnergy);
+    }
+
     private IEnumerator EnergyRegeneration()
     {
         while (true)

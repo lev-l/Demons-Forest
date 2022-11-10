@@ -45,17 +45,13 @@ public class Dodge : MonoBehaviour
                     minDistance = hit.distance;
                 }
             }
+            if(minDistance <= 0.3f)
+            {
+                _energyBuffer.ReturnEnergy(_energyCost);
+            }
 
-            if (_results.Count > 0)
-            {
-                StopCoroutine(nameof(Dodging));
-                StartCoroutine(Dodging(direction.normalized * minDistance));
-            }
-            else
-            {
-                StopCoroutine(nameof(Dodging));
-                StartCoroutine(Dodging(direction.normalized * _strength));
-            }
+            StopCoroutine(nameof(Dodging));
+            StartCoroutine(Dodging(direction.normalized * minDistance));
         }
     }
 
@@ -64,12 +60,20 @@ public class Dodge : MonoBehaviour
         _playerMovement.Block();
 
         dodgeDestination = dodgeDestination += _transform.position;
+        Vector3 startPoint = _transform.position;
         float distance = Vector3.Distance(_transform.position, dodgeDestination);
+        float index = 0;
 
-        while(distance > 0.2f)
+        while(distance > 0.1f)
         {
+            index += _speed;
+            if(index > 1)
+            {
+                index = 1;
+            }
+
             _transform.position
-                = Vector3.Lerp(_transform.position, dodgeDestination, _speed);
+                = Vector3.Lerp(startPoint, dodgeDestination, index);
 
             distance = Vector3.Distance(_transform.position, dodgeDestination);
             yield return new WaitForFixedUpdate();
