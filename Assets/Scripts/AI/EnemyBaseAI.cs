@@ -28,6 +28,7 @@ public class EnemyBaseAI : EnemyTools
     private void Start()
     {
         _player = Resources.Load<PlayerObject>("Player");
+        _group = FindObjectOfType<GroupAttacking>();
         
         _transform = GetComponent<Transform>();
         _startPosition = _transform.position;
@@ -126,12 +127,12 @@ public class EnemyBaseAI : EnemyTools
 
         while (distanceToTarget < 7)
         {
-            _group.GetDestination(_player._enemiesSeeYou.IndexOf(gameObject),
-                                    _target,
-                                    AttackDistance);
+            Vector2 destination = _group.GetDestination(_player._enemiesSeeYou.IndexOf(gameObject),
+                                                        _target,
+                                                        AttackDistance);
 
             BuildPath(selfPosition: _transform.position,
-                        targetPosition: _target.position,
+                        targetPosition: destination,
                         callbackFunction: PathCompleted);
 
             if (_notBlocked

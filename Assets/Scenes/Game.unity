@@ -819,6 +819,7 @@ GameObject:
   - component: {fileID: 377577933}
   - component: {fileID: 377577936}
   - component: {fileID: 377577937}
+  - component: {fileID: 377577938}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -903,6 +904,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soundRadius: 7
+--- !u!114 &377577938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377577932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c2cbca43aff289428fb1fd9e5deb78a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &413667799
 GameObject:
   m_ObjectHideFlags: 0
@@ -3800,6 +3813,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2

@@ -1,29 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GroupAttacking : MonoBehaviour
 {
     private PlayerObject _player;
+    private Surround _surround;
 
     private void Start()
     {
         _player = Resources.Load<PlayerObject>("Player");
-        Resources.Load<FightNoticeObject>("FightEvent").OnFightBegan += Begin;
+        _surround = new Surround();
     }
 
-    public void Begin()
+    public Vector2 GetDestination(int enemyIndex, Transform target, float spacing)
     {
-        StopCoroutine(nameof(Surrounding));
-        StartCoroutine(nameof(Surrounding));
-    }
+        Vector2[] destinations = _surround.FindDestinations(
+                                            _surround.FindAngles(
+                                                Trigonometric.AddAngle(target.eulerAngles.z, 180),
+                                                _player.NumberEnemiesSeeYou
+                                                ),
+                                            spacing
+        );
 
-    private IEnumerator Surrounding()
-    {
-        while (_player.NumberEnemiesSeeYou > 0)
-        {
-            print(_player._enemiesSeeYou);
-            yield return new WaitForSeconds(0.5f);
-        }
+        return (Vector3)destinations[enemyIndex] + target.position;
     }
 }
