@@ -14,6 +14,7 @@ public class EnemyBaseAI : EnemyTools
     [SerializeField] private float _peekNextWaypointDistance = 2f;
     private Transform _transform;
     private Transform _target;
+    private GroupAttacking _group;
     private PlayerObject _player;
     private Vector2 _startPosition;
     private int _currentWaypoint = 0;
@@ -125,6 +126,10 @@ public class EnemyBaseAI : EnemyTools
 
         while (distanceToTarget < 7)
         {
+            _group.GetDestination(_player._enemiesSeeYou.IndexOf(gameObject),
+                                    _target,
+                                    AttackDistance);
+
             BuildPath(selfPosition: _transform.position,
                         targetPosition: _target.position,
                         callbackFunction: PathCompleted);
