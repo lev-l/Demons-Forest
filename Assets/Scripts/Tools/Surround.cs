@@ -23,9 +23,6 @@ public class Surround
         for(int i = 0; i < angles.Length; i++)
         {
             results[i] = Trigonometric.CreateRayEnd(distanceFromTarget, angles[i]);
-
-
-            Trigonometric.RayPaint(Vector2.zero, results[i]);
         }
 
         return results;
