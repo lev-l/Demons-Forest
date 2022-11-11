@@ -16,7 +16,6 @@ public class Chasing : MonoBehaviour
     void Update()
     {
         float distanceToSubject = Vector2.Distance(_transform.position, SubjectTrasform.position);
-        print(distanceToSubject);
 
         Vector3 move = Vector2.MoveTowards(_transform.position,
                                             SubjectTrasform.position,
