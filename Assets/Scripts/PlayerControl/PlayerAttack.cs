@@ -35,7 +35,7 @@ public class PlayerAttack : MonoBehaviour
         {
             _animations.PlayAttackAnimation();
             StopCoroutine(nameof(Damaging));
-            StartCoroutine(Damaging());
+            StartCoroutine(nameof(Damaging));
 
             _attackPrepared = false;
         }

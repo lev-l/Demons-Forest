@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerAnimations : MonoBehaviour
 {
     private Animator _animator;
-    private bool _attackPrepared;
 
     private void Start()
     {
