@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Discarding : MonoBehaviour
 {
-    [SerializeField] private float _discardForce;
-    [SerializeField] private uint _duration;
+    [SerializeField] private float _discardSpeed;
+    [SerializeField] private float _distance;
     private Transform _transform;
 
     private void Start()
@@ -21,10 +21,13 @@ public class Discarding : MonoBehaviour
 
     private IEnumerator DiscardProcess(Vector2 direction)
     {
-        for (int time = 0; time < _duration; time++)
+        float distanceCompleted = 0;
+        while(distanceCompleted < _distance)
         {
+            Vector2 translation = direction * _discardSpeed * Time.deltaTime;
+            distanceCompleted += translation.magnitude;
+            _transform.Translate(translation, Space.World);
             yield return new WaitForEndOfFrame();
-            _transform.Translate((direction * _discardForce) * Time.deltaTime, Space.World);
         }
     }
 }
