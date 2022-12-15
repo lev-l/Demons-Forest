@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Pathfinding;
@@ -17,43 +18,52 @@ public class LevelLoading : MonoBehaviour
         _player = FindObjectOfType<PlayerMovement>().transform;
         _pathfinder = FindObjectOfType<AstarPath>();
 
-        List<string> levelsToLoad = GetNearLevels(0, 0);
+        LoadNearLevels(PlayerPositionIndexX, PlayerPositionIndexY);
 
-        foreach (string level in levelsToLoad)
-        {
-            SceneManager.LoadScene(level, LoadSceneMode.Additive);
-        }
+        StartCoroutine(nameof(UpdateLoad));
     }
 
-    private void FixedUpdate()
+    private IEnumerator UpdateLoad()
     {
-        int positionX = Mathf.FloorToInt(_player.position.x / 40f);
-        int positionY = Mathf.FloorToInt(_player.position.y / 40f);
+        int positionX = PlayerPositionIndexX;
+        int positionY = PlayerPositionIndexY;
 
         if(_lastPositionX == positionX
             && _lastPositionY == positionY)
         {
-            return;
+            yield return new WaitForSeconds(5);
         }
 
         _lastPositionX = positionX;
         _lastPositionY = positionY;
 
+        LoadNearLevels(positionX, positionY);
+
+        yield return null;
+
         GridGraph graph = _pathfinder.data.gridGraph;
-        graph.RelocateNodes(new Vector3(20 + 40 * positionX, 20 + 40 * positionY), Quaternion.identity, 1);
+        Vector2 currentLevelCenter = new Vector3(20 + 40 * positionX, 20 + 40 * positionY);
+        graph.RelocateNodes(currentLevelCenter, Quaternion.identity, 1);
         graph.is2D = true;
 
-        List<string> levelsToLoad = GetNearLevels(positionX, positionY);
+        yield return null;
+
+        graph.Scan();
+
+        yield return new WaitForSeconds(5);
+    }
+
+    private void LoadNearLevels(int x, int y)
+    {
+        List<string> levelsToLoad = GetNearLevels(x, y);
 
         foreach(string level in levelsToLoad)
         {
-            if (SceneManager.GetSceneByName(level) == null)
+            if (SceneManager.GetSceneByName(level).name == null)
             {
                 SceneManager.LoadScene(level, LoadSceneMode.Additive);
             }
         }
-
-        graph.Scan();
     }
 
     private List<string> GetNearLevels(int x, int y)
@@ -76,4 +86,7 @@ public class LevelLoading : MonoBehaviour
 
         return levels;
     }
+
+    private int PlayerPositionIndexX => Mathf.FloorToInt(_player.position.x / 40f);
+    private int PlayerPositionIndexY => Mathf.FloorToInt(_player.position.y / 40f);
 }
