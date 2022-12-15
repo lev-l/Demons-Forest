@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class LevelLoading : MonoBehaviour
     private Transform _player;
     private AstarPath _pathfinder;
     private string[,] _levelsMap;
+    private string[] _lastLoadedLevels;
+    private string[] _levelsLoaded;
     private int _lastPositionX, _lastPositionY;
 
     private void Start()
@@ -19,38 +22,47 @@ public class LevelLoading : MonoBehaviour
         _pathfinder = FindObjectOfType<AstarPath>();
 
         LoadNearLevels(PlayerPositionIndexX, PlayerPositionIndexY);
+        _lastLoadedLevels = _levelsLoaded;
+        _pathfinder.data.gridGraph.Scan();
 
         StartCoroutine(nameof(UpdateLoad));
     }
 
     private IEnumerator UpdateLoad()
     {
-        int positionX = PlayerPositionIndexX;
-        int positionY = PlayerPositionIndexY;
-
-        if(_lastPositionX == positionX
-            && _lastPositionY == positionY)
+        while (true)
         {
-            yield return new WaitForSeconds(5);
+            int positionX = PlayerPositionIndexX;
+            int positionY = PlayerPositionIndexY;
+
+            if (_lastPositionX != positionX
+                || _lastPositionY != positionY)
+            {
+                _lastPositionX = positionX;
+                _lastPositionY = positionY;
+
+                LoadNearLevels(positionX, positionY);
+
+                yield return new WaitForFixedUpdate();
+
+                GridGraph graph = _pathfinder.data.gridGraph;
+                Vector2 currentLevelCenter = new Vector3(20 + 40 * positionX, 20 + 40 * positionY);
+                graph.RelocateNodes(currentLevelCenter, Quaternion.identity, 1);
+                graph.is2D = true;
+
+                yield return new WaitForFixedUpdate();
+
+                graph.Scan();
+
+                yield return null;
+
+                UnloadLevels();
+
+                yield return new WaitForSeconds(4);
+            }
+
+            yield return new WaitForSeconds(4);
         }
-
-        _lastPositionX = positionX;
-        _lastPositionY = positionY;
-
-        LoadNearLevels(positionX, positionY);
-
-        yield return null;
-
-        GridGraph graph = _pathfinder.data.gridGraph;
-        Vector2 currentLevelCenter = new Vector3(20 + 40 * positionX, 20 + 40 * positionY);
-        graph.RelocateNodes(currentLevelCenter, Quaternion.identity, 1);
-        graph.is2D = true;
-
-        yield return null;
-
-        graph.Scan();
-
-        yield return new WaitForSeconds(5);
     }
 
     private void LoadNearLevels(int x, int y)
@@ -64,19 +76,34 @@ public class LevelLoading : MonoBehaviour
                 SceneManager.LoadScene(level, LoadSceneMode.Additive);
             }
         }
+
+        _lastLoadedLevels = _levelsLoaded;
+        _levelsLoaded = levelsToLoad.ToArray();
+    }
+
+    private void UnloadLevels()
+    {
+        IEnumerable<string> levelsToUnload = _lastLoadedLevels.Except(_levelsLoaded);
+
+        foreach(string level in levelsToUnload)
+        {
+            SceneManager.UnloadSceneAsync(level);
+        }
     }
 
     private List<string> GetNearLevels(int x, int y)
     {
         List<string> levels = new List<string>();
 
-        for(int pX = x - 1; pX < _levelsMap.GetLength(0); pX++)
+        for(int pX = x - 1; pX <= x + 1; pX++)
         {
-            if (pX >= 0)
+            if (pX >= 0
+                && pX < _levelsMap.GetLength(0))
             {
-                for (int pY = y - 1; pY < _levelsMap.GetLength(1); pY++)
+                for (int pY = y - 1; pY <= y + 1; pY++)
                 {
-                    if(pY >= 0)
+                    if(pY >= 0
+                        && pY < _levelsMap.GetLength(1))
                     {
                         levels.Add(_levelsMap[pX, pY]);
                     }
