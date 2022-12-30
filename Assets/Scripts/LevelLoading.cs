@@ -74,6 +74,12 @@ public class LevelLoading : MonoBehaviour
             if (SceneManager.GetSceneByName(level).name == null)
             {
                 SceneManager.LoadScene(level, LoadSceneMode.Additive);
+
+                //not doing this (there are somewhy no enemies that it sees) at the start
+                foreach(EnemyBaseAI enemy in FindObjectsOfType<EnemyBaseAI>())
+                {
+                    SceneManager.MoveGameObjectToScene(enemy.transform.parent.gameObject, SceneManager.GetSceneByBuildIndex(1));
+                }
             }
         }
 
