@@ -26,7 +26,6 @@ public class Health : MonoBehaviour
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
-            OnDeath?.Invoke(gameObject);
             Destroy(gameObject);
         }
 
@@ -40,5 +39,10 @@ public class Health : MonoBehaviour
         {
             _currentHealth = _maxHealth;
         }
+    }
+
+    private void OnDestroy()
+    {
+        OnDeath?.Invoke(gameObject);
     }
 }

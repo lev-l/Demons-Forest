@@ -35,5 +35,10 @@ public class GroupVision : MonoBehaviour
     public void DeleteMember(GameObject member)
     {
         _group.Remove(member.GetComponent<EnemyBaseAI>());
+
+        if(_group.Count == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
