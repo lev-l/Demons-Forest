@@ -9,6 +9,7 @@ public class LevelLoading : MonoBehaviour
 {
     private Transform _player;
     private AstarPath _pathfinder;
+    private Scene _mainScene;
     private string[,] _levelsMap;
     private string[] _lastLoadedLevels;
     private string[] _levelsLoaded;
@@ -16,12 +17,13 @@ public class LevelLoading : MonoBehaviour
 
     private void Start()
     {
+        _mainScene = SceneManager.GetSceneByBuildIndex(1);
         _levelsMap = new Forest_levelsMap().GetMap();
         _lastPositionX = _lastPositionY = 0;
         _player = FindObjectOfType<PlayerMovement>().transform;
         _pathfinder = FindObjectOfType<AstarPath>();
 
-        LoadNearLevels(PlayerPositionIndexX, PlayerPositionIndexY);
+        StartCoroutine(LoadNearLevels(PlayerPositionIndexX, PlayerPositionIndexY));
         _lastLoadedLevels = _levelsLoaded;
         _pathfinder.data.gridGraph.Scan();
 
@@ -41,7 +43,7 @@ public class LevelLoading : MonoBehaviour
                 _lastPositionX = positionX;
                 _lastPositionY = positionY;
 
-                LoadNearLevels(positionX, positionY);
+                StartCoroutine(LoadNearLevels(positionX, positionY));
 
                 yield return new WaitForFixedUpdate();
 
@@ -65,7 +67,7 @@ public class LevelLoading : MonoBehaviour
         }
     }
 
-    private void LoadNearLevels(int x, int y)
+    private IEnumerator LoadNearLevels(int x, int y)
     {
         List<string> levelsToLoad = GetNearLevels(x, y);
 
@@ -74,11 +76,38 @@ public class LevelLoading : MonoBehaviour
             if (SceneManager.GetSceneByName(level).name == null)
             {
                 SceneManager.LoadScene(level, LoadSceneMode.Additive);
+                Scene loadedScene = SceneManager.GetSceneByName(level);
 
-                //not doing this (there are somewhy no enemies that it sees) at the start
-                foreach(EnemyBaseAI enemy in FindObjectsOfType<EnemyBaseAI>())
+                while (!loadedScene.isLoaded)
                 {
-                    SceneManager.MoveGameObjectToScene(enemy.transform.parent.gameObject, SceneManager.GetSceneByBuildIndex(1));
+                    yield return null;
+                }
+
+                var loadedGroups = from root in loadedScene.GetRootGameObjects()
+                                   where root.GetComponent<GroupForm>()
+                                   select root.GetComponent<GroupForm>();
+                var existingGroups = from root in _mainScene.GetRootGameObjects()
+                                     where root.GetComponent<GroupForm>()
+                                     select root.GetComponent<GroupForm>();
+
+                foreach (GroupForm loadedGroup in loadedGroups)
+                {
+                    bool destroy = false;
+
+                    foreach (GroupForm existingGroup in existingGroups)
+                    {
+                        if (existingGroup.Hesh == loadedGroup.Hesh)
+                        {
+                            Destroy(loadedGroup.gameObject);
+                            destroy = true;
+                            break;
+                        }
+                    }
+
+                    if(!destroy)
+                    {
+                        SceneManager.MoveGameObjectToScene(loadedGroup.gameObject, _mainScene);
+                    }
                 }
             }
         }

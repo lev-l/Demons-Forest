@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class EnemyUnload : MonoBehaviour
 {
-    [SerializeField] private string _originScene;
+    public string Origin;
+    private Scene _originScene;
     private Transform _selfTransform;
     private Transform _playerTransform;
 
     private void Start()
     {
+        _originScene = SceneManager.GetSceneByName(Origin);
         _selfTransform = GetComponent<Transform>();
         _playerTransform = FindObjectOfType<PlayerMovement>().transform;
 
@@ -20,22 +22,10 @@ public class EnemyUnload : MonoBehaviour
     {
         while (true)
         {
-            if(Vector2.Distance(_selfTransform.position, _playerTransform.position) > 40)
+            if (Vector2.Distance(_selfTransform.position, _playerTransform.position) > 40
+                && !_originScene.isLoaded)
             {
-                bool notLoaded = true;
-                for(int i = 0; i < SceneManager.sceneCount; i++)
-                {
-                    notLoaded = _originScene != SceneManager.GetSceneAt(i).name;
-                    if (!notLoaded)
-                    {
-                        break;
-                    }
-                }
-
-                if (notLoaded)
-                {
-                    Destroy(gameObject);
-                }
+                Destroy(gameObject);
             }
             yield return new WaitForSeconds(0.5f);
         }

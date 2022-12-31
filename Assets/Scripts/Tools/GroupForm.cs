@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GroupForm : MonoBehaviour
 {
+    public string Hesh;
     private GroupVision _vision;
     private List<EnemyBaseAI> _group;
 
