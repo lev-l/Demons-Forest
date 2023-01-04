@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class CompassPresenter : MonoBehaviour
 {
     [SerializeField] private Transform _compass;
+    [SerializeField] private InputField _input;
     private Transform _player;
     private GameObject _markPrefab;
     private CompassData _data;
@@ -17,10 +19,13 @@ public class CompassPresenter : MonoBehaviour
         _rotation = GetComponent<RotateToTarget>();
     }
 
-    public void AddAMark(string name)
+    public void AddAMark()
     {
         GameObject newMark = Instantiate(_markPrefab, _compass);
+        string name = _input.text;
+        _input.text = "";
         newMark.GetComponentInChildren<TextMeshProUGUI>().text = name;
+
         _data.Marks.Add(newMark, _player.position);
         _data.MarksObjects.Add(newMark);
     }

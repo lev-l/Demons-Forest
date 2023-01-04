@@ -13,7 +13,6 @@ public class StandStill : MonoBehaviour
 
     private void Update()
     {
-        //try Quaternion.Inverse instead
-        _transform.localRotation = Quaternion.Euler(-_parentTransform.localRotation.eulerAngles);
+        _transform.localRotation = Quaternion.Inverse(_parentTransform.localRotation);
     }
 }

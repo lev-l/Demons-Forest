@@ -4,14 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CompassDataBase")]
 public class CompassData : ScriptableObject
 {
-    public Dictionary<GameObject, Vector2> Marks = new Dictionary<GameObject, Vector2>();
-    public List<GameObject> MarksObjects = new List<GameObject>();
+    public Dictionary<GameObject, Vector2> Marks;
+    public List<GameObject> MarksObjects;
 
-    //private void OnEnable()
-    //{
-    //    if(Marks == null)
-    //    {
-    //        Marks = new Dictionary<GameObject, Vector2>();
-    //    }
-    //}
+    private void OnEnable()
+    {
+        Marks = new Dictionary<GameObject, Vector2>();
+        MarksObjects = new List<GameObject>();
+    }
 }

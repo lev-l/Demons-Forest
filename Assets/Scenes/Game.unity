@@ -1580,7 +1580,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1692858703}
         m_TargetAssemblyTypeName: CompassPresenter, MainScripts
         m_MethodName: AddAMark
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1619,7 +1619,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: Enter mark name
+  m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -2548,6 +2548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _compass: {fileID: 1692858700}
+  _input: {fileID: 995393227}
 --- !u!114 &1692858704
 MonoBehaviour:
   m_ObjectHideFlags: 0
