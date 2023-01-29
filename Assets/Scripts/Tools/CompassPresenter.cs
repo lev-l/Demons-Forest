@@ -34,7 +34,7 @@ public class CompassPresenter : MonoBehaviour
         MouseTouched mouseInteraction = newMark.GetComponentInChildren<MouseTouched>();
         mouseInteraction.Text.text = name;
         newMark.GetComponentInChildren<Image>().color
-            = new Color(Random.Range(10, 200), Random.Range(10, 200), Random.Range(10, 200));
+            = new Color(Random.Range(10, 200)/255f, Random.Range(10, 200)/255f, Random.Range(10, 200)/255f);
 
         _data.Marks.Add(newMark, _player.position);
         _data.MarksObjects.Add(newMark);
@@ -60,8 +60,8 @@ public class CompassPresenter : MonoBehaviour
             && Input.GetKeyDown(KeyCode.Delete))
         {
             _markDelete.gameObject.SetActive(true);
-            _markDelete.GetComponentInChildren<TextMeshProUGUI>().text
-                = $"Are you sure you want to delete {_activeMark.GetComponentInChildren<TextMeshProUGUI>().text}";
+            _markDelete.GetComponentInChildren<TextMeshProUGUI>(true).text
+                = $"Are you sure you want to delete {_activeMark.GetComponentInChildren<TextMeshProUGUI>(true).text}";
             _block = true;
         }
     }
@@ -97,5 +97,13 @@ public class CompassPresenter : MonoBehaviour
     public void Delete()
     {
         _markDelete.Delete(_activeMark, _data);
+        _markActions = false;
+        _block = false;
+    }
+
+    public void Unblock()
+    {
+        _block = false;
+        _markActions = false;
     }
 }
