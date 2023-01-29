@@ -666,10 +666,10 @@ RectTransform:
   m_Father: {fileID: 320666984}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300.4, y: 170.4}
-  m_SizeDelta: {x: 23.071, y: 22.4856}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -4.399994, y: 4.799988}
+  m_SizeDelta: {x: 23.070984, y: 22.485596}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &309539481
 MonoBehaviour:
@@ -830,7 +830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2469,6 +2469,7 @@ GameObject:
   - component: {fileID: 1692858701}
   - component: {fileID: 1692858703}
   - component: {fileID: 1692858704}
+  - component: {fileID: 1692858705}
   m_Layer: 5
   m_Name: Compass
   m_TagString: Untagged
@@ -2492,9 +2493,9 @@ RectTransform:
   m_Father: {fileID: 320666984}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -144.2, y: 0.0000076294}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 170, y: 0.0000076294}
   m_SizeDelta: {x: 272.9938, y: 272.991}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1692858701
@@ -2511,7 +2512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2559,6 +2560,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 082b08bd3a361a74ab64a908412f5d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1692858705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692858699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09371b409f462b04cb895d8520eb5077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1863102026

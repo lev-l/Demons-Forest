@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class CompassPresenter : MonoBehaviour
 {
@@ -24,7 +23,9 @@ public class CompassPresenter : MonoBehaviour
         GameObject newMark = Instantiate(_markPrefab, _compass);
         string name = _input.text;
         _input.text = "";
-        newMark.GetComponentInChildren<TextMeshProUGUI>().text = name;
+        newMark.GetComponentInChildren<MouseTouched>().Text.text = name;
+        newMark.GetComponentInChildren<Image>().color
+            = new Color(Random.Range(10, 200), Random.Range(10, 200), Random.Range(10, 200));
 
         _data.Marks.Add(newMark, _player.position);
         _data.MarksObjects.Add(newMark);
