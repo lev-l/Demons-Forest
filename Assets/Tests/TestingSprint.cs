@@ -10,6 +10,7 @@ public class TestingSprint
     {
         GameObject enemy = Resources.Load<GameObject>("Enemy");
         enemy.GetComponent<EnemySprint>().Exhaust();
+        enemy.GetComponent<EnemyUnload>().enabled = false;
         enemy = MonoBehaviour.Instantiate(enemy);
         EnemyBaseAI _movementAI = enemy.GetComponent<EnemyBaseAI>();
 
