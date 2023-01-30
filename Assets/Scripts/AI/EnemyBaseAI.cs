@@ -36,7 +36,7 @@ public class EnemyBaseAI : EnemyTools
 
     private void Update()
     {
-        if (_notBlocked
+        if (NotBlocked
             && _path != null)
         {
             if (_currentWaypoint >= _path.vectorPath.Count)
@@ -92,7 +92,7 @@ public class EnemyBaseAI : EnemyTools
         _target = target.GetComponent<Transform>();
         _currentWaypoint = 0;
 
-        if (_notBlocked)
+        if (NotBlocked)
         {
             StopCoroutine(nameof(BuildingPathWhileSee));
             StartCoroutine(nameof(BuildingPathWhileSee));
@@ -103,7 +103,7 @@ public class EnemyBaseAI : EnemyTools
     {
         OnTargetDetected?.Invoke(target);
 
-        if (_notBlocked && !_seePlayer)
+        if (NotBlocked && !_seePlayer)
         {
             PathToTarget(target);
             StopCoroutine(nameof(WaitForTarget));
@@ -135,7 +135,7 @@ public class EnemyBaseAI : EnemyTools
                         targetPosition: destination,
                         callbackFunction: PathCompleted);
 
-            if (_notBlocked
+            if (NotBlocked
                 && distanceToTarget < AttackDistance)
             {
                 CheckForAttack();
@@ -200,7 +200,7 @@ public class EnemyBaseAI : EnemyTools
     private IEnumerator WaitForUnblock()
     {
         yield return new WaitForSeconds(_frequencyOfPathFinding);
-        _notBlocked = true;
+        NotBlocked = true;
     }
 
     // only for tests

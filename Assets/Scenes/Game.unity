@@ -909,6 +909,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1081123148}
+        m_TargetAssemblyTypeName: IngameMenu, MainScripts
+        m_MethodName: TimeChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &309539482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,7 +971,7 @@ GameObject:
   - component: {fileID: 320666986}
   - component: {fileID: 320666985}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: IngameMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2318,6 +2330,7 @@ GameObject:
   - component: {fileID: 1081123144}
   - component: {fileID: 1081123143}
   - component: {fileID: 1081123142}
+  - component: {fileID: 1081123148}
   m_Layer: 5
   m_Name: MenuCanvas
   m_TagString: Untagged
@@ -2435,6 +2448,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1081123148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081123141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 241b67d0a1e29c44d9e49e90ea1dea9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _menu: {fileID: 320666983}
+  _menuButton: {fileID: 1863102026}
 --- !u!1 &1145374985
 GameObject:
   m_ObjectHideFlags: 0
@@ -3335,6 +3362,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1081123148}
+        m_TargetAssemblyTypeName: IngameMenu, MainScripts
+        m_MethodName: TimeChange
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
