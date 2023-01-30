@@ -9,15 +9,15 @@ public interface Blockable
 
 public abstract class Movement : MonoBehaviour, Blockable
 {
-    protected bool _notBlocked = true;
+    public bool NotBlocked = true;
 
     public virtual void Block()
     {
-        _notBlocked = false;
+        NotBlocked = false;
     }
 
     public virtual void Unblock()
     {
-        _notBlocked = true;
+        NotBlocked = true;
     }
 }

@@ -391,6 +391,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1888329850}
     m_Modifications:
     - target: {fileID: 3034236562310203571, guid: 64c3e6179be8f214d85fcc592998425a, type: 3}
+      propertyPath: Origin
+      value: ForestT_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3034236562310203571, guid: 64c3e6179be8f214d85fcc592998425a, type: 3}
       propertyPath: _originScene
       value: ForestT_0
       objectReference: {fileID: 0}
@@ -516,6 +520,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1888329850}
     m_Modifications:
+    - target: {fileID: 3034236562310203571, guid: 64c3e6179be8f214d85fcc592998425a, type: 3}
+      propertyPath: Origin
+      value: ForestT_0
+      objectReference: {fileID: 0}
     - target: {fileID: 3034236562310203571, guid: 64c3e6179be8f214d85fcc592998425a, type: 3}
       propertyPath: _originScene
       value: ForestT_0

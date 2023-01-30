@@ -10,6 +10,7 @@ public class TestingSoundTargetDetecting
     private EnemyBaseAI EnemySetup()
     {
         GameObject enemy = Resources.Load<GameObject>("Enemy");
+        enemy.GetComponent<EnemyUnload>().enabled = false;
         enemy = MonoBehaviour.Instantiate(enemy);
         EnemyBaseAI _movementAI = enemy.GetComponent<EnemyBaseAI>();
         _movementAI.SetWaitTime(0.2f);

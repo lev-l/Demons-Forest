@@ -623,7 +623,6 @@ GameObject:
   - component: {fileID: 2068638780699516982}
   - component: {fileID: 3842943285901482161}
   - component: {fileID: 5966217247445363363}
-  - component: {fileID: 8930830001346951636}
   - component: {fileID: 1017934222977551054}
   - component: {fileID: 3550728899973754605}
   - component: {fileID: 6949933341267736798}
@@ -710,7 +709,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197bbe0d9422361438f825aca5041998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NotBlocked: 1
+  AttackButton: 0
   _dodgeKey: 32
+  _stealthKey: 99
   _speed: 5
   _stealthSpeedCut: 3
   _moveSpace: 0
@@ -782,19 +784,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soundRadius: 10
---- !u!114 &8930830001346951636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3793162835531498881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dfce98dd8e2fde429cf4264a21fea4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stealthKey: 99
 --- !u!114 &1017934222977551054
 MonoBehaviour:
   m_ObjectHideFlags: 0

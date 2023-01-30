@@ -5,7 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerAnimations), typeof(StepsSound))]
 public class PlayerMovement : Movement
 {
+    public int AttackButton;
     [SerializeField] private KeyCode _dodgeKey;
+    [SerializeField] private KeyCode _stealthKey;
     [SerializeField] private float _speed, _stealthSpeedCut;
     [SerializeField] private Space _moveSpace;
     private bool _coroutineOngoing;
@@ -19,7 +21,7 @@ public class PlayerMovement : Movement
     {
         _player = Resources.Load<PlayerObject>("Player");
         _coroutineOngoing = false;
-        _notBlocked = true;
+        NotBlocked = true;
         _transform = GetComponent<Transform>();
         _stepsSound = GetComponent<StepsSound>();
         _dodge = GetComponent<Dodge>();
@@ -28,7 +30,7 @@ public class PlayerMovement : Movement
 
     private void Update()
     {
-        if (_notBlocked)
+        if (NotBlocked)
         {
             Vector3 move = new Vector3();
             move.x = Input.GetAxis("Horizontal");
@@ -54,6 +56,14 @@ public class PlayerMovement : Movement
                 _dodge.DoDodge(new Vector3(Input.GetAxisRaw("Horizontal"),
                                             Input.GetAxisRaw("Vertical")));
                 _stepsSound.Noise();
+            }
+            if (Input.GetKeyDown(_stealthKey))
+            {
+                _player.ChangeStealthMode();
+            }
+            if (Input.GetMouseButtonDown(AttackButton))
+            {
+                _animations.PrepareAttackAnimation();
             }
 
             _transform.Translate(_player.StealthMode ? move / _stealthSpeedCut : move,

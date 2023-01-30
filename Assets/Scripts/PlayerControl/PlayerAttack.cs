@@ -26,10 +26,6 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(AttackButton))
-        {
-            _animations.PrepareAttackAnimation();
-        }
         if (_attackPrepared
             && !Input.GetMouseButton(AttackButton))
         {
