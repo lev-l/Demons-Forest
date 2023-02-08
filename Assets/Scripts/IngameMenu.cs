@@ -18,10 +18,16 @@ public class IngameMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _menu.SetActive(!_menu.activeSelf);
-            _menuButton.SetActive(!_menuButton.activeSelf);
-            _texts.SetActive(false);
-            TimeChange();
+            if (_texts.activeSelf)
+            {
+                _texts.SetActive(false);
+            }
+            else
+            {
+                _menu.SetActive(!_menu.activeSelf);
+                _menuButton.SetActive(!_menuButton.activeSelf);
+                TimeChange();
+            }
         }
     }
 

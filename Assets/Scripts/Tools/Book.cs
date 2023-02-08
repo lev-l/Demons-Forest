@@ -1,13 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Book : MonoBehaviour
 {
+    [TextArea][SerializeField] private string _text;
+    private GameObject _bookPanel;
     private bool _playerInRange;
 
     private void Start()
     {
+        _bookPanel = FindObjectOfType<BookFieldContainer>().BooksField;
         _playerInRange = false;
     }
 
@@ -16,7 +19,8 @@ public class Book : MonoBehaviour
         if(_playerInRange
             && Input.GetKeyDown(KeyCode.E))
         {
-            print("Open");
+            _bookPanel.SetActive(true);
+            _bookPanel.GetComponentInChildren<TextMeshProUGUI>().text = _text;
         }
     }
 

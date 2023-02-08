@@ -373,6 +373,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5983005620161051155, guid: a35dcfdb71f3f50488c081c052946375, type: 3}
+      propertyPath: _text
+      value: If it was succesfull first time, we will, well, I don't know... Fuck
+        each other?
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a35dcfdb71f3f50488c081c052946375, type: 3}
 --- !u!1001 &1678581443
