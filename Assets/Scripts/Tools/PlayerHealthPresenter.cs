@@ -17,7 +17,7 @@ public class PlayerHealthPresenter : MonoBehaviour
         _screenHeight = Screen.height;
         _widthOnScreen = Screen.width / 80;
         _heightOnScreen = -_screenHeight;
-        _healthBarTransform.sizeDelta = new Vector2(_widthOnScreen, _heightOnScreen);
+        _healthBarTransform.sizeDelta = new Vector2(_widthOnScreen, _heightOnScreen - 6);
     }
 
     public void UpdateView(Health health)
@@ -27,6 +27,6 @@ public class PlayerHealthPresenter : MonoBehaviour
 
         _healthBarTransform.sizeDelta = new Vector2(
                                         _widthOnScreen,
-                                        _heightOnScreen + (_screenHeight * healthIndex));
+                                        _heightOnScreen + (_screenHeight * healthIndex) - 6);
     }
 }

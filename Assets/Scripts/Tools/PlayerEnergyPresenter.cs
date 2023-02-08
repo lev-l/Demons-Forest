@@ -15,7 +15,10 @@ public class PlayerEnergyPresenter : MonoBehaviour
         _minHeight = -Screen.height;
         _originalColor = _energyBar.GetComponent<Image>().color;
 
-        _energyBar.sizeDelta = new Vector2(Screen.width / 80, _minHeight);
+        _energyBar.sizeDelta = new Vector2(Screen.width / 80, _minHeight - 6);
+
+        print(_minHeight);
+        print(Screen.height);
     }
 
     public void UpdateView(int energy, int energyMax)
@@ -25,7 +28,7 @@ public class PlayerEnergyPresenter : MonoBehaviour
 
         float barNewHeight = (_minHeight - _maxHeight) * energyMultiplyer + _maxHeight;
 
-        barSize.y = barNewHeight;
+        barSize.y = barNewHeight - 6;
         _energyBar.sizeDelta = barSize;
     }
 
