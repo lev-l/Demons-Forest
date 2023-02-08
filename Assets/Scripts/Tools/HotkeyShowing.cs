@@ -35,6 +35,7 @@ public class HotkeyShowing : MonoBehaviour
 
             newHotkeyTransform.position += new Vector3(0.6f, 0.6f);
             newHotkeyTransform.rotation = Quaternion.Euler(Vector3.zero);
+            newHotkeyTransform.localScale /= newHotkeyTransform.parent.localScale.z;
         }
         else if(resultsNum == 0)
         {
