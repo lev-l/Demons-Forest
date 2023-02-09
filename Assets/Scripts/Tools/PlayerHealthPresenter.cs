@@ -16,7 +16,7 @@ public class PlayerHealthPresenter : MonoBehaviour
         _healthBarTransform = _healthBar.GetComponent<RectTransform>();
         _screenHeight = Screen.height;
         _widthOnScreen = Screen.width / 80;
-        _heightOnScreen = -_screenHeight;
+        _heightOnScreen = 0;
         _healthBarTransform.sizeDelta = new Vector2(_widthOnScreen, _heightOnScreen);
     }
 

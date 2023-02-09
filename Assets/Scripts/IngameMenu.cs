@@ -6,6 +6,7 @@ public class IngameMenu : MonoBehaviour
 {
     [SerializeField] private GameObject _menu;
     [SerializeField] private GameObject _menuButton;
+    [SerializeField] private GameObject _texts;
     private PlayerMovement _player;
 
     private void Start()
@@ -17,9 +18,16 @@ public class IngameMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _menu.SetActive(!_menu.activeSelf);
-            _menuButton.SetActive(!_menuButton.activeSelf);
-            TimeChange();
+            if (_texts.activeSelf)
+            {
+                _texts.SetActive(false);
+            }
+            else
+            {
+                _menu.SetActive(!_menu.activeSelf);
+                _menuButton.SetActive(!_menuButton.activeSelf);
+                TimeChange();
+            }
         }
     }
 
