@@ -6,20 +6,18 @@ public class Chest : MonoBehaviour
 {
     public KeyCode KeyToOpen;
     public int MaxCost;
-    private List<CollectableObject> _collectables;
-    private Inventory _playerInventory;
-    private Collider2D _trigger;
-    private ContactFilter2D _filter;
-    private ChestAnimations _animations;
-    private ChestContentsPresenter _contentsPresenter;
+    protected List<CollectableObject> _collectables;
+    protected Inventory _playerInventory;
+    protected Collider2D _trigger;
+    protected ContactFilter2D _filter;
+    protected ChestAnimations _animations;
+    protected ChestContentsPresenter _contentsPresenter;
 
-    private Collider2D[] _playerCollider = new Collider2D[2];
+    protected Collider2D[] _playerCollider = new Collider2D[2];
 
-    void Start()
+    protected virtual void Start()
     {
         _collectables = new List<CollectableObject>();
-        RandomlyFillChest();
-
         _filter = new ContactFilter2D();
         _animations = GetComponent<ChestAnimations>();
         _contentsPresenter = FindObjectOfType<ChestContentsPresenter>();
@@ -34,9 +32,11 @@ public class Chest : MonoBehaviour
         {
             throw new System.Exception("Got the wrong collider");
         }
+
+        RandomlyFillChest();
     }
 
-    private void RandomlyFillChest()
+    protected void RandomlyFillChest()
     {
         ItemsCost costs = new ItemsCost();
         int currentCost = 0;
@@ -71,7 +71,7 @@ public class Chest : MonoBehaviour
         }
     }
 
-    private void AddNewCollectable(Collectables type)
+    protected void AddNewCollectable(Collectables type)
     {
         switch (type)
         {
@@ -87,7 +87,7 @@ public class Chest : MonoBehaviour
         }
     }
 
-    private void Update()
+    protected void Update()
     {
         if (Input.GetKeyDown(KeyToOpen)
             && _trigger.OverlapCollider(_filter, _playerCollider) > 0)
@@ -96,7 +96,7 @@ public class Chest : MonoBehaviour
         }
     }
 
-    private void Give()
+    protected void Give()
     {
         _playerInventory.AddObjects(_collectables);
         _contentsPresenter.ShowItems(_collectables);

@@ -6,12 +6,12 @@ public class PlayerEnergyPresenter : MonoBehaviour
 {
     [SerializeField] private RectTransform _energyBar;
     private float _minHeight;
-    private float _maxHeight;
+    //private float _maxHeight;
     private Color _originalColor;
 
     private void Awake()
     {
-        _maxHeight = 0;
+        //_maxHeight = 0;
         _minHeight = _energyBar.parent.GetComponent<RectTransform>().sizeDelta.y;
         _originalColor = _energyBar.GetComponent<Image>().color;
 
