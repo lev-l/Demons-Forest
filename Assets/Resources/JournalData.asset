@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4a7855c80bcfa4c89a5410cca7447c, type: 3}
   m_Name: JournalData
   m_EditorClassIdentifier: 
+  SaveFileName: JournalSave
