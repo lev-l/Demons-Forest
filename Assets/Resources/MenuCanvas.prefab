@@ -2111,6 +2111,7 @@ MonoBehaviour:
   _compass: {fileID: 5547466752896117833}
   _input: {fileID: 5547466753641753550}
   _markDelete: {fileID: 5547466753431509220}
+  _saveFileName: CompasSave
 --- !u!114 &5547466752896117845
 MonoBehaviour:
   m_ObjectHideFlags: 0
