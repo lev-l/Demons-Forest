@@ -56,7 +56,7 @@ public class CompassPresenter : MonoBehaviour
         _saver.Save(MarksToStrings(_data.Marks), _saveFileName);
     }
 
-    public void AddAMark(string name)
+    public void AddAMark(string name, Vector2 direction)
     {
         GameObject newMark = Instantiate(_markPrefab, _compass);
         MouseTouched mouseInteraction = newMark.GetComponentInChildren<MouseTouched>();
@@ -64,7 +64,7 @@ public class CompassPresenter : MonoBehaviour
         newMark.GetComponentInChildren<Image>().color
             = new Color(Random.Range(10, 200) / 255f, Random.Range(10, 200) / 255f, Random.Range(10, 200) / 255f);
 
-        _data.Marks.Add(newMark, _player.position);
+        _data.Marks.Add(newMark, direction);
         _data.MarksObjects.Add(newMark);
 
         mouseInteraction.OnMouseEnter += Show;
@@ -98,7 +98,7 @@ public class CompassPresenter : MonoBehaviour
     {
         foreach(string markName in markPosition.Keys)
         {
-            AddAMark(markName);
+            AddAMark(markName, markPosition[markName]);
         }
     }
 
@@ -145,6 +145,7 @@ public class CompassPresenter : MonoBehaviour
     public void Delete()
     {
         _markDelete.Delete(_activeMark, _data);
+        _saver.Save(MarksToStrings(_data.Marks), _saveFileName);
         _markActions = false;
         _block = false;
     }
