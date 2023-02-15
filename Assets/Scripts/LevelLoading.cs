@@ -56,11 +56,11 @@ public class LevelLoading : MonoBehaviour
 
                 graph.Scan();
 
-                yield return null;
+                yield return new WaitForSeconds(0.5f);
 
                 UnloadLevels();
 
-                yield return new WaitForSeconds(4);
+                yield return new WaitForSeconds(3.5f);
             }
 
             yield return new WaitForSeconds(4);
