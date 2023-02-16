@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,9 +11,16 @@ public enum Collectables
 [CreateAssetMenu()]
 public class InventoryContents : ScriptableObject
 {
-    private List<HealBottleObject> HealBottles = new List<HealBottleObject>();
-    private List<ThrowingKnifeObject> ThrowingKnifes = new List<ThrowingKnifeObject>();
-    private List<StaticTorchObject> StaticTorches = new List<StaticTorchObject>();
+    [SerializeField] private List<HealBottleObject> HealBottles = new List<HealBottleObject>();
+    [SerializeField] private List<ThrowingKnifeObject> ThrowingKnifes = new List<ThrowingKnifeObject>();
+    [SerializeField] private List<StaticTorchObject> StaticTorches = new List<StaticTorchObject>();
+
+    public Dictionary<Collectables, int> GetInventoryContent()
+    {
+        return new Dictionary<Collectables, int>() { { Collectables.HealBottle, HealBottles.Count },
+                                                    { Collectables.ThrowingKnife, ThrowingKnifes.Count },
+                                                    { Collectables.StaticTorch, StaticTorches.Count } };
+    }
 
     public bool UseHealBottle(Health player)
     {

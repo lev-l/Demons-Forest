@@ -15,7 +15,7 @@ public class Health : MonoBehaviour
         return (_currentHealth, _maxHealth);
     }
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         _currentHealth = _maxHealth;
         _hurtedSound = FindObjectOfType<PunchSound>();

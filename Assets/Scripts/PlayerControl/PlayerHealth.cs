@@ -6,9 +6,9 @@ public class PlayerHealth : Health
     private PlayerHealthPresenter _presenter;
     private PlayerObject _player;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         _player = Resources.Load<PlayerObject>("Player");
         _player.Health = _maxHealth;
@@ -28,6 +28,13 @@ public class PlayerHealth : Health
     {
         base.Heal(restorePoints);
         _player.Health = _currentHealth;
+        _presenter.UpdateView(this);
+    }
+
+    public void SetHealth(int health)
+    {
+        _currentHealth = health;
+        _player.Health = health;
         _presenter.UpdateView(this);
     }
 }

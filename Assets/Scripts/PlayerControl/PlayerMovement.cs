@@ -82,5 +82,4 @@ public class PlayerMovement : Movement
             yield return new WaitForSeconds(0.3f);
         }
     }
-
 }

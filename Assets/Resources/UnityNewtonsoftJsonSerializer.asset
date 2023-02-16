@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad4a7855c80bcfa4c89a5410cca7447c, type: 3}
-  m_Name: JournalData
+  m_Script: {fileID: 11500000, guid: dc09249103d517e4d9ce31976be9f424, type: 3}
+  m_Name: UnityNewtonsoftJsonSerializer
   m_EditorClassIdentifier: 
-  SaveFileName: JournalSave
+  prettyPrint: 0
