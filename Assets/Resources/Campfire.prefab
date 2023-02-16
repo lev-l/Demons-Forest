@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7786560091230578189}
   - component: {fileID: 6477383969598470751}
   - component: {fileID: 4884890303087594841}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Campfire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +153,8 @@ GameObject:
   - component: {fileID: 753164169484404348}
   - component: {fileID: 4491085155107951211}
   - component: {fileID: 2447209068369315139}
-  m_Layer: 0
+  - component: {fileID: 2441799283926141797}
+  m_Layer: 9
   m_Name: Saver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,6 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cf87f6b4398ffd4886b81e98c3208d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _saveFileName: MainSave
 --- !u!58 &2447209068369315139
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -196,9 +198,21 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.5
+--- !u!114 &2441799283926141797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6267685343924760565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ce7483e50f54cd4ab941eda4f477dad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

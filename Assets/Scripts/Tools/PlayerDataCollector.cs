@@ -7,13 +7,15 @@ public class PlayerDataCollector : MonoBehaviour
 {
     private PlayerObject _player;
     private Transform _playerTransform;
-    private InventoryContents _playerInventory;
+    private Inventory _playerInventory;
+    private UnityNewtonsoftJsonSerializer _jsonSaver;
 
     private void Start()
     {
         _player = Resources.Load<PlayerObject>("Player");
         _playerTransform = FindObjectOfType<PlayerMovement>().transform;
-        _playerInventory = Resources.Load<InventoryContents>("PlayerInventory");
+        _playerInventory = FindObjectOfType<Inventory>();
+        _jsonSaver = Resources.Load<UnityNewtonsoftJsonSerializer>("UnityNewtonsoftJsonSerializer");
 
         LoadData("MainSave");
     }
@@ -29,8 +31,8 @@ public class PlayerDataCollector : MonoBehaviour
         }
         PlayerDataSaver data = new PlayerDataSaver(_playerTransform.position,
                                                 _player.Health,
-                                                _playerInventory.GetInventoryContent());
-        File.WriteAllText(fullPath, JsonConvert.SerializeObject(data));
+                                                _playerInventory.GetContent());
+        File.WriteAllText(fullPath, _jsonSaver.Serialize(data));
     }
 
     public void LoadData(string filename)
@@ -43,9 +45,7 @@ public class PlayerDataCollector : MonoBehaviour
 
             _playerTransform.GetComponent<PlayerHealth>().SetHealth(data.Health);
             _playerTransform.position = data.PlayerPosition;
-            AddHealsBottlesToInventory(data.Inventory);
-            AddThrowingKnivesToInventory(data.Inventory);
-            AddStaticTorchesToInventory(data.Inventory);
+            _playerInventory.AddObjects(GetLoadedItems(data));
         }
         else
         {
@@ -54,27 +54,40 @@ public class PlayerDataCollector : MonoBehaviour
         }
     }
 
-    private void AddHealsBottlesToInventory(Dictionary<Collectables, int> data)
+    private List<CollectableObject> GetLoadedItems(PlayerDataSaver data)
     {
-        for (int i = 0; i < data[Collectables.HealBottle]; i++)
+        List<CollectableObject> loadedItems = new List<CollectableObject>();
+        foreach (Collectables item in data.Inventory.Keys)
         {
-            _playerInventory.AddHealthBottle();
-        }
-    }
+            switch (item)
+            {
+                case Collectables.HealBottle:
+                    for (int i = 0; i < data.Inventory[item]; i++)
+                    {
+                        loadedItems.Add(new HealBottleObject());
+                    }
+                    break;
 
-    private void AddThrowingKnivesToInventory(Dictionary<Collectables, int> data)
-    {
-        for (int i = 0; i < data[Collectables.ThrowingKnife]; i++)
-        {
-            _playerInventory.AddThrowingKnife();
-        }
-    }
+                case Collectables.ThrowingKnife:
+                    for (int i = 0; i < data.Inventory[item]; i++)
+                    {
+                        loadedItems.Add(new ThrowingKnifeObject());
+                    }
+                    break;
 
-    private void AddStaticTorchesToInventory(Dictionary<Collectables, int> data)
-    {
-        for (int i = 0; i < data[Collectables.StaticTorch]; i++)
-        {
-            _playerInventory.AddStaticTorch();
+                case Collectables.StaticTorch:
+                    for (int i = 0; i < data.Inventory[item]; i++)
+                    {
+                        loadedItems.Add(new StaticTorchObject());
+                    }
+                    break;
+
+                default:
+                    Debug.LogAssertion("Unintended data type.");
+                    break;
+            }
         }
+
+        return loadedItems;
     }
 }

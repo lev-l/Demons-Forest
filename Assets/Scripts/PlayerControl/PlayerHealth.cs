@@ -35,5 +35,6 @@ public class PlayerHealth : Health
     {
         _currentHealth = health;
         _player.Health = health;
+        _presenter.UpdateView(this);
     }
 }

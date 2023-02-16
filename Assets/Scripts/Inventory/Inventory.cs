@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour
     private PlayerHealth _playerHP;
     private Transform _playerTransform;
 
-    private void Start()
+    private void Awake()
     {
         _presenter = FindObjectOfType<InventoryPresenter>();
         _usableObjects = Resources.Load<InventoryContents>("PlayerInventory");
@@ -62,5 +62,10 @@ public class Inventory : MonoBehaviour
                 _presenter.AddStaticTorches(1);
             }
         }
+    }
+
+    public Dictionary<Collectables, int> GetContent()
+    {
+        return _usableObjects.GetInventoryContent();
     }
 }
