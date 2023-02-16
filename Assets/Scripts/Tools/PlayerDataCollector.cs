@@ -20,19 +20,25 @@ public class PlayerDataCollector : MonoBehaviour
         LoadData("MainSave");
     }
 
-    public void SaveData(string filename)
+    public bool SaveData(string filename)
     {
-        string fullPath = Application.dataPath + "/" + filename;
-
-        if (!File.Exists(fullPath))
+        if (_player.NumberEnemiesSeeYou == 0)
         {
-            using FileStream stream = File.Create(fullPath);
-            stream.Close();
+            string fullPath = Application.dataPath + "/" + filename;
+
+            if (!File.Exists(fullPath))
+            {
+                using FileStream stream = File.Create(fullPath);
+                stream.Close();
+            }
+            PlayerDataSaver data = new PlayerDataSaver(_playerTransform.position,
+                                                    _player.Health,
+                                                    _playerInventory.GetContent());
+            File.WriteAllText(fullPath, _jsonSaver.Serialize(data));
+
+            return true;
         }
-        PlayerDataSaver data = new PlayerDataSaver(_playerTransform.position,
-                                                _player.Health,
-                                                _playerInventory.GetContent());
-        File.WriteAllText(fullPath, _jsonSaver.Serialize(data));
+        return false;
     }
 
     public void LoadData(string filename)

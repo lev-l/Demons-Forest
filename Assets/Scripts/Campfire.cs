@@ -20,9 +20,11 @@ public class Campfire : MonoBehaviour
         if(_isPlayerInRange
             && Input.GetKeyDown(KeyCode.E))
         {
-            _saver.SaveData(_saveFileName);
-            _saveText.Show();
-            Invoke(nameof(HideSaveText), 1.2f);
+            if (_saver.SaveData(_saveFileName))
+            {
+                _saveText.Show();
+                Invoke(nameof(HideSaveText), 1.2f);
+            }
         }
     }
 
