@@ -7,7 +7,7 @@ public class ChestAnimations : MonoBehaviour
     [SerializeField] private Sprite _openedSprite;
     private SpriteRenderer _renderer;
 
-    private void Start()
+    private void Awake()
     {
         _renderer = GetComponentInChildren<SpriteRenderer>();
     }

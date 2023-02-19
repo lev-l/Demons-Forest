@@ -6,9 +6,9 @@ public class SpecificChest : Chest
 {
     [SerializeField] private List<Collectables> _specificItems;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         foreach(Collectables item in _specificItems)
         {
