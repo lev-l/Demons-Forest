@@ -57,7 +57,8 @@ public class Chest : MonoBehaviour
             {
                 availableCollectables.Add(Collectables.ThrowingKnife);
             }
-            if (costs.ItemCost[Collectables.StaticTorch] <= availableCost)
+            if (costs.ItemCost[Collectables.StaticTorch] <= availableCost
+                && _playerInventory.GetContent()[Collectables.StaticTorch] < 5)
             {
                 availableCollectables.Add(Collectables.StaticTorch);
             }
