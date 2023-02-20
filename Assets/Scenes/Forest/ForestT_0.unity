@@ -520,6 +520,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4702348811066986490, guid: 8e56c247438e3be4da6010c84a1ad5bd, type: 3}
+      propertyPath: Hesh
+      value: ForestT_0-0
+      objectReference: {fileID: 0}
     - target: {fileID: 6279844398038187338, guid: 8e56c247438e3be4da6010c84a1ad5bd, type: 3}
       propertyPath: m_Name
       value: Chest

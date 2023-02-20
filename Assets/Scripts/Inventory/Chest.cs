@@ -6,21 +6,24 @@ public class Chest : MonoBehaviour
 {
     public KeyCode KeyToOpen;
     public int MaxCost;
+    public string Hesh;
     protected List<CollectableObject> _collectables;
     protected Inventory _playerInventory;
     protected Collider2D _trigger;
     protected ContactFilter2D _filter;
     protected ChestAnimations _animations;
     protected ChestContentsPresenter _contentsPresenter;
+    protected ChestsStateSaver _saver;
 
     protected Collider2D[] _playerCollider = new Collider2D[2];
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         _collectables = new List<CollectableObject>();
         _filter = new ContactFilter2D();
         _animations = GetComponent<ChestAnimations>();
         _contentsPresenter = FindObjectOfType<ChestContentsPresenter>();
+        _saver = FindObjectOfType<ChestsStateSaver>();
         _playerInventory = FindObjectOfType<Inventory>();
         _trigger = GetComponent<Collider2D>();
 
@@ -54,7 +57,8 @@ public class Chest : MonoBehaviour
             {
                 availableCollectables.Add(Collectables.ThrowingKnife);
             }
-            if (costs.ItemCost[Collectables.StaticTorch] <= availableCost)
+            if (costs.ItemCost[Collectables.StaticTorch] <= availableCost
+                && _playerInventory.GetContent()[Collectables.StaticTorch] < 5)
             {
                 availableCollectables.Add(Collectables.StaticTorch);
             }
@@ -90,7 +94,8 @@ public class Chest : MonoBehaviour
     protected void Update()
     {
         if (Input.GetKeyDown(KeyToOpen)
-            && _trigger.OverlapCollider(_filter, _playerCollider) > 0)
+            && _trigger.OverlapCollider(_filter, _playerCollider) > 0
+            && _collectables.Count > 0)
         {
             Give();
         }
@@ -100,8 +105,15 @@ public class Chest : MonoBehaviour
     {
         _playerInventory.AddObjects(_collectables);
         _contentsPresenter.ShowItems(_collectables);
+        _saver.ChestsStates.Add(Hesh, true);
         _collectables.Clear();
 
+        _animations.AnimationOpen();
+    }
+
+    public void Empty()
+    {
+        _collectables.Clear();
         _animations.AnimationOpen();
     }
 }
