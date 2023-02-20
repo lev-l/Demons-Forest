@@ -32,7 +32,7 @@ public class PlayerObject : ScriptableObject
         {
             _enemiesSeeYou.Add(enemy);
             NumberEnemiesSeeYou++;
-            enemy.GetComponent<Health>().OnDeath += DeleteEnemy;
+            enemy.GetComponent<Health>().WhenDestroy += DeleteEnemy;
 
             if (NumberEnemiesSeeYou == 1)
             {
@@ -48,7 +48,7 @@ public class PlayerObject : ScriptableObject
         {
             _enemiesSeeYou.Remove(enemy);
             NumberEnemiesSeeYou--;
-            enemy.GetComponent<Health>().OnDeath -= DeleteEnemy;
+            enemy.GetComponent<Health>().WhenDestroy -= DeleteEnemy;
         }
     }
 

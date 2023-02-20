@@ -6,6 +6,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public event Action<GameObject> OnDeath;
+    public event Action<GameObject> WhenDestroy;
     [SerializeField] protected int _maxHealth;
     protected int _currentHealth;
     private PunchSound _hurtedSound;
@@ -26,6 +27,7 @@ public class Health : MonoBehaviour
         _currentHealth -= damage;
         if (_currentHealth <= 0)
         {
+            OnDeath?.Invoke(gameObject);
             Destroy(gameObject);
         }
 
@@ -43,6 +45,6 @@ public class Health : MonoBehaviour
 
     private void OnDestroy()
     {
-        OnDeath?.Invoke(gameObject);
+        WhenDestroy?.Invoke(gameObject);
     }
 }
