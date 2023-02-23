@@ -1,6 +1,7 @@
-using System.Collections;
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "Player")]
 public class PlayerObject : ScriptableObject
@@ -95,5 +96,10 @@ public class PlayerObject : ScriptableObject
         Health = 100;
         _energy = _energyMax;
         _enemiesSeeYou.Clear();
+
+        PlayerPrefs.SetString("FileToLoad", "MainSave");
+        File.Delete(Application.dataPath + "/MainSave.add");
+        File.Delete(Application.dataPath + "/ChestsSave.add");
+        SceneManager.LoadScene((int)Scenes.Game);
     }
 }
