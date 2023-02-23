@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
         File.Delete(path + "ChestsSave.add");
         File.Delete(path + "CompasSave");
         File.Delete(path + "JournalSave");
+        PlayerPrefs.DeleteAll();
 
         SceneManager.LoadScene((int)Scenes.Game);
     }

@@ -24,12 +24,13 @@ public class Campfire : MonoBehaviour
         if(_isPlayerInRange
             && Input.GetKeyDown(KeyCode.E))
         {
+            _playerHealth.SetHealth(_playerHealth.GetHealthParams().max);
+
             if (_playerSaver.SaveData(_saveFileName))
             {
                 _saveText.Show();
 
                 _chestSaver.Save("ChestsSave");
-                _playerHealth.SetHealth(_playerHealth.GetHealthParams().max);
 
                 Invoke(nameof(HideSaveText), 1.2f);
             }
