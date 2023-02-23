@@ -16,8 +16,6 @@ public class PlayerDataCollector : MonoBehaviour
         _playerTransform = FindObjectOfType<PlayerMovement>().transform;
         _playerInventory = FindObjectOfType<Inventory>();
         _jsonSaver = Resources.Load<UnityNewtonsoftJsonSerializer>("UnityNewtonsoftJsonSerializer");
-
-        LoadData("MainSave");
     }
 
     public bool SaveData(string filename)
@@ -41,7 +39,7 @@ public class PlayerDataCollector : MonoBehaviour
         return false;
     }
 
-    public void LoadData(string filename)
+    public bool LoadData(string filename)
     {
         string fullPath = Application.dataPath + "/" + filename;
 
@@ -52,11 +50,12 @@ public class PlayerDataCollector : MonoBehaviour
             _playerTransform.GetComponent<PlayerHealth>().SetHealth(data.Health);
             _playerTransform.position = data.PlayerPosition;
             _playerInventory.AddObjects(GetLoadedItems(data));
+            return true;
         }
         else
         {
             Debug.LogWarning("Tried to load a game save but no file has been found.");
-            return;
+            return false;
         }
     }
 

@@ -7,30 +7,32 @@ public class ChestsStateSaver : MonoBehaviour
 {
     public string SaveFileName;
     public Dictionary<string, bool> ChestsStates;
-    private string _savePath;
 
-    private void Start()
+    private void Awake()
     {
-        _savePath = Application.dataPath + "/" + SaveFileName;
-        ChestsStates = Load();
+        ChestsStates = new Dictionary<string, bool>();
     }
 
-    public void Save()
+    public void Save(string filename)
     {
-        if (!File.Exists(_savePath))
+        string fullPath = Application.dataPath + "/" + filename;
+
+        if (!File.Exists(fullPath))
         {
-            using FileStream stream = File.Create(_savePath);
+            using FileStream stream = File.Create(fullPath);
             stream.Close();
         }
 
-        File.WriteAllText(_savePath, JsonConvert.SerializeObject(ChestsStates));
+        File.WriteAllText(fullPath, JsonConvert.SerializeObject(ChestsStates));
     }
 
-    public Dictionary<string, bool> Load()
+    public Dictionary<string, bool> Load(string filename)
     {
-        if (File.Exists(_savePath))
+        string fullPath = Application.dataPath + "/" + filename;
+
+        if (File.Exists(fullPath))
         {
-            return JsonConvert.DeserializeObject<Dictionary<string, bool>>(File.ReadAllText(_savePath));
+            return JsonConvert.DeserializeObject<Dictionary<string, bool>>(File.ReadAllText(fullPath));
         }
         else
         {

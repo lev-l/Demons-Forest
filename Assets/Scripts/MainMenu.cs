@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviour
     public void Continue()
     {
         SceneManager.LoadScene((int)Scenes.Game);
+        PlayerPrefs.SetString("FileToLoad", "MainSave.add");
     }
 
     public void Exit()

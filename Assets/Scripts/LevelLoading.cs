@@ -17,12 +17,48 @@ public class LevelLoading : MonoBehaviour
 
     private void Start()
     {
-        _mainScene = SceneManager.GetSceneByBuildIndex(1);
+        // setting params
+        _mainScene = SceneManager.GetSceneByBuildIndex((int)Scenes.Game);
         _levelsMap = new Forest_levelsMap().GetMap();
         _lastPositionX = _lastPositionY = 0;
         _player = FindObjectOfType<PlayerMovement>().transform;
         _pathfinder = FindObjectOfType<AstarPath>();
 
+        // loading saved data
+        #region Loading
+        string filename = PlayerPrefs.GetString("FileToLoad", "");
+        ChestsStateSaver chestData = FindObjectOfType<ChestsStateSaver>();
+        PlayerDataCollector playerData = FindObjectOfType<PlayerDataCollector>();
+
+        if (filename.Length > 0)
+        {
+            string[] filenameParts = filename.Split('.');
+
+            if(filenameParts.Length > 1)
+            {
+                if (playerData.LoadData(filename))
+                {
+                    chestData.ChestsStates = chestData.Load("ChestsSave.add");
+                }
+                else
+                {
+                    if (playerData.LoadData("MainSave"))
+                    {
+                        chestData.ChestsStates = chestData.Load("ChestsSave");
+                    }
+                }
+            }
+            else
+            {
+                if (playerData.LoadData(filename))
+                {
+                    chestData.ChestsStates = chestData.Load("ChestsSave");
+                }
+            }
+        }
+        #endregion Loading
+
+        // loading nearby locations
         StartCoroutine(LoadNearLevels(PlayerPositionIndexX, PlayerPositionIndexY));
         _lastLoadedLevels = _levelsLoaded;
         _pathfinder.data.gridGraph.Scan();
