@@ -28,6 +28,7 @@ public class LevelLoading : MonoBehaviour
         #region Loading
         string filename = PlayerPrefs.GetString("FileToLoad", "");
         ChestsStateSaver chestData = FindObjectOfType<ChestsStateSaver>();
+        EnemiesSaver enemiesData = FindObjectOfType<EnemiesSaver>();
         PlayerDataCollector playerData = FindObjectOfType<PlayerDataCollector>();
 
         if (filename.Length > 0)
@@ -39,12 +40,14 @@ public class LevelLoading : MonoBehaviour
                 if (playerData.LoadData(filename))
                 {
                     chestData.ChestsStates = chestData.Load("ChestsSave.add");
+                    enemiesData.Load("EnemiesSave.add");
                 }
                 else
                 {
                     if (playerData.LoadData("MainSave"))
                     {
                         chestData.ChestsStates = chestData.Load("ChestsSave");
+                        enemiesData.Load("EnemiesSave");
                     }
                 }
             }
@@ -53,6 +56,7 @@ public class LevelLoading : MonoBehaviour
                 if (playerData.LoadData(filename))
                 {
                     chestData.ChestsStates = chestData.Load("ChestsSave");
+                    enemiesData.Load("EnemiesSave");
                 }
             }
         }

@@ -34,12 +34,19 @@ public class MainMenu : MonoBehaviour
     public void StartNewGame()
     {
         string path = Application.dataPath + "/";
+
         File.Delete(path + "MainSave");
         File.Delete(path + "MainSave.add");
+
         File.Delete(path + "ChestsSave");
         File.Delete(path + "ChestsSave.add");
+
+        File.Delete(path + "EnemiesSave");
+        File.Delete(path + "EnemiesSave.add");
+
         File.Delete(path + "CompasSave");
         File.Delete(path + "JournalSave");
+
         PlayerPrefs.DeleteAll();
 
         SceneManager.LoadScene((int)Scenes.Game);
