@@ -83,6 +83,7 @@ public class LevelLoading : MonoBehaviour
             {
                 _lastPositionX = positionX;
                 _lastPositionY = positionY;
+                _enemiesData.Data.UpdateLocation();
 
                 StartCoroutine(LoadNearLevels(positionX, positionY));
 
