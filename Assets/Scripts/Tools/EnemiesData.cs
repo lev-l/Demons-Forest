@@ -11,9 +11,18 @@ public class EnemiesData
         _killedLocationEnemies = killedLocation;
     }
 
-    public void AddKilled(string killedHesh)
+    public void AddKilled(string killedHesh, bool isGreat)
     {
-        _killedGreatEnemies.Add(killedHesh);
+        if (_killedGreatEnemies.Contains(killedHesh)
+            || _killedLocationEnemies.Contains(killedHesh))
+        {
+            throw new System.Exception("Tryed to add already killed foe: " + killedHesh);
+        }
+
+        if (isGreat)
+        {
+            _killedGreatEnemies.Add(killedHesh);
+        }
         _killedLocationEnemies.Add(killedHesh);
     }
 
@@ -22,13 +31,12 @@ public class EnemiesData
         _killedLocationEnemies = new List<string>();
     }
 
-    public IEnumerator<string> GetKilledGreat()
+    public IEnumerator<string> GetKilled()
     {
-        return _killedGreatEnemies.GetEnumerator();
-    }
+        List<string> killed = new List<string>();
+        killed.AddRange(_killedGreatEnemies);
+        killed.AddRange(_killedLocationEnemies);
 
-    public IEnumerator<string> GetKilledLocation()
-    {
-        return _killedLocationEnemies.GetEnumerator();
+        return killed.GetEnumerator();
     }
 }

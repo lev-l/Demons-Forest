@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 public class EnemiesSaver : MonoBehaviour
 {
-    private EnemiesData _data;
+    public EnemiesData Data;
 
     public void Save(string filename)
     {
@@ -17,7 +17,7 @@ public class EnemiesSaver : MonoBehaviour
             stream.Close();
         }
 
-        File.WriteAllText(fullPath, JsonConvert.SerializeObject(_data));
+        File.WriteAllText(fullPath, JsonConvert.SerializeObject(Data));
     }
 
     public void Load(string filename)
@@ -26,11 +26,11 @@ public class EnemiesSaver : MonoBehaviour
 
         if (File.Exists(fullPath))
         {
-            _data = JsonConvert.DeserializeObject<EnemiesData>(File.ReadAllText(fullPath));
+            Data = JsonConvert.DeserializeObject<EnemiesData>(File.ReadAllText(fullPath));
         }
         else
         {
-            _data = new EnemiesData(new List<string>(), new List<string>());
+            Data = new EnemiesData(new List<string>(), new List<string>());
         }
     }
 }

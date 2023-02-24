@@ -9,6 +9,7 @@ public class LevelLoading : MonoBehaviour
 {
     private Transform _player;
     private AstarPath _pathfinder;
+    private EnemiesSaver _enemiesData;
     private Scene _mainScene;
     private string[,] _levelsMap;
     private string[] _lastLoadedLevels;
@@ -23,12 +24,12 @@ public class LevelLoading : MonoBehaviour
         _lastPositionX = _lastPositionY = 0;
         _player = FindObjectOfType<PlayerMovement>().transform;
         _pathfinder = FindObjectOfType<AstarPath>();
+        _enemiesData = FindObjectOfType<EnemiesSaver>();
 
         // loading saved data
         #region Loading
         string filename = PlayerPrefs.GetString("FileToLoad", "");
         ChestsStateSaver chestData = FindObjectOfType<ChestsStateSaver>();
-        EnemiesSaver enemiesData = FindObjectOfType<EnemiesSaver>();
         PlayerDataCollector playerData = FindObjectOfType<PlayerDataCollector>();
 
         if (filename.Length > 0)
@@ -40,14 +41,14 @@ public class LevelLoading : MonoBehaviour
                 if (playerData.LoadData(filename))
                 {
                     chestData.ChestsStates = chestData.Load("ChestsSave.add");
-                    enemiesData.Load("EnemiesSave.add");
+                    _enemiesData.Load("EnemiesSave.add");
                 }
                 else
                 {
                     if (playerData.LoadData("MainSave"))
                     {
                         chestData.ChestsStates = chestData.Load("ChestsSave");
-                        enemiesData.Load("EnemiesSave");
+                        _enemiesData.Load("EnemiesSave");
                     }
                 }
             }
@@ -56,7 +57,7 @@ public class LevelLoading : MonoBehaviour
                 if (playerData.LoadData(filename))
                 {
                     chestData.ChestsStates = chestData.Load("ChestsSave");
-                    enemiesData.Load("EnemiesSave");
+                    _enemiesData.Load("EnemiesSave");
                 }
             }
         }
@@ -128,15 +129,15 @@ public class LevelLoading : MonoBehaviour
                                    select root.GetComponent<GroupForm>();
                 var existingGroups = from root in _mainScene.GetRootGameObjects()
                                      where root.GetComponent<GroupForm>()
-                                     select root.GetComponent<GroupForm>();
+                                     select root.GetComponent<GroupForm>().Hesh;
 
                 foreach (GroupForm loadedGroup in loadedGroups)
                 {
                     bool destroy = false;
 
-                    foreach (GroupForm existingGroup in existingGroups)
+                    foreach (string existingGroup in existingGroups)
                     {
-                        if (existingGroup.Hesh == loadedGroup.Hesh)
+                        if (existingGroup == loadedGroup.Hesh)
                         {
                             Destroy(loadedGroup.gameObject);
                             destroy = true;
@@ -146,7 +147,23 @@ public class LevelLoading : MonoBehaviour
 
                     if(!destroy)
                     {
-                        SceneManager.MoveGameObjectToScene(loadedGroup.gameObject, _mainScene);
+                        bool killed = false;
+
+                        IEnumerator<string> killedGroups = _enemiesData.Data.GetKilled();
+                        while (killedGroups.MoveNext())
+                        {
+                            if(killedGroups.Current == loadedGroup.Hesh)
+                            {
+                                Destroy(loadedGroup.gameObject);
+                                killed = true;
+                                break;
+                            }
+                        }
+
+                        if (!killed)
+                        {
+                            SceneManager.MoveGameObjectToScene(loadedGroup.gameObject, _mainScene);
+                        }
                     }
                 }
             }
