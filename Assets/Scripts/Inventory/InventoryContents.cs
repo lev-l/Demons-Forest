@@ -139,6 +139,8 @@ public class StaticTorchObject : CollectableObject
         Transform newTorchTransform = newTorch.transform;
         newTorchTransform.localPosition += Vector3.up;
         newTorchTransform.SetParent(null);
+
+        GameObject.FindObjectOfType<TorchesSaver>().AddTorch(newTorch.transform);
     }
 
     public override Collectables GetItemType()

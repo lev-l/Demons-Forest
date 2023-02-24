@@ -31,6 +31,7 @@ public class LevelLoading : MonoBehaviour
         string filename = PlayerPrefs.GetString("FileToLoad", "");
         ChestsStateSaver chestData = FindObjectOfType<ChestsStateSaver>();
         PlayerDataCollector playerData = FindObjectOfType<PlayerDataCollector>();
+        TorchesSaver torchData = FindObjectOfType<TorchesSaver>();
 
         if (filename.Length > 0)
         {
@@ -42,6 +43,7 @@ public class LevelLoading : MonoBehaviour
                 {
                     chestData.ChestsStates = chestData.Load("ChestsSave.add");
                     _enemiesData.Load("EnemiesSave.add");
+                    torchData.Load("TorchesSave.add");
                 }
                 else
                 {
@@ -49,6 +51,7 @@ public class LevelLoading : MonoBehaviour
                     {
                         chestData.ChestsStates = chestData.Load("ChestsSave");
                         _enemiesData.Load("EnemiesSave");
+                        torchData.Load("TorchesSave");
                     }
                 }
             }
@@ -58,6 +61,7 @@ public class LevelLoading : MonoBehaviour
                 {
                     chestData.ChestsStates = chestData.Load("ChestsSave");
                     _enemiesData.Load("EnemiesSave");
+                    torchData.Load("TorchesSave");
                 }
             }
         }
