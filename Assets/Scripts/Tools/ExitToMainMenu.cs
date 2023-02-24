@@ -6,12 +6,13 @@ public class ExitToMainMenu : MonoBehaviour
 {
     private PlayerDataCollector _playerData;
     private ChestsStateSaver _chestsData;
-    //private Smth _locationData;
+    private EnemiesSaver _enemiesData;
 
     private void Start()
     {
         _playerData = FindObjectOfType<PlayerDataCollector>();
         _chestsData = FindObjectOfType<ChestsStateSaver>();
+        _enemiesData = FindObjectOfType<EnemiesSaver>();
     }
 
     public void ExitToMenu()
@@ -19,6 +20,7 @@ public class ExitToMainMenu : MonoBehaviour
         if (_playerData.SaveData("MainSave.add"))
         {
             _chestsData.Save("ChestsSave.add");
+            _enemiesData.Save("EnemiesSave.add");
             Time.timeScale = 1;
             SceneManager.LoadScene((int)Scenes.MainMenu);
         }

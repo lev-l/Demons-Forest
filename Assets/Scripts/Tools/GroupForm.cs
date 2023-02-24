@@ -4,6 +4,7 @@ using UnityEngine;
 public class GroupForm : MonoBehaviour
 {
     public string Hesh;
+    public bool IsGreatEnemy;
     private GroupVision _vision;
     private List<EnemyBaseAI> _group;
 
@@ -16,6 +17,15 @@ public class GroupForm : MonoBehaviour
         {
             memeber.OnTargetDetected += _vision.Notify;
             memeber.GetComponent<Health>().WhenDestroy += _vision.DeleteMember;
+            memeber.GetComponent<Health>().OnDeath += Killed;
+        }
+    }
+
+    public void Killed(GameObject killedMember)
+    {
+        if(_vision.GetGroup.Count - 1 == 0)
+        {
+            FindObjectOfType<EnemiesSaver>().Data.AddKilled(Hesh, IsGreatEnemy);
         }
     }
 }
