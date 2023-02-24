@@ -8,6 +8,7 @@ public class Campfire : MonoBehaviour
     private PlayerDataCollector _playerSaver;
     private ChestsStateSaver _chestSaver;
     private EnemiesSaver _enemySaver;
+    private TorchesSaver _torchesSaver;
     private PlayerHealth _playerHealth;
     private SaveNotice _saveText;
     private bool _isPlayerInRange;
@@ -17,6 +18,8 @@ public class Campfire : MonoBehaviour
         _playerSaver = FindObjectOfType<PlayerDataCollector>();
         _chestSaver = FindObjectOfType<ChestsStateSaver>();
         _enemySaver = FindObjectOfType<EnemiesSaver>();
+        _torchesSaver = FindObjectOfType<TorchesSaver>();
+
         _playerHealth = FindObjectOfType<PlayerHealth>();
         _saveText = FindObjectOfType<SaveNotice>(true);
     }
@@ -33,6 +36,7 @@ public class Campfire : MonoBehaviour
                 _saveText.Show();
                 _chestSaver.Save("ChestsSave");
                 _enemySaver.Save("EnemiesSave");
+                _torchesSaver.Save("TorchesSave");
 
                 Invoke(nameof(HideSaveText), 1.2f);
             }

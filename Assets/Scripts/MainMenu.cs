@@ -43,6 +43,9 @@ public class MainMenu : MonoBehaviour
 
         File.Delete(path + "EnemiesSave");
         File.Delete(path + "EnemiesSave.add");
+        
+        File.Delete(path + "TorchesSave");
+        File.Delete(path + "TorchesSave.add");
 
         File.Delete(path + "CompasSave");
         File.Delete(path + "JournalSave");

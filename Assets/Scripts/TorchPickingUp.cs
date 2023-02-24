@@ -29,6 +29,7 @@ public class TorchPickingUp : MonoBehaviour
             && _collider.OverlapCollider(_filter, _overlapResults) > 0)
         {
             _playerInventory.AddObjects(new List<CollectableObject>() { new StaticTorchObject() });
+            FindObjectOfType<TorchesSaver>().RemoveTorch(transform);
             Destroy(gameObject);
         }
     }

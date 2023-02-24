@@ -39,7 +39,7 @@ public class CompassDataSave
 
         if (!File.Exists(fullPath))
         {
-            Debug.LogWarning("Tryed to load a compas save, but no save exists.");
+            //Debug.LogWarning("Tryed to load a compas save, but no save exists.");
             return null;
         }
 
