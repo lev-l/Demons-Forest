@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 
 public class EnemiesData
 {
-    private List<string> _killedGreatEnemies;
-    private List<string> _killedLocationEnemies;
+    public List<string> _killedGreatEnemies;
+    public List<string> _killedLocationEnemies;
 
     public EnemiesData(List<string> killedGreat, List<string> killedLocation)
     {

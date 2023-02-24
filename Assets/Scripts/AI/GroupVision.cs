@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GroupVision : MonoBehaviour
 {
-    public bool IsGreatEnemy;
     private List<EnemyBaseAI> _group;
     private bool _open;
 
@@ -39,7 +38,6 @@ public class GroupVision : MonoBehaviour
 
         if(_group.Count == 0)
         {
-            FindObjectOfType<EnemiesSaver>().Data.AddKilled(GetComponent<GroupForm>().Hesh, IsGreatEnemy);
             Destroy(gameObject);
         }
     }

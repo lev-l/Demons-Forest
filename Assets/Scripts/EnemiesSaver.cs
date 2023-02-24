@@ -7,6 +7,11 @@ public class EnemiesSaver : MonoBehaviour
 {
     public EnemiesData Data;
 
+    public void Awake()
+    {
+        Data = new EnemiesData(new List<string>(), new List<string>());
+    }
+
     public void Save(string filename)
     {
         string fullPath = Application.dataPath + "/" + filename;
