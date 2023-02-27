@@ -30,7 +30,7 @@ public class ExitToMainMenu : MonoBehaviour
         }
         else
         {
-            GetComponentInChildren<TextMeshProUGUI>().text = "Can't exit durring battle";
+            GetComponentInChildren<TextMeshProUGUI>().text = "Can't exit during battle";
             Invoke(nameof(BackToNormal), 0.1f);
         }
     }
