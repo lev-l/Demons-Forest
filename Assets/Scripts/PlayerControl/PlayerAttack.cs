@@ -59,6 +59,11 @@ public class PlayerAttack : MonoBehaviour
                         enemy.Discard(Trigonometric.CreateRayEnd(distance: 0.8f, central + 90));
                         damaged.Add(enemy);
                     }
+                    else if (!enemy
+                        && !hit.collider.isTrigger)
+                    {
+                        break;
+                    }
                 }
             }
             yield return new WaitForSeconds(0.01f);
