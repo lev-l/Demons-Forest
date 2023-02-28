@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5846588437906948715}
   - component: {fileID: 4673805799504834423}
   - component: {fileID: -5978453525804327415}
+  - component: {fileID: 1786543945292950314}
   m_Layer: 9
   m_Name: Chest
   m_TagString: Untagged
@@ -114,6 +115,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8731f18bac4dd4049bb6a565436d097c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1786543945292950314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6279844398038187338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.4097001, y: -0.753943, z: 0}
+  - {x: 0.37803602, y: -0.7453073, z: 0}
+  - {x: 0.469168, y: -0.062003873, z: 0}
+  - {x: 0.41257864, y: 0.8057572, z: 0}
+  - {x: -0.4183358, y: 0.8028785, z: 0}
+  m_ShapePathHash: 1727070605
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 41004
 --- !u!1 &6279844398406109567
 GameObject:
   m_ObjectHideFlags: 0

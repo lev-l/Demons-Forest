@@ -4993,6 +4993,7 @@ GameObject:
   - component: {fileID: 6996783364866932349}
   - component: {fileID: 3034236562310203571}
   - component: {fileID: -7574547907783554159}
+  - component: {fileID: 8133879478939990091}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -5281,6 +5282,54 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2c458bcf87879524988de64ee739b425, type: 3}
   - {fileID: 21300000, guid: 7943eb4e0c4da3f4ea9bfaaf6e3c713b, type: 3}
   - {fileID: 21300000, guid: 2ba50971f5ce7484692ac57eebf63450, type: 3}
+--- !u!114 &8133879478939990091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282649530541272487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.21960315, y: -0.5045374, z: 0}
+  - {x: 0.0051478893, y: -0.6998279, z: 0}
+  - {x: 0.20554745, y: -0.714207, z: 0}
+  - {x: 0.34804997, y: -0.6292893, z: 0}
+  - {x: 0.32137588, y: -0.5181071, z: 0}
+  - {x: 0.26020962, y: -0.3667757, z: 0}
+  - {x: 0.34623012, y: -0.33482522, z: 0}
+  - {x: 0.39538467, y: -0.27583975, z: 0}
+  - {x: 0.28478688, y: -0.26109338, z: 0}
+  - {x: 0.17910457, y: -0.20456563, z: 0}
+  - {x: 0.28724462, y: -0.1603265, z: 0}
+  - {x: 0.31673735, y: -0.11608739, z: 0}
+  - {x: 0.31673735, y: -0.06447509, z: 0}
+  - {x: 0.28232917, y: 0.0018835664, z: 0}
+  - {x: 0.22334369, y: 0.06086906, z: 0}
+  - {x: 0.30444872, y: 0.06578452, z: 0}
+  - {x: 0.41258878, y: 0.033834048, z: 0}
+  - {x: 0.38801152, y: 0.10756591, z: 0}
+  - {x: 0.24546324, y: 0.269776, z: 0}
+  - {x: 0.32137588, y: 0.5181071, z: 0}
+  - {x: 0.17706923, y: 0.6536346, z: 0}
+  - {x: -0.04946418, y: 0.6826744, z: 0}
+  - {x: -0.19802037, y: 0.5745947, z: 0}
+  - {x: -0.2900035, y: 0.34915602, z: 0}
+  - {x: -0.3139347, y: -0.02177751, z: 0}
+  - {x: -0.3139347, y: -0.18929577, z: 0}
+  m_ShapePathHash: -488146582
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 41336
 --- !u!1 &6282649531852764282
 GameObject:
   m_ObjectHideFlags: 0
