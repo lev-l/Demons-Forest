@@ -7,6 +7,7 @@ TagManager:
   - BookField
   - PageNum
   - PageText
+  - DestroyableBuilding
   layers:
   - Default
   - TransparentFX
