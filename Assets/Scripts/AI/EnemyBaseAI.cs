@@ -36,9 +36,13 @@ public class EnemyBaseAI : EnemyTools
 
     protected void Update()
     {
+        //if (GetComponent<GoblinVillageBossAttack>())
+        //    print("not blocked" + NotBlocked);
         if (NotBlocked
             && _path != null)
         {
+            //if (GetComponent<GoblinVillageBossAttack>())
+            //    print("still going");
             if (_currentWaypoint >= _path.vectorPath.Count)
             {
                 _path = null;
@@ -127,18 +131,20 @@ public class EnemyBaseAI : EnemyTools
 
         while (distanceToTarget < 8)
         {
-            Vector2 destination = _group.GetDestination(_player._enemiesSeeYou.IndexOf(gameObject),
-                                                        _target,
-                                                        AttackDistance);
-
-            BuildPath(selfPosition: _transform.position,
-                        targetPosition: destination,
-                        callbackFunction: PathCompleted);
-
-            if (NotBlocked
-                && distanceToTarget < AttackDistance)
+            if (NotBlocked)
             {
-                CheckForAttack();
+                Vector2 destination = _group.GetDestination(_player._enemiesSeeYou.IndexOf(gameObject),
+                                                            _target,
+                                                            AttackDistance);
+
+                BuildPath(selfPosition: _transform.position,
+                            targetPosition: destination,
+                            callbackFunction: PathCompleted);
+
+                if (distanceToTarget < AttackDistance)
+                {
+                    CheckForAttack();
+                }
             }
             yield return new WaitForSeconds(_frequencyOfPathFinding);
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
@@ -174,8 +180,16 @@ public class EnemyBaseAI : EnemyTools
 
     public override void Block()
     {
+        print(1);
         base.Block();
         Unblock();
+    }
+
+    public virtual void Block(float timeToWait)
+    {
+        print(11);
+        base.Block();
+        Unblock(timeToWait);
     }
 
     public override void Discard(Vector2 direction)
@@ -193,13 +207,28 @@ public class EnemyBaseAI : EnemyTools
 
     public override void Unblock()
     {
+        print(2);
         StopCoroutine(nameof(WaitForUnblock));
         StartCoroutine(nameof(WaitForUnblock));
     }
 
+    public virtual void Unblock(float timeToWait)
+    {
+        print(22);
+        StopCoroutine(WaitForUnblock(timeToWait));
+        StartCoroutine(WaitForUnblock(timeToWait));
+    }
+
     protected virtual IEnumerator WaitForUnblock()
     {
+        print(3);
         yield return new WaitForSeconds(_frequencyOfPathFinding);
+        NotBlocked = true;
+    }
+    protected virtual IEnumerator WaitForUnblock(float timeToWait)
+    {
+        print(33);
+        yield return new WaitForSeconds(timeToWait); print("go!");
         NotBlocked = true;
     }
 

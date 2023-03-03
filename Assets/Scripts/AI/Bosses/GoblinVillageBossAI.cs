@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(GoblinVillageBossAttack), typeof(GoblinVillageBossPhases))]
+[RequireComponent(typeof(GoblinVillageBossAttack))]
 public class GoblinVillageBossAI : EnemyBaseAI
 {
     protected override IEnumerator BuildingPathWhileSee()
@@ -10,18 +10,20 @@ public class GoblinVillageBossAI : EnemyBaseAI
         float distanceToTarget = Vector2.Distance(_transform.position, _target.position);
         _seePlayer = true;
 
-        while (distanceToTarget < 15)
+        while (distanceToTarget < 22)
         {
-            Vector2 destination = _target.position;
-
-            BuildPath(selfPosition: _transform.position,
-                        targetPosition: destination,
-                        callbackFunction: PathCompleted);
-
-            if (NotBlocked
-                && distanceToTarget < AttackDistance)
+            if (NotBlocked)
             {
-                CheckForAttack();
+                Vector2 destination = _target.position;
+
+                BuildPath(selfPosition: _transform.position,
+                            targetPosition: destination,
+                            callbackFunction: PathCompleted);
+
+                if (distanceToTarget < AttackDistance)
+                {
+                    CheckForAttack();
+                }
             }
             yield return new WaitForSeconds(_frequencyOfPathFinding);
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);

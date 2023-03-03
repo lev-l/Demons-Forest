@@ -119,8 +119,7 @@ public class EnemyAttack : MonoBehaviour
     protected (bool colided, Collider2D[] colliders) DetectCollision()
     {
         List<Collider2D> collisions = new List<Collider2D>();
-        bool detectedAnyCollision = Physics2D.GetContacts(_collider, _filter, collisions) > 0;
-
+        bool detectedAnyCollision = _collider.GetContacts(collisions) > 0;
         return (detectedAnyCollision, collisions.ToArray());
     }
 

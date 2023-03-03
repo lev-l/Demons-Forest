@@ -48,11 +48,13 @@ public class GoblinVillageBossAttack : EnemyAttack
             currentTime += Time.deltaTime;
 
             (bool collided, Collider2D[] colliders) collision = DetectCollision();
+            print(collision.collided);
             if (collision.collided)
             {
                 foreach (Collider2D collider in collision.colliders)
                 {
                     Health aliveObject = collider.GetComponent<Health>();
+                    print((bool)aliveObject);
                     if (aliveObject)
                     {
                         Damage(aliveObject);
@@ -64,7 +66,7 @@ public class GoblinVillageBossAttack : EnemyAttack
                         {
                             // Add some functionality to destroy houses colliders and change their sprites
                         }
-                        _phases.StartPhase2();
+                        _phases.StartPhase2();// move up ^
                         break;
                     }
                 }
