@@ -20,6 +20,8 @@ public class EnemyBaseAI : EnemyTools
     protected int _currentWaypoint = 0;
     protected Path _path;
     protected bool _seePlayer = false;
+    protected float _blockedTime = 0;
+    protected Coroutine _currentBlocking;
     #endregion
     #region Events
     public event Action<Vector2> OnTargetDetected;
@@ -36,13 +38,9 @@ public class EnemyBaseAI : EnemyTools
 
     protected void Update()
     {
-        //if (GetComponent<GoblinVillageBossAttack>())
-        //    print("not blocked" + NotBlocked);
         if (NotBlocked
             && _path != null)
         {
-            //if (GetComponent<GoblinVillageBossAttack>())
-            //    print("still going");
             if (_currentWaypoint >= _path.vectorPath.Count)
             {
                 _path = null;
@@ -180,16 +178,21 @@ public class EnemyBaseAI : EnemyTools
 
     public override void Block()
     {
-        print(1);
-        base.Block();
-        Unblock();
+        print(_blockedTime);
+        if (_blockedTime <= _frequencyOfPathFinding)
+        {
+            base.Block();
+            Unblock();
+        }
     }
 
     public virtual void Block(float timeToWait)
     {
-        print(11);
-        base.Block();
-        Unblock(timeToWait);
+        if (_blockedTime <= timeToWait)
+        {
+            base.Block();
+            Unblock(timeToWait);
+        }
     }
 
     public override void Discard(Vector2 direction)
@@ -207,28 +210,30 @@ public class EnemyBaseAI : EnemyTools
 
     public override void Unblock()
     {
-        print(2);
-        StopCoroutine(nameof(WaitForUnblock));
-        StartCoroutine(nameof(WaitForUnblock));
+        if(_currentBlocking != null)
+        {
+            StopCoroutine(_currentBlocking);
+        }
+        _currentBlocking = StartCoroutine(WaitForUnblock(_frequencyOfPathFinding));
     }
 
     public virtual void Unblock(float timeToWait)
     {
-        print(22);
-        StopCoroutine(WaitForUnblock(timeToWait));
-        StartCoroutine(WaitForUnblock(timeToWait));
+        if (_currentBlocking != null)
+        {
+            StopCoroutine(_currentBlocking);
+        }
+        _currentBlocking = StartCoroutine(WaitForUnblock(timeToWait));
+        print(_currentBlocking.GetHashCode());
     }
 
-    protected virtual IEnumerator WaitForUnblock()
-    {
-        print(3);
-        yield return new WaitForSeconds(_frequencyOfPathFinding);
-        NotBlocked = true;
-    }
     protected virtual IEnumerator WaitForUnblock(float timeToWait)
     {
-        print(33);
-        yield return new WaitForSeconds(timeToWait); print("go!");
+        _blockedTime = timeToWait;
+        yield return new WaitForSeconds(timeToWait);
+
+        _blockedTime = 0;
+        _currentBlocking = null;
         NotBlocked = true;
     }
 

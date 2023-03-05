@@ -39,9 +39,12 @@ public class GoblinVillageBossAI : EnemyBaseAI
     {
     }
 
-    protected override IEnumerator WaitForUnblock()
+    public override void Unblock()
     {
-        yield return new WaitForSeconds(1.7f);
-        NotBlocked = true;
+        if (_currentBlocking != null)
+        {
+            StopCoroutine(_currentBlocking);
+        }
+        _currentBlocking = StartCoroutine(WaitForUnblock(1.7f));
     }
 }

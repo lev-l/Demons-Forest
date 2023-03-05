@@ -48,13 +48,11 @@ public class GoblinVillageBossAttack : EnemyAttack
             currentTime += Time.deltaTime;
 
             (bool collided, Collider2D[] colliders) collision = DetectCollision();
-            print(collision.collided);
             if (collision.collided)
             {
                 foreach (Collider2D collider in collision.colliders)
                 {
                     Health aliveObject = collider.GetComponent<Health>();
-                    print((bool)aliveObject);
                     if (aliveObject)
                     {
                         Damage(aliveObject);
