@@ -16,11 +16,6 @@ public class GoblinVillageBossPhases : MonoBehaviour
         _transform = gameObject.transform;
     }
 
-    public void StartPhase1()
-    {
-
-    }
-
     public void StartPhase2()
     {
         _bossAI.Block(_phase2Time);

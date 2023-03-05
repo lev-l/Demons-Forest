@@ -178,7 +178,6 @@ public class EnemyBaseAI : EnemyTools
 
     public override void Block()
     {
-        print(_blockedTime);
         if (_blockedTime <= _frequencyOfPathFinding)
         {
             base.Block();
@@ -224,7 +223,6 @@ public class EnemyBaseAI : EnemyTools
             StopCoroutine(_currentBlocking);
         }
         _currentBlocking = StartCoroutine(WaitForUnblock(timeToWait));
-        print(_currentBlocking.GetHashCode());
     }
 
     protected virtual IEnumerator WaitForUnblock(float timeToWait)
