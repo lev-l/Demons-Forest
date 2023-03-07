@@ -50,6 +50,9 @@ public class MainMenu : MonoBehaviour
         File.Delete(path + "CompasSave");
         File.Delete(path + "JournalSave");
 
+        File.Delete(path + "VillageBoss");
+        File.Delete(path + "VillageBoss.add");
+
         PlayerPrefs.DeleteAll();
 
         SceneManager.LoadScene((int)Scenes.Game);

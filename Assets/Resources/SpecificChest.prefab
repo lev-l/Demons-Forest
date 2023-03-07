@@ -158,6 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KeyToOpen: 101
   MaxCost: 0
+  Hesh: 
+  Saveable: 1
   _specificItems: 
 --- !u!114 &2353678787873832380
 MonoBehaviour:

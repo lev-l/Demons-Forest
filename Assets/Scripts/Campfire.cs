@@ -38,6 +38,12 @@ public class Campfire : MonoBehaviour
                 _enemySaver.Save("EnemiesSave");
                 _torchesSaver.Save("TorchesSave");
 
+                VillageBossLocationSaver villageBossSaver = FindObjectOfType<VillageBossLocationSaver>();
+                if (villageBossSaver)
+                {
+                    villageBossSaver.Save("VillageBoss");
+                }
+
                 Invoke(nameof(HideSaveText), 1.2f);
             }
         }

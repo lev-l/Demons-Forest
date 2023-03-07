@@ -62,9 +62,9 @@ public class GoblinVillageBossAttack : EnemyAttack
                     {
                         if (collider.CompareTag("DestroyableBuilding"))
                         {
-                            // Add some functionality to destroy houses colliders and change their sprites
+                            collider.GetComponent<DestroyableHouse>().DestroyThis();
                         }
-                        _phases.StartPhase2();// move up ^
+                        _phases.StartPhase2();
                         break;
                     }
                 }

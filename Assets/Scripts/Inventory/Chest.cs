@@ -7,6 +7,7 @@ public class Chest : MonoBehaviour
     public KeyCode KeyToOpen;
     public int MaxCost;
     public string Hesh;
+    public bool Saveable;
     protected List<CollectableObject> _collectables;
     protected Inventory _playerInventory;
     protected Collider2D _trigger;
@@ -105,7 +106,10 @@ public class Chest : MonoBehaviour
     {
         _playerInventory.AddObjects(_collectables);
         _contentsPresenter.ShowItems(_collectables);
-        _saver.ChestsStates.Add(Hesh, true);
+        if (Saveable)
+        {
+            _saver.ChestsStates.Add(Hesh, true);
+        }
         _collectables.Clear();
 
         _animations.AnimationOpen();
