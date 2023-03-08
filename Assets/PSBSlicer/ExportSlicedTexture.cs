@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
+#if UNITY_EDITOR
 public class ExportSlicedTexture : EditorWindow
 {
     private Texture2D texture;
@@ -36,3 +37,4 @@ public class ExportSlicedTexture : EditorWindow
         Debug.Log(_bytes.Length / 1024 + "Kb was saved as: " + filePath);
     }
 }
+# endif

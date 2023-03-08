@@ -10,7 +10,7 @@ public class PlayerDataCollector : MonoBehaviour
     private Inventory _playerInventory;
     private UnityNewtonsoftJsonSerializer _jsonSaver;
 
-    private void Start()
+    private void Awake()
     {
         _player = Resources.Load<PlayerObject>("Player");
         _playerTransform = FindObjectOfType<PlayerMovement>().transform;
@@ -47,7 +47,7 @@ public class PlayerDataCollector : MonoBehaviour
         {
             PlayerDataSaver data = JsonConvert.DeserializeObject<PlayerDataSaver>(File.ReadAllText(fullPath));
 
-            _playerTransform.GetComponent<PlayerHealth>().SetHealth(data.Health);
+            _playerTransform.GetComponent<PlayerHealth>().SetWithDelay(data.Health);
             _playerTransform.position = data.PlayerPosition;
             _playerInventory.AddObjects(GetLoadedItems(data));
             return true;

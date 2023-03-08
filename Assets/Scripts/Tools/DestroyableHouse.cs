@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class DestroyableHouse : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class DestroyableHouse : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = _destroyedSprite;
         Instantiate(_chest, transform.position, Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)));
         Destroy(GetComponent<Collider2D>());
+        Destroy(GetComponent<ShadowCaster2D>());
         FindObjectOfType<VillageBossLocationSaver>().AddDestroyed(Hesh);
     }
 }

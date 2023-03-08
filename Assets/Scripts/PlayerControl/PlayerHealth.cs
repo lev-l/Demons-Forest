@@ -37,4 +37,12 @@ public class PlayerHealth : Health
         _player.Health = health;
         _presenter.UpdateView(this);
     }
+
+    public IEnumerator SetWithDelay(int health)
+    {
+        yield return null;
+        _currentHealth = health;
+        _player.Health = health;
+        _presenter.UpdateView(this);
+    }
 }
