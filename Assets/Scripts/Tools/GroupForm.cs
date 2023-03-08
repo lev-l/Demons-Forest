@@ -21,6 +21,17 @@ public class GroupForm : MonoBehaviour
         }
     }
 
+    public void AddMembers()
+    {
+        EnemyBaseAI[] newMembers = _vision.AddNewMember();
+        foreach (EnemyBaseAI newMemeber in newMembers)
+        {
+            newMemeber.OnTargetDetected += _vision.Notify;
+            newMemeber.GetComponent<Health>().WhenDestroy += _vision.DeleteMember;
+            newMemeber.GetComponent<Health>().OnDeath += Killed;
+        }
+    }
+
     public void Killed(GameObject killedMember)
     {
         if(_vision.GetGroup.Count - 1 == 0)

@@ -9,23 +9,25 @@ public class EnemyBaseAI : EnemyTools
     #region Properties
     public float Speed;
     public float AttackDistance;
-    [SerializeField] private float _frequencyOfPathFinding;
-    [SerializeField] private float _waitTime;
-    [SerializeField] private float _peekNextWaypointDistance = 2f;
-    private Transform _transform;
-    private Transform _target;
-    private GroupAttacking _group;
-    private PlayerObject _player;
-    private Vector2 _startPosition;
-    private int _currentWaypoint = 0;
-    private Path _path;
-    private bool _seePlayer = false;
+    [SerializeField] protected float _frequencyOfPathFinding;
+    [SerializeField] protected float _waitTime;
+    [SerializeField] protected float _peekNextWaypointDistance = 2f;
+    protected Transform _transform;
+    protected Transform _target;
+    protected GroupAttacking _group;
+    protected PlayerObject _player;
+    protected Vector2 _startPosition;
+    protected int _currentWaypoint = 0;
+    protected Path _path;
+    protected bool _seePlayer = false;
+    protected float _blockedTime = 0;
+    protected Coroutine _currentBlocking;
     #endregion
     #region Events
     public event Action<Vector2> OnTargetDetected;
     #endregion
 
-    private void Start()
+    protected virtual void Start()
     {
         _player = Resources.Load<PlayerObject>("Player");
         _group = FindObjectOfType<GroupAttacking>();
@@ -34,7 +36,7 @@ public class EnemyBaseAI : EnemyTools
         _startPosition = _transform.position;
     }
 
-    private void Update()
+    protected void Update()
     {
         if (NotBlocked
             && _path != null)
@@ -70,7 +72,7 @@ public class EnemyBaseAI : EnemyTools
         }
     }
 
-    private void CheckForAttack()
+    protected void CheckForAttack()
     {
         _transform.rotation = GetNewRotation(selfPosition: _transform.position,
                                             targetPosition: _target.position);
@@ -111,7 +113,7 @@ public class EnemyBaseAI : EnemyTools
         }
     }
 
-    private void PathCompleted(Path path)
+    protected void PathCompleted(Path path)
     {
         if (!path.error)
         {
@@ -120,25 +122,27 @@ public class EnemyBaseAI : EnemyTools
         }
     }
 
-    private IEnumerator BuildingPathWhileSee()
+    protected virtual IEnumerator BuildingPathWhileSee()
     {
         float distanceToTarget = Vector2.Distance(_transform.position, _target.position);
         _seePlayer = true;
 
-        while (distanceToTarget < 7)
+        while (distanceToTarget < 8)
         {
-            Vector2 destination = _group.GetDestination(_player._enemiesSeeYou.IndexOf(gameObject),
-                                                        _target,
-                                                        AttackDistance);
-
-            BuildPath(selfPosition: _transform.position,
-                        targetPosition: destination,
-                        callbackFunction: PathCompleted);
-
-            if (NotBlocked
-                && distanceToTarget < AttackDistance)
+            if (NotBlocked)
             {
-                CheckForAttack();
+                Vector2 destination = _group.GetDestination(_player._enemiesSeeYou.IndexOf(gameObject),
+                                                            _target,
+                                                            AttackDistance);
+
+                BuildPath(selfPosition: _transform.position,
+                            targetPosition: destination,
+                            callbackFunction: PathCompleted);
+
+                if (distanceToTarget < AttackDistance)
+                {
+                    CheckForAttack();
+                }
             }
             yield return new WaitForSeconds(_frequencyOfPathFinding);
             distanceToTarget = Vector2.Distance(_transform.position, _target.position);
@@ -150,7 +154,7 @@ public class EnemyBaseAI : EnemyTools
         StartCoroutine(nameof(GoBack));
     }
 
-    private IEnumerator WaitForTarget(Vector2 trackEndPoint)
+    protected IEnumerator WaitForTarget(Vector2 trackEndPoint)
     {
         float distanceToTarget = Vector2.Distance(_transform.position, trackEndPoint);
 
@@ -164,7 +168,7 @@ public class EnemyBaseAI : EnemyTools
         StartCoroutine(nameof(GoBack));
     }
 
-    private IEnumerator GoBack()
+    protected IEnumerator GoBack()
     {
         yield return new WaitForSeconds(_waitTime);
         BuildPath(selfPosition: _transform.position,
@@ -174,8 +178,20 @@ public class EnemyBaseAI : EnemyTools
 
     public override void Block()
     {
-        base.Block();
-        Unblock();
+        if (_blockedTime <= _frequencyOfPathFinding)
+        {
+            base.Block();
+            Unblock();
+        }
+    }
+
+    public virtual void Block(float timeToWait)
+    {
+        if (_blockedTime <= timeToWait)
+        {
+            base.Block();
+            Unblock(timeToWait);
+        }
     }
 
     public override void Discard(Vector2 direction)
@@ -184,7 +200,7 @@ public class EnemyBaseAI : EnemyTools
         Block();
     }
 
-    private void PathToTarget(Vector2 target)
+    protected void PathToTarget(Vector2 target)
     {
         BuildPath(selfPosition: _transform.position,
                     targetPosition: target,
@@ -193,13 +209,29 @@ public class EnemyBaseAI : EnemyTools
 
     public override void Unblock()
     {
-        StopCoroutine(nameof(WaitForUnblock));
-        StartCoroutine(nameof(WaitForUnblock));
+        if(_currentBlocking != null)
+        {
+            StopCoroutine(_currentBlocking);
+        }
+        _currentBlocking = StartCoroutine(WaitForUnblock(_frequencyOfPathFinding));
     }
 
-    private IEnumerator WaitForUnblock()
+    public virtual void Unblock(float timeToWait)
     {
-        yield return new WaitForSeconds(_frequencyOfPathFinding);
+        if (_currentBlocking != null)
+        {
+            StopCoroutine(_currentBlocking);
+        }
+        _currentBlocking = StartCoroutine(WaitForUnblock(timeToWait));
+    }
+
+    protected virtual IEnumerator WaitForUnblock(float timeToWait)
+    {
+        _blockedTime = timeToWait;
+        yield return new WaitForSeconds(timeToWait);
+
+        _blockedTime = 0;
+        _currentBlocking = null;
         NotBlocked = true;
     }
 

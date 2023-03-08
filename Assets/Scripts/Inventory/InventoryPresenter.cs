@@ -12,7 +12,7 @@ public class InventoryPresenter : MonoBehaviour
     private int _healBottlesNumber, _throwingKnifesNumber, _staticTorchesNumber;
     private TextMeshProUGUI _bottlesNumberText, _knifesNumberText, _torchesNumberText;
 
-    private void Start()
+    private void Awake()
     {
         _healBottles = transform.GetChild(0).GetComponent<Image>();
         _throwingKnifes = transform.GetChild(1).GetComponent<Image>();

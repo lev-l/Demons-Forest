@@ -32,6 +32,22 @@ public class GroupVision : MonoBehaviour
         }
     }
 
+    public EnemyBaseAI[] AddNewMember()
+    {
+        EnemyBaseAI[] allMembers = GetComponentsInChildren<EnemyBaseAI>();
+        List<EnemyBaseAI> newMembers = new List<EnemyBaseAI>();
+        foreach(EnemyBaseAI member in allMembers)
+        {
+            if (!_group.Contains(member))
+            {
+                _group.Add(member);
+                newMembers.Add(member);
+            }
+        }
+
+        return newMembers.ToArray();
+    }
+
     public void DeleteMember(GameObject member)
     {
         _group.Remove(member.GetComponent<EnemyBaseAI>());

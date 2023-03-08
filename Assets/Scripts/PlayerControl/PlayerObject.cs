@@ -100,6 +100,7 @@ public class PlayerObject : ScriptableObject
         PlayerPrefs.SetString("FileToLoad", "MainSave");
         File.Delete(Application.dataPath + "/MainSave.add");
         File.Delete(Application.dataPath + "/ChestsSave.add");
+        File.Delete(Application.dataPath + "/VillageBoss.add");
         SceneManager.LoadScene((int)Scenes.Game);
     }
 }

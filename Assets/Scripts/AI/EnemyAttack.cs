@@ -7,17 +7,18 @@ public class EnemyAttack : MonoBehaviour
 {
     public AnimationCurve AttackCurve;
     public AnimationCurve BackCurve;
-    [SerializeField] private float _speed;
-    [SerializeField] private int _damage;
-    private Transform _transform;
-    private EnemyTools _tools;
-    private Collider2D _collider;
-    private ContactFilter2D _filter;
-    private Transform _target;
-    private bool _coroutineOngoing = false;
-    private bool _collided = false;
+    [SerializeField] protected float _speed;
+    [SerializeField] protected int _damage;
+    [SerializeField] protected int _chargesMax;
+    protected Transform _transform;
+    protected EnemyTools _tools;
+    protected Collider2D _collider;
+    protected ContactFilter2D _filter;
+    protected Transform _target;
+    protected bool _coroutineOngoing = false;
+    protected bool _collided = false;
 
-    private void Start()
+    protected virtual void Start()
     {
         _transform = GetComponent<Transform>();
         _tools = GetComponent<EnemyTools>();
@@ -38,7 +39,7 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-    private IEnumerator Attacking()
+    protected virtual IEnumerator Attacking()
     {
         _coroutineOngoing = true;
 
@@ -66,15 +67,16 @@ public class EnemyAttack : MonoBehaviour
         _coroutineOngoing = false;
     }
 
-    private IEnumerator AttacksCharging(int chargeNumber)
+    protected IEnumerator AttacksCharging(int chargeNumber)
     {
         _transform.rotation = _tools.GetNewRotation(selfPosition: _transform.position,
                                                     targetPosition: _target.position);
         yield return Charge();
 
+        // For a logner charge if enemy does not collide with anything;
         chargeNumber++;
         if (!_collided
-            && chargeNumber < 3)
+            && chargeNumber < _chargesMax)
         {
             yield return AttacksCharging(chargeNumber);
         }
@@ -82,7 +84,7 @@ public class EnemyAttack : MonoBehaviour
         _target = null;
     }
 
-    private IEnumerator Charge()
+    protected virtual IEnumerator Charge()
     {
         float duration = AttackCurve.keys[AttackCurve.keys.Length - 1].time;
         float currentTime = 0f;
@@ -114,20 +116,19 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-    private (bool colided, Collider2D[] colliders) DetectCollision()
+    protected (bool colided, Collider2D[] colliders) DetectCollision()
     {
         List<Collider2D> collisions = new List<Collider2D>();
-        bool detectedAnyCollision = Physics2D.GetContacts(_collider, _filter, collisions) > 0;
-
+        bool detectedAnyCollision = _collider.GetContacts(collisions) > 0;
         return (detectedAnyCollision, collisions.ToArray());
     }
 
-    private void Damage(Health damageTarget)
+    protected virtual void Damage(Health damageTarget)
     {
         damageTarget.Hurt(_damage);
 
         Vector2 direction = (damageTarget.GetComponent<Transform>().position - _transform.position).normalized;
-        damageTarget.GetComponent<Discarding>().Discard(direction);
+        damageTarget.GetComponent<Discarding>().Discard(direction, 1f, 10);
     }
 
     public void Stop()

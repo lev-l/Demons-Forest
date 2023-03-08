@@ -62,7 +62,7 @@ public class EnemyTools : Movement
 
     public virtual void Discard(Vector2 direction)
     {
-        _discarding.Discard(direction);
+        _discarding.Discard(direction, 1.2f, 9);
         _attacking.Stop();
     }
 
