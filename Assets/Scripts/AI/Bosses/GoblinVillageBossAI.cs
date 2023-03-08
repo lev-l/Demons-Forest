@@ -47,7 +47,7 @@ public class GoblinVillageBossAI : EnemyBaseAI
         {
             StopCoroutine(_currentBlocking);
         }
-        _currentBlocking = StartCoroutine(WaitForUnblock(1.7f));
+        _currentBlocking = StartCoroutine(WaitForUnblock(2.1f));
     }
 
     protected override IEnumerator WaitForUnblock(float timeToWait)
