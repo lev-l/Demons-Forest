@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Campfire : MonoBehaviour
@@ -38,10 +37,15 @@ public class Campfire : MonoBehaviour
                 _enemySaver.Save("EnemiesSave");
                 _torchesSaver.Save("TorchesSave");
 
-                VillageBossLocationSaver villageBossSaver = FindObjectOfType<VillageBossLocationSaver>();
-                if (villageBossSaver)
+                string path = Application.dataPath + "/VillageBoss";
+                if (File.Exists(path + ".add"))
                 {
-                    villageBossSaver.Save("VillageBoss");
+                    if (!File.Exists(path))
+                    {
+                        using FileStream stream = File.Create(path);
+                    }
+
+                    File.WriteAllText(path, File.ReadAllText(path + ".add"));
                 }
 
                 Invoke(nameof(HideSaveText), 1.2f);

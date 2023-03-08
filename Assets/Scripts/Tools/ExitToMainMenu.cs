@@ -8,7 +8,6 @@ public class ExitToMainMenu : MonoBehaviour
     private ChestsStateSaver _chestsData;
     private EnemiesSaver _enemiesData;
     private TorchesSaver _torchesData;
-    private VillageBossLocationSaver _villageBossData;
 
     private void Start()
     {
@@ -16,7 +15,6 @@ public class ExitToMainMenu : MonoBehaviour
         _chestsData = FindObjectOfType<ChestsStateSaver>();
         _enemiesData = FindObjectOfType<EnemiesSaver>();
         _torchesData = FindObjectOfType<TorchesSaver>();
-        _villageBossData = FindObjectOfType<VillageBossLocationSaver>();
     }
 
     public void ExitToMenu()
@@ -26,12 +24,6 @@ public class ExitToMainMenu : MonoBehaviour
             _chestsData.Save("ChestsSave.add");
             _enemiesData.Save("EnemiesSave.add");
             _torchesData.Save("TorchesSave.add");
-            
-            VillageBossLocationSaver villageBossSaver = FindObjectOfType<VillageBossLocationSaver>();
-            if (villageBossSaver)
-            {
-                villageBossSaver.Save("VillageBoss");
-            }
 
             Time.timeScale = 1;
             SceneManager.LoadScene((int)Scenes.MainMenu);

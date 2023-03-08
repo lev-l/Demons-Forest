@@ -63,8 +63,8 @@ public class GoblinVillageBossAttack : EnemyAttack
                         if (collider.CompareTag("DestroyableBuilding"))
                         {
                             collider.GetComponent<DestroyableHouse>().DestroyThis();
+                            _phases.StartPhase2();
                         }
-                        _phases.StartPhase2();
                         break;
                     }
                 }

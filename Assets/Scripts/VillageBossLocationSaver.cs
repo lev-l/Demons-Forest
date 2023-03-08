@@ -21,7 +21,6 @@ public class VillageBossLocationSaver : MonoBehaviour
 
         foreach(string destroyedHesh in _destroyedHouses)
         {
-            print(destroyedHesh);
             foreach(DestroyableHouse house in Houses)
             {
                 if (house.Hesh == destroyedHesh)
@@ -29,6 +28,7 @@ public class VillageBossLocationSaver : MonoBehaviour
                     Destroy(house.GetComponent<Collider2D>());
                     Destroy(house.GetComponent<ShadowCaster2D>());
                     house.GetComponent<SpriteRenderer>().sprite = DestroyedSprite;
+                    break;
                 }
             }
         }
@@ -44,7 +44,7 @@ public class VillageBossLocationSaver : MonoBehaviour
             stream.Close();
         }
 
-        File.WriteAllText(fullPath, JsonConvert.SerializeObject(GetHeshes()));
+        File.WriteAllText(fullPath, JsonConvert.SerializeObject(_destroyedHouses));
     }
 
     public bool Load(string filename)
@@ -78,7 +78,10 @@ public class VillageBossLocationSaver : MonoBehaviour
 
     public void AddDestroyed(string hesh)
     {
-        print(hesh);
-        _destroyedHouses.Add(hesh);
+        if (!_destroyedHouses.Contains(hesh))
+        {
+            _destroyedHouses.Add(hesh);
+            Save("VillageBoss.add");
+        }
     }
 }
