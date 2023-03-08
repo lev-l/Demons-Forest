@@ -21,7 +21,6 @@ public class LevelLoading : MonoBehaviour
         // setting params
         _mainScene = SceneManager.GetSceneByBuildIndex((int)Scenes.Game);
         _levelsMap = new Forest_levelsMap().GetMap();
-        _lastPositionX = _lastPositionY = 0;
         _player = FindObjectOfType<PlayerMovement>().transform;
         _pathfinder = FindObjectOfType<AstarPath>();
         _enemiesData = FindObjectOfType<EnemiesSaver>();
@@ -68,6 +67,8 @@ public class LevelLoading : MonoBehaviour
         #endregion Loading
 
         // loading nearby locations
+        _lastPositionX = PlayerPositionIndexX;
+        _lastPositionY = PlayerPositionIndexY;
         StartCoroutine(LoadNearLevels(PlayerPositionIndexX, PlayerPositionIndexY));
         _lastLoadedLevels = _levelsLoaded;
         _pathfinder.data.gridGraph.Scan();
