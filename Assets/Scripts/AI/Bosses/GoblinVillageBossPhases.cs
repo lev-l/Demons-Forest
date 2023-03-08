@@ -19,9 +19,15 @@ public class GoblinVillageBossPhases : MonoBehaviour
     public void StartPhase2()
     {
         _bossAI.Block(_phase2Time);
+        _bossAI.StandingBoss.SetActive(false);
+        _bossAI.FallenBoss.SetActive(true);
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+
         for(int i = 0; i < _enemiesOnPhase2; i++)
         {
-            GameObject newEnemy = Instantiate(EnemyPefab, _transform.position, Quaternion.identity);
+            GameObject newEnemy = Instantiate(EnemyPefab,
+                                            _transform.position + new Vector3(Random.Range(0f, 1f), 2),
+                                            Quaternion.identity);
             newEnemy.transform.SetParent(_transform.parent);
             _transform.parent.GetComponent<GroupForm>().AddMembers();
         }

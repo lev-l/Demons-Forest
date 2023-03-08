@@ -50,6 +50,7 @@ MonoBehaviour:
   KeyToOpen: 101
   MaxCost: 0
   Hesh: 
+  Saveable: 0
   _specificItems: 010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
 --- !u!114 &1800991253494971297
 MonoBehaviour:
@@ -173,7 +174,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -9053152736969191684, guid: da652483cdc16614eaa1db4d6be2e109, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

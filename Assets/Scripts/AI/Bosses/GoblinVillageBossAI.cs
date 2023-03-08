@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(GoblinVillageBossAttack))]
 public class GoblinVillageBossAI : EnemyBaseAI
 {
+    public GameObject StandingBoss;
+    public GameObject FallenBoss;
     protected override IEnumerator BuildingPathWhileSee()
     {
         float distanceToTarget = Vector2.Distance(_transform.position, _target.position);
@@ -46,5 +48,13 @@ public class GoblinVillageBossAI : EnemyBaseAI
             StopCoroutine(_currentBlocking);
         }
         _currentBlocking = StartCoroutine(WaitForUnblock(1.7f));
+    }
+
+    protected override IEnumerator WaitForUnblock(float timeToWait)
+    {
+        yield return base.WaitForUnblock(timeToWait);
+        FallenBoss.SetActive(false);
+        StandingBoss.SetActive(true);
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
     }
 }
