@@ -30,7 +30,7 @@ public class FlyingObject : MonoBehaviour
 
     private void Update()
     {
-        Vector3 move = Vector3.up * _speed * Time.deltaTime;
+        Vector3 move = Vector3.left * _speed * Time.deltaTime;
         _transform.Translate(move, Space.Self);
         _completedDistance += move.magnitude;
 
