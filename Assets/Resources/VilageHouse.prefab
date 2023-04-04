@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hesh: 
   _destroyedSprite: {fileID: 21300000, guid: 626b9cddb29049e4cac50cd87b419945, type: 3}
-  _chest: {fileID: 3802866853138061810, guid: e854eba892adc844eb95596a9d45c6b1, type: 3}
+  _chest: {fileID: 3325655104129195241, guid: 1fcf94515b61bcd44b35f73b19b4afa6, type: 3}
 --- !u!114 &1645277218440386179
 MonoBehaviour:
   m_ObjectHideFlags: 0
