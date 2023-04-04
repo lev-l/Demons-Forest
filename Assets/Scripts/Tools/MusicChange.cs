@@ -44,6 +44,9 @@ public class MusicChange : MonoBehaviour
         float currentTime = 0;
         float targetTime = RisingRate.keys[DecayRate.length - 1].time;
 
+        _audio.clip = _currentTrack;
+        _audio.Play();
+
         while (currentTime < targetTime)
         {
             float value = RisingRate.Evaluate(currentTime);

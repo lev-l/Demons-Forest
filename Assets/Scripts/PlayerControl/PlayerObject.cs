@@ -10,6 +10,8 @@ public class PlayerObject : ScriptableObject
     public int Health;
     public List<GameObject> _enemiesSeeYou { get; private set; }
     [SerializeField] private int _energyMax;
+    [SerializeField] private AudioClip _stealthMusic;
+    [SerializeField] private AudioClip _ambient;
     [SerializeField] private FightNoticeObject _fightEvent;
     private int _energy;
     private bool _stealthMode;
@@ -55,9 +57,13 @@ public class PlayerObject : ScriptableObject
 
     public void ChangeStealthMode()
     {
-        if(NumberEnemiesSeeYou == 0)
+        MusicChange music = FindObjectOfType<MusicChange>();
+
+        if (NumberEnemiesSeeYou == 0)
         {
             _stealthMode = !StealthMode;
+            Debug.Log(_stealthMode ? _stealthMusic : _ambient);
+            music.StartNewMusic(_stealthMode ? _stealthMusic : _ambient);
         }
         else
         {
