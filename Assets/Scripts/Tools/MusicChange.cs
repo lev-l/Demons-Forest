@@ -4,6 +4,8 @@ using UnityEngine.Audio;
 
 public class MusicChange : MonoBehaviour
 {
+    [SerializeField] private AudioClip _stealthMusic;
+    [SerializeField] private AudioClip _ambient;
     public AnimationCurve DecayRate;
     public AnimationCurve RisingRate;
     private AudioSource _audio;
@@ -14,6 +16,8 @@ public class MusicChange : MonoBehaviour
     {
         _audio = GetComponent<AudioSource>();
         _audioMixer = Resources.Load<AudioMixer>("AudioMixer");
+
+        Resources.Load<PlayerObject>("Player").OnStealthChanged += ChangeStealth;
     }
 
     public void StartNewMusic(AudioClip track)
@@ -54,6 +58,16 @@ public class MusicChange : MonoBehaviour
             yield return null;
 
             currentTime += Time.deltaTime;
+        }
+    }
+
+    public void ChangeStealth(bool stealth)
+    {
+        AudioClip next = stealth ? _stealthMusic : _ambient;
+
+        if (next != _currentTrack)
+        {
+            StartNewMusic(next);
         }
     }
 }

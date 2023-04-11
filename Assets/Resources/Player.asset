@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd9b4fd075863244fbfda3b79b0896c5, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  Health: 100
+  Health: 90
   _energyMax: 30
+  _stealthMusic: {fileID: 8300000, guid: 38a624ee207206645a1d84c82552b8cc, type: 3}
+  _ambient: {fileID: 8300000, guid: 31bcd8fa5607e504b9238a5158307fbf, type: 3}
+  _fightEvent: {fileID: 11400000, guid: f7635a926d6e45448a98d6f42f772b11, type: 2}

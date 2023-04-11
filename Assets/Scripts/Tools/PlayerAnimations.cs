@@ -9,6 +9,8 @@ public class PlayerAnimations : MonoBehaviour
     private void Start()
     {
         _animator = GetComponentInChildren<Animator>();
+
+        Resources.Load<PlayerObject>("Player").OnStealthChanged += SetStealth;
     }
 
     public void ChangeRunState(Vector2 move)
@@ -24,5 +26,10 @@ public class PlayerAnimations : MonoBehaviour
     public void PlayAttackAnimation()
     {
         _animator.SetTrigger("Attack");
+    }
+
+    public void SetStealth(bool stealth)
+    {
+        _animator.SetBool("Stealth", stealth);
     }
 }

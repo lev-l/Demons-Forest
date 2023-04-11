@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,9 @@ public class PlayerObject : ScriptableObject
 {
     public int NumberEnemiesSeeYou { get; private set; }
     public int Health;
+    public event Action<bool> OnStealthChanged;
     public List<GameObject> _enemiesSeeYou { get; private set; }
     [SerializeField] private int _energyMax;
-    [SerializeField] private AudioClip _stealthMusic;
-    [SerializeField] private AudioClip _ambient;
     [SerializeField] private FightNoticeObject _fightEvent;
     private int _energy;
     private bool _stealthMode;
@@ -57,18 +57,15 @@ public class PlayerObject : ScriptableObject
 
     public void ChangeStealthMode()
     {
-        MusicChange music = FindObjectOfType<MusicChange>();
-
         if (NumberEnemiesSeeYou == 0)
         {
             _stealthMode = !StealthMode;
-            Debug.Log(_stealthMode ? _stealthMusic : _ambient);
-            music.StartNewMusic(_stealthMode ? _stealthMusic : _ambient);
         }
         else
         {
             _stealthMode = false;
         }
+        OnStealthChanged?.Invoke(_stealthMode);
     }
 
     // returns if the energy level reached zero
