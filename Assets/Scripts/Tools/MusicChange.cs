@@ -6,18 +6,23 @@ public class MusicChange : MonoBehaviour
 {
     [SerializeField] private AudioClip _stealthMusic;
     [SerializeField] private AudioClip _ambient;
+    [SerializeField] private AudioClip _fightMusic;
     public AnimationCurve DecayRate;
     public AnimationCurve RisingRate;
     private AudioSource _audio;
     private AudioMixer _audioMixer;
     private AudioClip _currentTrack;
+    private PlayerObject _playerSO;
 
     private void Start()
     {
         _audio = GetComponent<AudioSource>();
         _audioMixer = Resources.Load<AudioMixer>("AudioMixer");
+        _playerSO = Resources.Load<PlayerObject>("Player");
 
-        Resources.Load<PlayerObject>("Player").OnStealthChanged += ChangeStealth;
+        _playerSO.OnStealthChanged += ChangeStealth;
+        _playerSO.OnZeroEnemies += StopFightMusic;
+        Resources.Load<FightNoticeObject>("FightEvent").OnFightBegan += StartFightMusic;
     }
 
     public void StartNewMusic(AudioClip track)
@@ -69,5 +74,17 @@ public class MusicChange : MonoBehaviour
         {
             StartNewMusic(next);
         }
+    }
+
+    public void StartFightMusic()
+    {
+        if (_fightMusic != _currentTrack)
+            StartNewMusic(_fightMusic);
+    }
+
+    public void StopFightMusic()
+    {
+        if (_ambient != _currentTrack)
+            StartNewMusic(_ambient);
     }
 }

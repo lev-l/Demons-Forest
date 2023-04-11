@@ -10,6 +10,7 @@ public class PlayerObject : ScriptableObject
     public int NumberEnemiesSeeYou { get; private set; }
     public int Health;
     public event Action<bool> OnStealthChanged;
+    public event Action OnZeroEnemies;
     public List<GameObject> _enemiesSeeYou { get; private set; }
     [SerializeField] private int _energyMax;
     [SerializeField] private FightNoticeObject _fightEvent;
@@ -52,6 +53,15 @@ public class PlayerObject : ScriptableObject
             _enemiesSeeYou.Remove(enemy);
             NumberEnemiesSeeYou--;
             enemy.GetComponent<Health>().WhenDestroy -= DeleteEnemy;
+
+            if(NumberEnemiesSeeYou == 0)
+            {
+                OnZeroEnemies?.Invoke();
+            }
+            if(NumberEnemiesSeeYou < 0)
+            {
+                Debug.LogAssertion("Somehow when deleting enemies we got a minus.");
+            }
         }
     }
 
