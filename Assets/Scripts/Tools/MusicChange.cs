@@ -79,7 +79,8 @@ public class MusicChange : MonoBehaviour
     {
         AudioClip next = stealth ? _stealthMusic : null;
 
-        if (next != _nextTrack)
+        if (next != _nextTrack
+            && _nextTrack != _fightMusic)
         {
             StartNewMusic(next);
         }

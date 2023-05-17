@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4704552695220454127}
   - component: {fileID: 4704552695220454126}
   - component: {fileID: 587251926360787120}
+  - component: {fileID: 8738092906602566686}
   m_Layer: 0
   m_Name: TreeVariant3
   m_TagString: Untagged
@@ -114,7 +115,23 @@ MonoBehaviour:
   - {x: 0.022180796, y: 0.46163368, z: 0}
   m_ShapePathHash: -1434903193
   m_Mesh: {fileID: 0}
-  m_InstanceId: -67126
+  m_InstanceId: 54130
+--- !u!58 &8738092906602566686
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4704552695220454121}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.45738077
 --- !u!1 &4704552696434350370
 GameObject:
   m_ObjectHideFlags: 0

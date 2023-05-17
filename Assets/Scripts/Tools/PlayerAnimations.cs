@@ -7,6 +7,7 @@ public class PlayerAnimations : MonoBehaviour
     private Animator _animator;
     private AudioSource _stepsSound;
     private bool _wasMoving = false;
+    private bool _wasStealth = false;
 
     private void Start()
     {
@@ -19,12 +20,14 @@ public class PlayerAnimations : MonoBehaviour
     public void ChangeRunState(Vector2 move)
     {
         bool isMoving = move.sqrMagnitude > 0;
-        bool change = isMoving != _wasMoving;
+        bool change = isMoving != _wasMoving || _isStealth != _wasStealth;
         _wasMoving = isMoving;
+        _wasStealth = _isStealth;
 
         _animator.SetBool("Run", isMoving);
 
-        if (change && isMoving)
+        if (change && isMoving
+            && !_isStealth)
         {
             _stepsSound.Play();
         }
@@ -48,4 +51,6 @@ public class PlayerAnimations : MonoBehaviour
     {
         _animator.SetBool("Stealth", stealth);
     }
+
+    private bool _isStealth => _animator.GetBool("Stealth");
 }
