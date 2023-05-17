@@ -4921,7 +4921,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -6078753259640985465, guid: eeccb3032bc4fab4e84541634da63030, type: 2}
   m_audioClip: {fileID: 8300000, guid: ab1b51483ff432c4aad4c4e86810bfb3, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1.81
   Loop: 1
   Mute: 0
@@ -5253,7 +5253,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -6078753259640985465, guid: eeccb3032bc4fab4e84541634da63030, type: 2}
   m_audioClip: {fileID: 8300000, guid: 0cc92daf6fb771c4487f1d810ce26b3a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5820,7 +5820,7 @@ MonoBehaviour:
   - {x: -0.5116316, y: -0.09335938, z: 0}
   m_ShapePathHash: -1907531464
   m_Mesh: {fileID: 0}
-  m_InstanceId: 44160
+  m_InstanceId: 61228
 --- !u!114 &8460338243337557524
 MonoBehaviour:
   m_ObjectHideFlags: 0
