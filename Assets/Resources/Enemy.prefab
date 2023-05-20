@@ -4995,6 +4995,7 @@ GameObject:
   - component: {fileID: -7574547907783554159}
   - component: {fileID: 8133879478939990091}
   - component: {fileID: 6926495875430424839}
+  - component: {fileID: 3724127492970815015}
   - component: {fileID: 1660139944536120208}
   m_Layer: 7
   m_Name: Enemy
@@ -5099,6 +5100,7 @@ MonoBehaviour:
   _frequencyOfPathFinding: 0.7
   _waitTime: 10
   _peekNextWaypointDistance: 0.5
+  _breathingSound: {fileID: 6656723453134638865}
 --- !u!114 &1418052086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5330,7 +5332,7 @@ MonoBehaviour:
   - {x: -0.3139347, y: -0.18929577, z: 0}
   m_ShapePathHash: -488146582
   m_Mesh: {fileID: 0}
-  m_InstanceId: 72098
+  m_InstanceId: 75292
 --- !u!114 &6926495875430424839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5344,6 +5346,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sound: {fileID: 1660139944536120208}
+--- !u!114 &3724127492970815015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6282649530541272487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97da2e6f9565ff44390ca84c266935d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sound: {fileID: 8300000, guid: 8c031e026bdc0264a95b339c36aeb335, type: 3}
+  _audio: {fileID: 6656723453134638865}
 --- !u!82 &1660139944536120208
 AudioSource:
   m_ObjectHideFlags: 0

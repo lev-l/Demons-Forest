@@ -12,6 +12,7 @@ public class EnemyBaseAI : EnemyTools
     [SerializeField] protected float _frequencyOfPathFinding;
     [SerializeField] protected float _waitTime;
     [SerializeField] protected float _peekNextWaypointDistance = 2f;
+    [SerializeField] protected AudioSource _breathingSound;
     protected Transform _transform;
     protected Transform _target;
     protected GroupAttacking _group;
@@ -96,6 +97,7 @@ public class EnemyBaseAI : EnemyTools
 
         if (NotBlocked)
         {
+            _breathingSound.Pause();
             StopCoroutine(nameof(BuildingPathWhileSee));
             StartCoroutine(nameof(BuildingPathWhileSee));
         }
@@ -150,6 +152,7 @@ public class EnemyBaseAI : EnemyTools
 
         _seePlayer = false;
         _player.DeleteEnemy(gameObject);
+        _breathingSound.Play();
         StopCoroutine(nameof(GoBack));
         StartCoroutine(nameof(GoBack));
     }
