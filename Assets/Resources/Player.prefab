@@ -5391,9 +5391,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa3366b306685e64eb45a0bf9399eba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeyForHealBottles: 49
-  KeyForThrowingKnifes: 324
-  KeyForStaticTorches: 51
+  KeyForHealBottles: 114
+  KeyForThrowingKnifes: 113
+  KeyForStaticTorches: 116
 --- !u!114 &3550728899973754605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6029,7 +6029,7 @@ MonoBehaviour:
   - {x: -0.5116316, y: -0.09335938, z: 0}
   m_ShapePathHash: -1907531464
   m_Mesh: {fileID: 0}
-  m_InstanceId: 47566
+  m_InstanceId: 31588
 --- !u!114 &8460338243337557524
 MonoBehaviour:
   m_ObjectHideFlags: 0
