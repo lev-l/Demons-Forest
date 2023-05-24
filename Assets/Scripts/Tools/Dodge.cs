@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Movement), typeof(PlayerEnergy), typeof(Collider2D))]
 public class Dodge : MonoBehaviour
 {
+    public event Action OnSound;
     [SerializeField] private float _strength;
     [SerializeField, Range(0.1f, 1)] private float _speed;
     [SerializeField] private int _energyCost;
@@ -33,7 +35,8 @@ public class Dodge : MonoBehaviour
 
     public void DoDodge(Vector3 direction)
     {
-        if (_energyBuffer.UseEnergy(_energyCost))
+        if (direction != Vector3.zero
+            && _energyBuffer.UseEnergy(_energyCost))
         {
             _collider.Cast(direction, _filter, _results, _strength);
 
@@ -48,6 +51,10 @@ public class Dodge : MonoBehaviour
             if(minDistance <= 0.3f)
             {
                 _energyBuffer.ReturnEnergy(_energyCost);
+            }
+            else
+            {
+                OnSound?.Invoke();
             }
 
             StopCoroutine(nameof(Dodging));

@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Discarding))]
 public class Health : MonoBehaviour
 {
+    public event Action OnHurt;
     public event Action<GameObject> OnDeath;
     public event Action<GameObject> WhenDestroy;
     [SerializeField] protected int _maxHealth;
@@ -29,8 +30,10 @@ public class Health : MonoBehaviour
         {
             OnDeath?.Invoke(gameObject);
             Destroy(gameObject);
+            return;
         }
 
+        OnHurt?.Invoke();
         _hurtedSound.Noise(transform.position);
     }
 

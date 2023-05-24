@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class PlayerObject : ScriptableObject
 {
     public int NumberEnemiesSeeYou { get; private set; }
     public int Health;
+    public event Action<bool> OnStealthChanged;
+    public event Action OnZeroEnemies;
     public List<GameObject> _enemiesSeeYou { get; private set; }
     [SerializeField] private int _energyMax;
     [SerializeField] private FightNoticeObject _fightEvent;
@@ -50,12 +53,21 @@ public class PlayerObject : ScriptableObject
             _enemiesSeeYou.Remove(enemy);
             NumberEnemiesSeeYou--;
             enemy.GetComponent<Health>().WhenDestroy -= DeleteEnemy;
+
+            if(NumberEnemiesSeeYou == 0)
+            {
+                OnZeroEnemies?.Invoke();
+            }
+            if(NumberEnemiesSeeYou < 0)
+            {
+                Debug.LogAssertion("Somehow when deleting enemies we got a minus.");
+            }
         }
     }
 
     public void ChangeStealthMode()
     {
-        if(NumberEnemiesSeeYou == 0)
+        if (NumberEnemiesSeeYou == 0)
         {
             _stealthMode = !StealthMode;
         }
@@ -63,6 +75,7 @@ public class PlayerObject : ScriptableObject
         {
             _stealthMode = false;
         }
+        OnStealthChanged?.Invoke(_stealthMode);
     }
 
     // returns if the energy level reached zero

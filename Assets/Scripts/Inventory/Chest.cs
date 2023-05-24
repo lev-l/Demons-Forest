@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +11,7 @@ public class Chest : MonoBehaviour
     protected Inventory _playerInventory;
     protected Collider2D _trigger;
     protected ContactFilter2D _filter;
+    protected AudioSource _sound;
     protected ChestAnimations _animations;
     protected ChestContentsPresenter _contentsPresenter;
     protected ChestsStateSaver _saver;
@@ -22,6 +22,7 @@ public class Chest : MonoBehaviour
     {
         _collectables = new List<CollectableObject>();
         _filter = new ContactFilter2D();
+        _sound = GetComponent<AudioSource>();
         _animations = GetComponent<ChestAnimations>();
         _contentsPresenter = FindObjectOfType<ChestContentsPresenter>();
         _saver = FindObjectOfType<ChestsStateSaver>();
@@ -112,6 +113,7 @@ public class Chest : MonoBehaviour
         }
         _collectables.Clear();
 
+        _sound.Play();
         _animations.AnimationOpen();
     }
 

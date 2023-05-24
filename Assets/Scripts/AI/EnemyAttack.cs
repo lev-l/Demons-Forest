@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class EnemyAttack : MonoBehaviour
 {
     public AnimationCurve AttackCurve;
     public AnimationCurve BackCurve;
+    public event Action OnAttack;
     [SerializeField] protected float _speed;
     [SerializeField] protected int _damage;
     [SerializeField] protected int _chargesMax;
@@ -35,6 +37,7 @@ public class EnemyAttack : MonoBehaviour
         _target = target;
         if (!_coroutineOngoing)
         {
+            OnAttack?.Invoke();
             StartCoroutine(nameof(Attacking));
         }
     }
@@ -42,6 +45,7 @@ public class EnemyAttack : MonoBehaviour
     protected virtual IEnumerator Attacking()
     {
         _coroutineOngoing = true;
+        yield return new WaitForSeconds(0.1f);
 
         float duration = AttackCurve.keys[AttackCurve.keys.Length - 1].time;
         float currentTime = 0f;
