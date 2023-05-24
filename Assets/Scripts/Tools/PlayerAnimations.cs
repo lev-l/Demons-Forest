@@ -5,17 +5,36 @@ using UnityEngine;
 public class PlayerAnimations : MonoBehaviour
 {
     private Animator _animator;
+    private AudioSource _stepsSound;
+    private bool _wasMoving = false;
+    private bool _wasStealth = false;
 
     private void Start()
     {
         _animator = GetComponentInChildren<Animator>();
+        _stepsSound = GetComponent<AudioSource>();
 
         Resources.Load<PlayerObject>("Player").OnStealthChanged += SetStealth;
     }
 
     public void ChangeRunState(Vector2 move)
     {
-        _animator.SetBool("Run", move.sqrMagnitude > 0);
+        bool isMoving = move.sqrMagnitude > 0;
+        bool change = isMoving != _wasMoving || _isStealth != _wasStealth;
+        _wasMoving = isMoving;
+        _wasStealth = _isStealth;
+
+        _animator.SetBool("Run", isMoving);
+
+        if (change && isMoving
+            && !_isStealth)
+        {
+            _stepsSound.Play();
+        }
+        else if (change)
+        {
+            _stepsSound.Pause();
+        }
     }
 
     public void PrepareAttackAnimation()
@@ -32,4 +51,6 @@ public class PlayerAnimations : MonoBehaviour
     {
         _animator.SetBool("Stealth", stealth);
     }
+
+    private bool _isStealth => _animator.GetBool("Stealth");
 }

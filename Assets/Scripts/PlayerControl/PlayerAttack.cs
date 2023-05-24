@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public int AttackButton;
+    public event Action OnSound;
     [SerializeField] private int _damage;
     [SerializeField] private float _attackSquareDistance;
     [SerializeField] private float _attackSquareAngle;
@@ -30,6 +32,8 @@ public class PlayerAttack : MonoBehaviour
             && !Input.GetMouseButton(AttackButton))
         {
             _animations.PlayAttackAnimation();
+            OnSound?.Invoke();
+
             StopCoroutine(nameof(Damaging));
             StartCoroutine(nameof(Damaging));
 

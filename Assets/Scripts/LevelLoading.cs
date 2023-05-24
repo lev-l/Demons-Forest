@@ -71,7 +71,7 @@ public class LevelLoading : MonoBehaviour
         _lastPositionY = PlayerPositionIndexY;
         StartCoroutine(LoadNearLevels(PlayerPositionIndexX, PlayerPositionIndexY));
         _lastLoadedLevels = _levelsLoaded;
-        _pathfinder.data.gridGraph.Scan();
+        StartCoroutine(ScanGraphDelayed(PlayerPositionIndexX, PlayerPositionIndexY, 1));
 
         StartCoroutine(nameof(UpdateLoad));
     }
@@ -94,14 +94,7 @@ public class LevelLoading : MonoBehaviour
 
                 yield return new WaitForFixedUpdate();
 
-                GridGraph graph = _pathfinder.data.gridGraph;
-                Vector2 currentLevelCenter = new Vector3(20 + 40 * positionX, 20 + 40 * positionY);
-                graph.RelocateNodes(currentLevelCenter, Quaternion.identity, 1);
-                graph.is2D = true;
-
-                yield return new WaitForFixedUpdate();
-
-                graph.Scan();
+                StartCoroutine(ScanGraph(positionX, positionY));
 
                 yield return new WaitForSeconds(0.5f);
 
@@ -110,7 +103,7 @@ public class LevelLoading : MonoBehaviour
                 yield return new WaitForSeconds(3.5f);
             }
 
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(3);
         }
     }
 
@@ -122,7 +115,7 @@ public class LevelLoading : MonoBehaviour
         {
             if (SceneManager.GetSceneByName(level).name == null)
             {
-                SceneManager.LoadScene(level, LoadSceneMode.Additive);
+                SceneManager.LoadSceneAsync(level, LoadSceneMode.Additive);
                 Scene loadedScene = SceneManager.GetSceneByName(level);
 
                 while (!loadedScene.isLoaded)
@@ -187,6 +180,23 @@ public class LevelLoading : MonoBehaviour
         {
             SceneManager.UnloadSceneAsync(level);
         }
+    }
+
+    private IEnumerator ScanGraph(int x, int y)
+    {
+        GridGraph graph = _pathfinder.data.gridGraph;
+        Vector2 currentLevelCenter = new Vector3(20 + 40 * x, 20 + 40 * y);
+        graph.RelocateNodes(currentLevelCenter, Quaternion.identity, 1);
+        graph.is2D = true;
+
+        yield return new WaitForFixedUpdate();
+
+        graph.Scan();
+    }
+    private IEnumerator ScanGraphDelayed(int x, int y, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        StartCoroutine(ScanGraph(x, y));
     }
 
     private List<string> GetNearLevels(int x, int y)

@@ -11,6 +11,7 @@ public class EnemyTools : Movement
     private EnemyAnimations _animations;
     private RotateToTarget _rotating;
     private EnemyAttack _attacking;
+    private GameObject _deathSound;
     private Discarding _discarding;
     private Health _health;
     private ContactFilter2D _filter;
@@ -21,6 +22,7 @@ public class EnemyTools : Movement
         _animations = GetComponent<EnemyAnimations>();
         _rotating = GetComponent<RotateToTarget>();
         _attacking = GetComponent<EnemyAttack>();
+        _deathSound = Resources.Load<GameObject>("DeathSound");
         _discarding = GetComponent<Discarding>();
         _health = GetComponent<Health>();
 
@@ -28,6 +30,8 @@ public class EnemyTools : Movement
         _filter.useTriggers = false;
         _filter.useLayerMask = true;
         _filter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
+
+        _health.OnDeath += PlayDeathSound;
     }
 
     protected void BuildPath(Vector2 selfPosition, Vector2 targetPosition,
@@ -88,5 +92,10 @@ public class EnemyTools : Movement
     protected virtual void TakeHeal(int healNumber)
     {
         _health.Heal(healNumber);
+    }
+
+    public void PlayDeathSound(GameObject dead)
+    {
+        Instantiate(_deathSound, dead.transform.position, Quaternion.identity);
     }
 }

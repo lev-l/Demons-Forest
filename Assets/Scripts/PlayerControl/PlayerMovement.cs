@@ -26,6 +26,8 @@ public class PlayerMovement : Movement
         _stepsSound = GetComponent<StepsSound>();
         _dodge = GetComponent<Dodge>();
         _animations = GetComponent<PlayerAnimations>();
+
+        _dodge.OnSound += _stepsSound.Noise;
     }
 
     private void Update()
@@ -55,7 +57,6 @@ public class PlayerMovement : Movement
             {
                 _dodge.DoDodge(new Vector3(Input.GetAxisRaw("Horizontal"),
                                             Input.GetAxisRaw("Vertical")));
-                _stepsSound.Noise();
             }
             if (Input.GetKeyDown(_stealthKey))
             {

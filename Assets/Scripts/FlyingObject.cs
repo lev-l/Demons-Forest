@@ -58,9 +58,15 @@ public class FlyingObject : MonoBehaviour
             foreach(RaycastHit2D hit in hits)
             {
                 Health target = hit.collider.GetComponent<Health>();
+                AudioSource hitSound = hit.collider.GetComponent<AudioSource>();
+
                 if (target)
                 {
                     _damager.DamageOn(target);
+                }
+                else if (hitSound)
+                {
+                    hitSound.Play();
                 }
 
                 _sound.Noise(_transform.TransformPoint(Vector3.down));
