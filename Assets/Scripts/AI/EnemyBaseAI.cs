@@ -106,6 +106,7 @@ public class EnemyBaseAI : EnemyTools
     public void TargetDetected(Vector2 target)
     {
         OnTargetDetected?.Invoke(target);
+        target = target + new Vector2(UnityEngine.Random.Range(-1.5f, 1.5f), UnityEngine.Random.Range(-1.5f, 1.5f));
 
         if (NotBlocked && !_seePlayer)
         {

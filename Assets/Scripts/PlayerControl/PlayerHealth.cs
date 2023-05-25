@@ -21,6 +21,7 @@ public class PlayerHealth : Health
     {
         base.Hurt(damage);
         _player.Health = _currentHealth;
+        _player.QuitStealthMode();
         _presenter.UpdateView(this);
     }
 

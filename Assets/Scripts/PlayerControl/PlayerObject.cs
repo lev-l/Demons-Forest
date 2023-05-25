@@ -30,7 +30,7 @@ public class PlayerObject : ScriptableObject
         _fightEvent = Resources.Load<FightNoticeObject>("FightEvent");
         _freeRotation = true;
 
-        _fightEvent.OnFightBegan += ChangeStealthMode;
+        ////_fightEvent.OnFightBegan += ChangeStealthMode;
     }
 
     public void AddEnemy(GameObject enemy)
@@ -70,14 +70,14 @@ public class PlayerObject : ScriptableObject
 
     public void ChangeStealthMode()
     {
-        if (NumberEnemiesSeeYou == 0)
-        {
+        //if (NumberEnemiesSeeYou == 0)
+        //{
             _stealthMode = !StealthMode;
-        }
-        else
-        {
-            _stealthMode = false;
-        }
+        //}
+        //else
+        //{
+        //    _stealthMode = false;
+        //}
         OnStealthChanged?.Invoke(_stealthMode);
     }
 
@@ -113,6 +113,12 @@ public class PlayerObject : ScriptableObject
     public void ReleaseRotation()
     {
         _freeRotation = true;
+    }
+
+    public void QuitStealthMode()
+    {
+        _stealthMode = false;
+        OnStealthChanged?.Invoke(_stealthMode);
     }
 
     public void Death(GameObject player)

@@ -5340,8 +5340,8 @@ MonoBehaviour:
   AttackButton: 0
   StabButton: 1
   _damage: 5
-  _attackSquareDistance: 1.45
-  _stabDistance: 1.8
+  _attackSquareDistance: 1.4
+  _stabDistance: 1.7
   _attackSquareAngle: 45
   _stabAngle: 10
 --- !u!114 &2068638780699516982
