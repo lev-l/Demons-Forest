@@ -39,11 +39,13 @@ public class PlayerAnimations : MonoBehaviour
 
     public void PrepareAttackAnimation()
     {
+        print("PrepareAttack");
         _animator.SetTrigger("PrepareAttack");
     }
 
     public void PrepareStabAnimation()
     {
+        print("PrepareStab");
         _animator.SetTrigger("PrepareStab");
     }
 

@@ -43,6 +43,6 @@ public static class Trigonometric
 
     public static void RayPaint(Vector2 start, Vector2 direction)
     {
-        Debug.DrawRay(start, direction, Color.red);
+        Debug.DrawRay(start, direction, Color.red, 0.2f);
     }
 }

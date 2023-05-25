@@ -11,8 +11,13 @@ public class AttackPreparedObserver : MonoBehaviour
         _player = GetComponentInParent<PlayerAttack>();
     }
 
-    public void Notice()
+    public void NoticeAttack()
     {
         _player.AttackPrepared();
+    }
+
+    public void NoticeStab()
+    {
+        _player.StabPrepared();
     }
 }
