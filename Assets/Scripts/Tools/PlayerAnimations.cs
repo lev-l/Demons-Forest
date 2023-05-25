@@ -39,12 +39,22 @@ public class PlayerAnimations : MonoBehaviour
 
     public void PrepareAttackAnimation()
     {
-        _animator.SetTrigger("Prepare");
+        _animator.SetTrigger("PrepareAttack");
+    }
+
+    public void PrepareStabAnimation()
+    {
+        _animator.SetTrigger("PrepareStab");
     }
 
     public void PlayAttackAnimation()
     {
         _animator.SetTrigger("Attack");
+    }
+
+    public void PlayStabAnimation()
+    {
+        _animator.SetTrigger("Stab");
     }
 
     public void SetStealth(bool stealth)

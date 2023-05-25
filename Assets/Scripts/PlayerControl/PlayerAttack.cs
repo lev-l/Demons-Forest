@@ -6,11 +6,13 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public int AttackButton;
+    public int StabButton;
     public event Action OnSound;
     [SerializeField] private int _damage;
     [SerializeField] private float _attackSquareDistance;
     [SerializeField] private float _attackSquareAngle;
     private bool _attackPrepared;
+    private bool _stabPrepared;
     private int _filterLayerMask;
     private PlayerAnimations _animations;
     private Transform _transform;
@@ -38,6 +40,11 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(nameof(Damaging));
 
             _attackPrepared = false;
+        }
+        if(_stabPrepared
+            && !Input.GetMouseButton(StabButton))
+        {
+
         }
     }
 
