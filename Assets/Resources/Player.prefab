@@ -5343,6 +5343,7 @@ MonoBehaviour:
   _attackSquareDistance: 1.45
   _stabDistance: 1.8
   _attackSquareAngle: 45
+  _stabAngle: 10
 --- !u!114 &2068638780699516982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6031,7 +6032,7 @@ MonoBehaviour:
   - {x: -0.5116316, y: -0.09335938, z: 0}
   m_ShapePathHash: -1907531464
   m_Mesh: {fileID: 0}
-  m_InstanceId: 39740
+  m_InstanceId: 53824
 --- !u!114 &8460338243337557524
 MonoBehaviour:
   m_ObjectHideFlags: 0
