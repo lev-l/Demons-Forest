@@ -62,10 +62,6 @@ public class PlayerMovement : Movement
             {
                 _player.ChangeStealthMode();
             }
-            if (Input.GetMouseButtonDown(AttackButton))
-            {
-                _animations.PrepareAttackAnimation();
-            }
 
             _transform.Translate(_player.StealthMode ? move / _stealthSpeedCut : move,
                                                                             _moveSpace);

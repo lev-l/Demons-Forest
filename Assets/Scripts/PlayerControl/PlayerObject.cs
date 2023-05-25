@@ -16,16 +16,19 @@ public class PlayerObject : ScriptableObject
     [SerializeField] private FightNoticeObject _fightEvent;
     private int _energy;
     private bool _stealthMode;
+    private bool _freeRotation;
 
     public int MaxEnergy => _energyMax;
     public int Energy => _energy;
     public bool StealthMode => _stealthMode;
+    public bool FreeRotation => _freeRotation;
 
     private void OnEnable()
     {
         _energy = _energyMax;
         _enemiesSeeYou = new List<GameObject>();
         _fightEvent = Resources.Load<FightNoticeObject>("FightEvent");
+        _freeRotation = true;
 
         _fightEvent.OnFightBegan += ChangeStealthMode;
     }
@@ -100,6 +103,16 @@ public class PlayerObject : ScriptableObject
         }
 
         return false;
+    }
+
+    public void BlockRotation()
+    {
+        _freeRotation = false;
+    }
+
+    public void ReleaseRotation()
+    {
+        _freeRotation = true;
     }
 
     public void Death(GameObject player)
