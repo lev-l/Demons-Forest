@@ -65,6 +65,7 @@ public class PlayerMovement : Movement
 
             _transform.Translate(_player.StealthMode ? move / _stealthSpeedCut : move,
                                                                             _moveSpace);
+            _animations.SetAngleToCamera(Vector2.SignedAngle(move, _transform.up) / 180f);
         }
     }
 

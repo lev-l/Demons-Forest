@@ -137,9 +137,9 @@ public class PlayerAttack : MonoBehaviour
     private RaycastHit2D[] GetRayHits(float angle)
     {
         Vector2 direction = Trigonometric.CreateRayEnd(_attackSquareDistance, angle + 90).normalized;
-        RaycastHit2D[] hits = Physics2D.RaycastAll(_transform.position + (Vector3.right * 0.5f), direction,
+        RaycastHit2D[] hits = Physics2D.RaycastAll(_transform.position + (_transform.right * 0.5f), direction,
                                                     _attackSquareDistance, _filterLayerMask);
-        Trigonometric.RayPaint(_transform.position + (Vector3.right * 0.3f), direction * _attackSquareDistance);
+        Trigonometric.RayPaint(_transform.position + (_transform.right * 0.3f), direction * _attackSquareDistance);
 
         return hits;
     }
@@ -147,9 +147,9 @@ public class PlayerAttack : MonoBehaviour
     private RaycastHit2D[] GetRayHitsStab(float angle)
     {
         Vector2 direction = Trigonometric.CreateRayEnd(_stabDistance, angle + 90).normalized;
-        RaycastHit2D[] hits = Physics2D.RaycastAll(_transform.position + (Vector3.right * 0.5f), direction,
+        RaycastHit2D[] hits = Physics2D.RaycastAll(_transform.position + (_transform.right * 0.7f), direction,
                                                     _stabDistance, _filterLayerMask);
-        Trigonometric.RayPaint(_transform.position + (Vector3.right * 0.5f), direction * _stabDistance);
+        Trigonometric.RayPaint(_transform.position + (_transform.right * 0.7f), direction * _stabDistance);
 
         return hits;
     }
