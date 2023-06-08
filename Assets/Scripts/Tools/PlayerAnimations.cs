@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
+    public AnimationCurve StealthChanging;
     private Animator _animator;
     private AudioSource _stepsSound;
     private bool _wasMoving = false;
@@ -14,7 +15,7 @@ public class PlayerAnimations : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _stepsSound = GetComponent<AudioSource>();
 
-        Resources.Load<PlayerObject>("Player").OnStealthChanged += SetStealth;
+        Resources.Load<PlayerObject>("Player").OnStealthChanged += StartStealthChanging;
     }
 
     public void ChangeRunState(Vector2 move)
@@ -57,10 +58,28 @@ public class PlayerAnimations : MonoBehaviour
         _animator.SetTrigger("Stab");
     }
 
-    public void SetStealth(bool stealth)
+    public void SetAngleToCamera(float value)
     {
-        _animator.SetBool("Stealth", stealth);
+        _animator.SetFloat("AngleToCamera", value);
     }
 
-    private bool _isStealth => _animator.GetBool("Stealth");
+    public void StartStealthChanging(bool stealth)
+    {
+        StartCoroutine(ChangeStealth(stealth));
+    }
+
+    private IEnumerator ChangeStealth(bool stealth)
+    {
+        int changeDirection = stealth ? -1 : 1;
+        float timeToChange = StealthChanging.keys[StealthChanging.length - 1].time;
+
+        for(float time = 0; time < timeToChange; time += Time.deltaTime)
+        {
+            _animator.SetFloat("Stealth", StealthChanging.Evaluate(time) * changeDirection);
+
+            yield return null;
+        }
+    }
+
+    private bool _isStealth => Convert.ToBoolean(_animator.GetFloat("Stealth"));
 }
