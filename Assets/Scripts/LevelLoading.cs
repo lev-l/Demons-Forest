@@ -64,6 +64,7 @@ public class LevelLoading : MonoBehaviour
                 }
             }
         }
+        Camera.main.transform.position = _player.position;
         #endregion Loading
 
         // loading nearby locations
