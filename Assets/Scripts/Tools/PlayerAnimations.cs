@@ -81,5 +81,5 @@ public class PlayerAnimations : MonoBehaviour
         }
     }
 
-    private bool _isStealth => Convert.ToBoolean(_animator.GetFloat("Stealth"));
+    private bool _isStealth => _animator.GetFloat("Stealth") >= 0 ? false : true;
 }
