@@ -65,6 +65,7 @@ public class LevelLoading : MonoBehaviour
             }
         }
         Camera.main.transform.position = _player.position;
+        Camera.main.transform.Translate(Vector3.back * 10);
         #endregion Loading
 
         // loading nearby locations
