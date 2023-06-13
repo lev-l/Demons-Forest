@@ -21,7 +21,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6279844398038187339
 Transform:
@@ -142,7 +142,7 @@ MonoBehaviour:
   - {x: -0.31740242, y: 0.7303327, z: 0}
   m_ShapePathHash: 66848859
   m_Mesh: {fileID: 0}
-  m_InstanceId: 21214
+  m_InstanceId: 37220
 --- !u!82 &2709688501950591840
 AudioSource:
   m_ObjectHideFlags: 0
@@ -256,7 +256,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6279844398406109564
 Transform:
