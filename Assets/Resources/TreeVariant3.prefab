@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 587251926360787120}
   - component: {fileID: 8738092906602566686}
   - component: {fileID: 4933671428309888873}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TreeVariant3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ MonoBehaviour:
   - {x: 0.022180796, y: 0.46163368, z: 0}
   m_ShapePathHash: -1434903193
   m_Mesh: {fileID: 0}
-  m_InstanceId: 37376
+  m_InstanceId: 41648
 --- !u!58 &8738092906602566686
 CircleCollider2D:
   m_ObjectHideFlags: 0
