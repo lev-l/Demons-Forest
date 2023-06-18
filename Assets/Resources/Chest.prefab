@@ -142,7 +142,7 @@ MonoBehaviour:
   - {x: -0.31740242, y: 0.7303327, z: 0}
   m_ShapePathHash: 66848859
   m_Mesh: {fileID: 0}
-  m_InstanceId: 37220
+  m_InstanceId: 24788
 --- !u!82 &2709688501950591840
 AudioSource:
   m_ObjectHideFlags: 0
@@ -311,7 +311,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 4714410783012859700, guid: 035c28f53b8ae014880d227187cb41ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
