@@ -17,6 +17,8 @@ public class AutoHesh : ScriptableWizard
             {
                 enemyGroups[i].Hesh += $"({i})";
             }
+
+            EditorUtility.SetDirty(enemyGroups[i]);
         }
 
         Chest[] chests = FindObjectsOfType<Chest>();
@@ -28,6 +30,8 @@ public class AutoHesh : ScriptableWizard
             {
                 chests[i].Hesh += $"({i})";
             }
+
+            EditorUtility.SetDirty(chests[i]);
         }
 
         EnemyUnload[] enemies = FindObjectsOfType<EnemyUnload>();
@@ -35,6 +39,8 @@ public class AutoHesh : ScriptableWizard
         foreach (EnemyUnload enemy in enemies)
         {
             enemy.Origin = activeScene;
+
+            EditorUtility.SetDirty(enemy);
         }
     }
 }
