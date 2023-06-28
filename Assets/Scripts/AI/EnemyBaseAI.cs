@@ -58,7 +58,7 @@ public class EnemyBaseAI : EnemyTools
 
             _transform.rotation = GetNewRotation(selfPosition: _transform.position,
                                             targetPosition: _path.vectorPath[_currentWaypoint]);
-            _transform.Translate(Vector2.right * Speed * Time.deltaTime);
+            _transform.Translate(Vector3.MoveTowards(_transform.position, _path.vectorPath[_currentWaypoint], Speed * Time.deltaTime) - _transform.position, Space.World); // Before it was like: _transform.Translate(Vector2.right * Speed * Time.deltaTime);
 
             float distanceToNextWaypoint
                 = Vector2.Distance(_transform.position, _path.vectorPath[_currentWaypoint]);
@@ -93,7 +93,7 @@ public class EnemyBaseAI : EnemyTools
         StopCoroutine(nameof(WaitForTarget));
         _player.AddEnemy(gameObject);
         _target = target.GetComponent<Transform>();
-        _currentWaypoint = 0;
+        //_currentWaypoint = 0;
 
         if (NotBlocked)
         {
@@ -121,7 +121,7 @@ public class EnemyBaseAI : EnemyTools
         if (!path.error)
         {
             _path = path;
-            _currentWaypoint = 0;
+            _currentWaypoint = 1;
         }
     }
 
