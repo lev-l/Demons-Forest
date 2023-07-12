@@ -92,9 +92,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5246017927035571075}
   - component: {fileID: 2343368599310182456}
-  - component: {fileID: 8004490027475726967}
   - component: {fileID: 4421745481221553261}
   - component: {fileID: 341565633895485633}
+  - component: {fileID: 4735455164644470181}
   m_Layer: 3
   m_Name: TreeVariant2
   m_TagString: Untagged
@@ -168,32 +168,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8004490027475726967
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6813258422637622216}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5, y: 5}
-    newSize: {x: 0.9300858, y: 1.0066667}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
-  m_EdgeRadius: 0
 --- !u!114 &4421745481221553261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +197,7 @@ MonoBehaviour:
   - {x: -0.42686194, y: -0.0927605, z: 0}
   m_ShapePathHash: -2007509474
   m_Mesh: {fileID: 0}
-  m_InstanceId: 37348
+  m_InstanceId: 55772
 --- !u!82 &341565633895485633
 AudioSource:
   m_ObjectHideFlags: 0
@@ -329,3 +303,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!58 &4735455164644470181
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6813258422637622216}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.43450975
