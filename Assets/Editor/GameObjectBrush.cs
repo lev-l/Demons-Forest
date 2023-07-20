@@ -155,10 +155,10 @@ namespace UnityEditor.Tilemaps
             if (existingGO == null)
             {
                 GameObject go = m_Prefabs[UnityEngine.Random.Range(0, m_Prefabs.Length)];
-                go.transform.rotation = Quaternion.Euler(Vector3.forward * UnityEngine.Random.Range(0f, 360f));
-                go.transform.localScale = Vector3.one * UnityEngine.Random.Range(0.5f, 1.2f);
+                Vector3 goScale = Vector3.one * UnityEngine.Random.Range(0.5f, 1.2f);
+                Quaternion goRotation = Quaternion.Euler(Vector3.forward * UnityEngine.Random.Range(0f, 360f));
 
-                SetSceneCell(grid, parent, position, go, cell.offset, cell.scale, cell.orientation, m_Anchor);
+                SetSceneCell(grid, parent, position, go, cell.offset, goScale, goRotation, m_Anchor);
             }
         }
 
