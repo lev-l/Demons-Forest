@@ -19,7 +19,7 @@ public class CompassPresenter : MonoBehaviour
     private bool _markActions;
     private bool _block;
 
-    private void Start()
+    private void Awake()
     {
         _player = FindObjectOfType<PlayerMovement>().transform;
         _markPrefab = Resources.Load<GameObject>("Mark");
@@ -47,6 +47,26 @@ public class CompassPresenter : MonoBehaviour
             = new Color(Random.Range(10, 200)/255f, Random.Range(10, 200)/255f, Random.Range(10, 200)/255f);
 
         _data.Marks.Add(newMark, _player.position);
+        _data.MarksObjects.Add(newMark);
+
+        mouseInteraction.OnMouseEnter += Show;
+        mouseInteraction.OnMouseEnter += SetReady;
+        mouseInteraction.OnMouseExit += UnsetReady;
+
+        _saver.Save(MarksToStrings(_data.Marks), _saveFileName);
+    }
+
+    public void AddAMarkExternal(string markName, Vector2 markPosition)
+    {
+        GameObject newMark = Instantiate(_markPrefab, _compass);
+        string name = markName;
+        _input.text = "";
+        MouseTouched mouseInteraction = newMark.GetComponentInChildren<MouseTouched>();
+        mouseInteraction.Text.text = name;
+        newMark.GetComponentInChildren<Image>().color
+            = new Color(Random.Range(10, 200) / 255f, Random.Range(10, 200) / 255f, Random.Range(10, 200) / 255f);
+
+        _data.Marks.Add(newMark, markPosition);
         _data.MarksObjects.Add(newMark);
 
         mouseInteraction.OnMouseEnter += Show;
