@@ -17,5 +17,7 @@ public class AutoGrassPlace : ScriptableWizard
 
         GameObject grass = Instantiate(Resources.Load("Grass"),
                                 new Vector2(20 + 40 * x, 20 + 40 * y), Quaternion.identity) as GameObject;
+
+        EditorUtility.SetDirty(grass);
     }
 }
