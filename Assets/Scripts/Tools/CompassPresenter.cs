@@ -19,7 +19,7 @@ public class CompassPresenter : MonoBehaviour
     private bool _markActions;
     private bool _block;
 
-    private void Start()
+    private void Awake()
     {
         _player = FindObjectOfType<PlayerMovement>().transform;
         _markPrefab = Resources.Load<GameObject>("Mark");

@@ -17,7 +17,7 @@ public class Book : MonoBehaviour
     {
         _bookPanel = FindObjectOfType<BookFieldContainer>().BooksField;
         _journalData = Resources.Load<Journal>("JournalData");
-        _compass = FindObjectOfType<CompassPresenter>();
+        _compass = FindObjectOfType<CompassPresenter>(true);
         _playerInRange = false;
 
         if(_compassPositions.Length != _compassNames.Length)
